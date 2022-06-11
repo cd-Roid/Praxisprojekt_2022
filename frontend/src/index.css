@@ -16,17 +16,6 @@ code {
     monospace;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 500px;
-  height: 300px;
-  background: #f1f1f1;
-  margin: 100px auto 0;
-  word-break: break-all;
-  border: 1px solid rgba(0, 0, 0, 0.274);
-}
 
 .bloc-tabs {
   display: flex;
@@ -95,4 +84,48 @@ button {
 }
 .active-content {
   display: block;
+}
+
+
+
+.Objects {
+  position: relative;
+  width: 120px; 
+  height: 100px;
+  background-color: #4ab22d;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.Actions {
+  position: relative;
+  width: 120px; 
+  height: 100px;
+  background-color: #db5d41;
+  clip-path: polygon(50% 14%, 100% 50%, 50% 87%, 0 50%);
+}
+
+.Negation {
+  position: relative;
+  width: 120px; 
+  height: 100px;
+  background-color: #db5d41;
+  clip-path: polygon(50% 6%, 100% 43%, 100% 100%, 50% 64%, 0 100%, 0 44%);
+}
+
+.Union {
+  position: relative;
+  width: 120px; 
+  height: 100px;
+  background-color: #bababa;
+  clip-path: polygon(0 0, 100% 30%, 100% 70%, 0 100%, 0 70%, 0 30%);
+  border: 2px solid green ;
+}
+
+.Conditions {
+  position: relative;
+  width: 120px; 
+  height: 100px;
+  background-color: #bababa;
+    border: 2px solid green ;
+  clip-path: polygon(50% 6%, 100% 43%, 100% 100%, 50% 64%, 0 100%, 0 44%);
 }
