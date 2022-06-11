@@ -32,12 +32,22 @@
       },
       {
         "name": "Sonst"
-      },
-      {
-        "name": "Und"
-      },
+      }
+    ]
+  },
+  {
+    "category": "Negation",
+    "items": [
       {
         "name": "Nicht"
+      }
+    ]
+  },
+  {
+    "category": "Union",
+    "items": [
+      {
+        "name": "Und"
       }
     ]
   }
