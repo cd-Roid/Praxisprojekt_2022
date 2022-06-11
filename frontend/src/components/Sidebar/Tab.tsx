@@ -1,20 +1,11 @@
 import React from 'react';
 
-type Props = {
+type TabProps = {
   tabText: string;
-  tabIndex: number;
-  onClickAction: () => void;
 };
 
-const Tab: React.FC<Props> = ({ tabIndex, tabText, onClickAction }) => {
-  return (
-    <button
-      onClick={onClickAction}
-      className={tabIndex === 1 ? 'tabs active-tabs' : 'tabs'}
-    >
-      {tabText}
-    </button>
-  );
+const Tab: React.FC<TabProps> = ({ tabText }) => {
+  return <button>{tabText}</button>;
 };
 
 export default Tab;
