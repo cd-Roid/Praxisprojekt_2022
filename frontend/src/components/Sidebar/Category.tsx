@@ -17,8 +17,8 @@ const Category: React.FC<CategoryProps> = ({ items, onClickAction }) => {
       className="content-tabs flex justify-between p-4"
       onClick={onClickAction}
     >
-      {items.items.map((a) => (
-        <Tile name={a.name} category={items.category} />
+      {items.items.map((a, index) => (
+        <Tile key={index} name={a.name} category={items.category} />
       ))}
     </div>
   );
