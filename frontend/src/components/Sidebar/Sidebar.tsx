@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import kacheln from '../../json/kacheln.json';
+import data from '../../json/kacheln.json';
 import Category from './Category';
 import Tab from './Tab';
 
@@ -12,29 +12,29 @@ const Sidebar: React.FC<SidebarProps> = () => {
     setToggleState(index);
   };
 
+  const tabs = data.map((a, index) => (
+    <div
+      key={index}
+      className={toggleState === index ? 'tabs active-tabs' : 'tabs'}
+      onClick={() => toggleTab(index)}
+    >
+      <Tab tabText={a.category} />
+    </div>
+  ));
+
+  const categoryField = data.map((c, index) => (
+    <div
+      key={index}
+      className={toggleState === index ? 'content  active-content' : 'content'}
+    >
+      <Category items={c} onClickAction={() => toggleTab(index)} />
+    </div>
+  ));
+
   return (
-    <div className="absolute px-4 bg-gray-100 w-screen h-24 bottom-0 container">
-      <div className="bloc-tabs">
-        {kacheln.map((a, index) => (
-          <Tab
-            key={index}
-            tabIndex={index}
-            tabText={a.category}
-            onClickAction={() => toggleTab(index)}
-          />
-        ))}
-      </div>
-      <div className="content-tabs">
-        {kacheln.map((c, index) => (
-          <div
-            className={
-              toggleState === index ? 'content  active-content' : 'content'
-            }
-          >
-            <Category items={c} />
-          </div>
-        ))}
-      </div>
+    <div className="absolute  w-screen h-24 bottom-0">
+      <div className="bloc-tabs">{tabs}</div>
+      <div className="content-tabs">{categoryField}</div>
     </div>
   );
 };
