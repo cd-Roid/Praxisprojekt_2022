@@ -1,20 +1,12 @@
 import React from 'react';
 
 type Props = {
-  item: {
-    category: string;
-    items: { name: string }[];
-  };
+  items: {};
 };
 
-const Category: React.FC<Props> = ({ item }) => {
-  const items = item.items.map((a) => <div>{a.name}</div>);
-  return (
-    <div>
-      {item.category}
-      {items}
-    </div>
-  );
+const Category: React.FC<Props> = ({ items }) => {
+  return <div className="content-tabs">{JSON.stringify(items)}</div>;
 };
+
 
 export default Category;
