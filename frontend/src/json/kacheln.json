@@ -1,0 +1,44 @@
+[
+  {
+    "category": "Objects",
+    "items": [
+      {
+        "name": "Handy"
+      },
+      {
+        "name": "Licht"
+      },
+      {
+        "name": "Heizung"
+      }
+    ]
+  },
+  {
+    "category": "Actions",
+    "items": [
+      {
+        "name": "Tag"
+      }
+    ]
+  },
+  {
+    "category": "Conditions",
+    "items": [
+      {
+        "name": "Wenn"
+      },
+      {
+        "name": "Solange"
+      },
+      {
+        "name": "Sonst"
+      },
+      {
+        "name": "Und"
+      },
+      {
+        "name": "Nicht"
+      }
+    ]
+  }
+]
