@@ -1,0 +1,57 @@
+[
+  {
+    "category": "Objects",
+    "items": [
+      {
+        "name": "Handy"
+      },
+      {
+        "name": "Licht"
+      },
+      {
+        "name": "Heizung"
+      }
+    ]
+  },
+  {
+    "category": "Actions",
+    "items": [
+      {
+        "name": "Tag"
+      },
+      {
+        "name": "an"
+      }
+    ]
+  },
+  {
+    "category": "Conditions",
+    "items": [
+      {
+        "name": "Wenn"
+      },
+      {
+        "name": "Solange"
+      },
+      {
+        "name": "Sonst"
+      }
+    ]
+  },
+  {
+    "category": "Negation",
+    "items": [
+      {
+        "name": "Nicht"
+      }
+    ]
+  },
+  {
+    "category": "Union",
+    "items": [
+      {
+        "name": "Und"
+      }
+    ]
+  }
+]
