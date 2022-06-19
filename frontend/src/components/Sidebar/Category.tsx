@@ -13,10 +13,7 @@ type CategoryProps = {
 
 const Category: React.FC<CategoryProps> = ({ items, onClickAction }) => {
   return (
-    <div
-      className="content-tabs flex justify-between p-4"
-      onClick={onClickAction}
-    >
+    <div className='content-tabs  inline-flex' onClick={onClickAction}>
       {items.items.map((a, index) => (
         <Tile key={index} name={a.name} category={items.category} />
       ))}
