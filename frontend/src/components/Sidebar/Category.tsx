@@ -31,7 +31,7 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
       {stateItems &&
         stateItems.map((a, index: number) => (
           <div
-            className={`${category}`}
+            className={`${category} m-4`}
             key={index}
             onDragStart={(e) => onDragStart(e, a.name)}
             draggable
