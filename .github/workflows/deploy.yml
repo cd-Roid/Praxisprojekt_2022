@@ -29,5 +29,5 @@ jobs:
         # uses: JamesIves/github-pages-deploy-action@8817a56e5bfec6e2b08345c81f4d422db53a2cdc
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          branch: main
+          branch: gh-pages
           folder: build
