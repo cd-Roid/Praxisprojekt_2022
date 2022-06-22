@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import data from './json/kacheln.json';
 import Sidebar from './components/Sidebar/Sidebar';
 import Tile from './components/Tile/Tile';
+import Draggable from 'react-draggable';
 
 type NewNode = {
   className: string;
@@ -40,13 +41,11 @@ function App() {
     <div className=' h-screen w-screen bg-gray-600'>
       <div className='h-screen w-screen bg-blue-300' onDrop={onDrop} onDragOver={onDragOver}>
         {newNodes.map(({ name, className, position }, index) => (
-          <div
-            key={index}
-            style={{ left: `${position.x}px`, top: `${position.y}px` }}
-            className={'absolute'}
-          >
-            <Tile name={name} category={className} />
-          </div>
+          <Draggable key={index}>
+            <div style={{ left: `${position.x}px`, top: `${position.y}px` }} className={'absolute'}>
+              <Tile name={name} category={className} />
+            </div>
+          </Draggable>
         ))}
       </div>
       <Sidebar />
