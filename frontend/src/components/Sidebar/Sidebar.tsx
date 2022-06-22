@@ -13,7 +13,6 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     const set: string[] = [];
-
     data.forEach((item) => {
       !set.includes(item.category) && set.push(item.category);
     });

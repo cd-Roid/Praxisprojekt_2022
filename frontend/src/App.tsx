@@ -25,10 +25,10 @@ function App() {
     event.preventDefault();
     const type = event.dataTransfer.getData('application/Tile');
     console.log(event.clientX, event.clientY);
-    const a = data.filter((el) => el.name === type);
+    const nodeLookup = data.filter((el) => el.name === type);
     const node = {
-      className: a[0].category,
-      name: a[0].name,
+      className: nodeLookup[0].category,
+      name: nodeLookup[0].name,
       position: {
         x: event.clientX,
         y: event.clientY,
