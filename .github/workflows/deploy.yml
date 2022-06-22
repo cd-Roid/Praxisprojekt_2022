@@ -1,9 +1,5 @@
 name: Build and Deploy
-on: 
-  push: 
-    branches: 
-      - main
-  merge: 
+on: [push, pull_request] 
     branches: 
       - main
 permissions: 
