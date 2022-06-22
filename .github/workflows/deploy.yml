@@ -7,11 +7,11 @@ permissions:
   contents: write
 jobs:
   build-and-deploy:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    concurrency: ci-${{github.ref}} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         
       - name: Configure Node
         uses: actions/setup-node@v1
@@ -29,5 +29,6 @@ jobs:
         # uses: JamesIves/github-pages-deploy-action@8817a56e5bfec6e2b08345c81f4d422db53a2cdc
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          branch: gh-pages
-          folder: build
+         folder: build
+         branch: gh-pages
+         
