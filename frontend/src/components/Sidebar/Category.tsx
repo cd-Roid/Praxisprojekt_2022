@@ -1,35 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import Draggable from 'react-draggable';
+import data from '../../json/kacheln.json';
 import Tile from '../Tile/Tile';
 
-type CategoryProps = {
-  items: {
-    category: string;
-    items: {
-      name: string;
-    }[];
-  };
-  onClickAction: () => void;
+type InnerObject = {
+  category: string;
+  name: string;
 };
 
-const Category: React.FC<CategoryProps> = ({ items, onClickAction }) => {
-  const [dragging, setDragging] = useState(false);
+type CategoryProps = {
+  category: string;
+};
 
+const Category: React.FC<CategoryProps> = ({ category }) => {
+  const [stateItems, setStateItems] = useState<InnerObject[]>([]);
+
+  const onDragStart = (event: React.DragEvent, nodeType: string) => {
+    event.dataTransfer.setData('application/Tile', nodeType);
+    event.dataTransfer.effectAllowed = 'move';
+  };
   useEffect(() => {
-    if (dragging === true) {
-      console.log('Should create a new Element copy');
-    }
+    const a: InnerObject[] = [];
+    data.forEach((object) => {
+      object.category === category && a.push(object);
+    });
+    setStateItems(a);
   }, []);
 
   return (
-    <div className='content-tabs  inline-flex' onClick={onClickAction}>
-      {items.items.map((a, index) => (
-        <Draggable key={index} onStart={() => setDragging(true)} onStop={() => setDragging(false)}>
-          <div>
-            <Tile key={index} name={a.name} category={items.category} />
+    <div className='content-tabs  inline-flex'>
+      {stateItems &&
+        stateItems.map((a, index: number) => (
+          <div
+            className={`${category}`}
+            key={index}
+            onDragStart={(e) => onDragStart(e, a.name)}
+            draggable
+          >
+            <Tile key={index} name={a.name} category={category} />
           </div>
-        </Draggable>
-      ))}
+        ))}
     </div>
   );
 };
