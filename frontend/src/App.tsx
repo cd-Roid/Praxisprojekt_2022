@@ -3,7 +3,7 @@ import data from './json/kacheln.json';
 import Sidebar from './components/Sidebar/Sidebar';
 import Tile from './components/Tile/Tile';
 import Draggable from 'react-draggable';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 
 type NewNode = {
   className: string;
@@ -16,12 +16,23 @@ type NewNode = {
 
 function App() {
   const [newNodes, setNewNodes] = useState<NewNode[]>([]);
+  const [currentSocket, setCurrentSocket] = useState<Socket | null>(null);
   const [socketConnection, setSocketConnection] = useState<string>();
+  const [remoteData, setRemoteData] = useState<NewNode[]>([]);
 
   useEffect(() => {
-    const client = io('http://localhost:9001', { transports: ['websocket'] });
-    client.on('connect', () => setSocketConnection(`new Connection from ${client.id}`));
+    const socket = io('http://localhost:9001', { transports: ['websocket'] });
+    socket.connect();
+    socket.on('connect', () => setSocketConnection(`new Connection from ${socket.id}`));
+    setCurrentSocket(socket);
   }, []);
+
+  useEffect(() => {
+    currentSocket?.on('new', (data) => {
+      console.log('New remote node');
+      setRemoteData((el) => el.concat(data));
+    });
+  }, [currentSocket]);
 
   const onDragOver = (event: React.DragEvent) => {
     event.preventDefault();
@@ -41,6 +52,7 @@ function App() {
         y: event.clientY,
       },
     };
+    currentSocket?.emit('new', node, () => console.log(node));
     setNewNodes((el) => el.concat(node));
   };
 
@@ -49,6 +61,13 @@ function App() {
       <p className='absolute top-0 right-0 m-4'>{socketConnection}</p>
       <div className='h-screen w-screen bg-blue-300' onDrop={onDrop} onDragOver={onDragOver}>
         {newNodes.map(({ name, className, position }, index) => (
+          <Draggable key={index}>
+            <div style={{ left: `${position.x}px`, top: `${position.y}px` }} className={'absolute'}>
+              <Tile name={name} category={className} />
+            </div>
+          </Draggable>
+        ))}
+        {remoteData.map(({ name, className, position }, index) => (
           <Draggable key={index}>
             <div style={{ left: `${position.x}px`, top: `${position.y}px` }} className={'absolute'}>
               <Tile name={name} category={className} />
