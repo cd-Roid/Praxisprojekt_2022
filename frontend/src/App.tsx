@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import data from './json/kacheln.json';
 import Sidebar from './components/Sidebar/Sidebar';
 import Tile from './components/Tile/Tile';
@@ -15,11 +15,14 @@ type NewNode = {
 };
 
 function App() {
-  const client = io('http://localhost:9001');
-
   const [newNodes, setNewNodes] = useState<NewNode[]>([]);
   const [socketConnection, setSocketConnection] = useState<string>();
-  client.on('connect', () => setSocketConnection(`new Connection from ${client.id}`));
+
+  useEffect(() => {
+    const client = io('http://localhost:9001', { transports: ['websocket'] });
+    client.on('connect', () => setSocketConnection(`new Connection from ${client.id}`));
+  }, []);
+
   const onDragOver = (event: React.DragEvent) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = 'move';
@@ -43,7 +46,7 @@ function App() {
 
   return (
     <div className=' h-screen w-screen bg-gray-600'>
-      <p className='absolute top-0 right-0'>{socketConnection}</p>
+      <p className='absolute top-0 right-0 m-4'>{socketConnection}</p>
       <div className='h-screen w-screen bg-blue-300' onDrop={onDrop} onDragOver={onDragOver}>
         {newNodes.map(({ name, className, position }, index) => (
           <Draggable key={index}>
