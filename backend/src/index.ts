@@ -11,10 +11,14 @@ server.get("/", (req: express.Request, res: express.Response) =>
 	res.send("Hello from Server" + port),
 );
 
-io.sockets.on("connection", () => console.log("Listening for connections"));
+
 
 io.on("connection", (socket) => {
 	console.log(`a user connected ${socket.id}`);
+	socket.on("new", (data) => {
+		io.emit("new", data, () => console.log("Resent event"));
+		console.log(data);
+	});
 });
 
 io.listen(9001);
