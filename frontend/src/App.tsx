@@ -1,64 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import data from './json/kacheln.json';
+import React, { useState, useEffect, Component } from 'react';
 import Sidebar from './components/Sidebar/Sidebar';
+import Cursor from './components/Cursor/Cursor';
 import Tile from './components/Tile/Tile';
+import { SocketProvider } from './providers/SocketProvider';
 import Draggable from 'react-draggable';
-import { io, Socket } from 'socket.io-client';
-
-type NewNode = {
-  className: string;
-  name: string;
-  position: {
-    x: number;
-    y: number;
-  };
-};
+import { NewNode, CursorData } from './types';
 
 function App() {
   const [newNodes, setNewNodes] = useState<NewNode[]>([]);
-  const [currentSocket, setCurrentSocket] = useState<Socket | null>(null);
-  const [socketConnection, setSocketConnection] = useState<string>();
+  const { currentSocket, socketString } = SocketProvider();
   const [remoteData, setRemoteData] = useState<NewNode[]>([]);
+  const [cursor, setCursor] = useState<CursorData | null>(null);
 
   useEffect(() => {
-    const socket = io('http://localhost:9001', { transports: ['websocket'] });
-    socket.connect();
-    socket.on('connect', () => setSocketConnection(`new Connection from ${socket.id}`));
-    setCurrentSocket(socket);
-  }, []);
-
-  useEffect(() => {
-    currentSocket?.on('new', (data) => {
+    currentSocket?.on('new', (data: NewNode) => {
       console.log('New remote node');
       setRemoteData((el) => el.concat(data));
+    });
+    currentSocket?.on('cursor', (data: CursorData) => {
+      setCursor(data);
     });
   }, [currentSocket]);
 
   const onDragOver = (event: React.DragEvent) => {
     event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
   };
 
   const onDrop = (event: React.DragEvent) => {
     event.preventDefault();
-    const type = event.dataTransfer.getData('application/Tile');
+    const nodeName = event.dataTransfer.getData('application/TileName');
+    const nodeClass = event.dataTransfer.getData('application/TileClass');
     console.log(event.clientX, event.clientY);
-    const nodeLookup = data.filter((el) => el.name === type);
     const node = {
-      className: nodeLookup[0].category,
-      name: nodeLookup[0].name,
+      className: nodeClass,
+      name: nodeName,
       position: {
         x: event.clientX,
         y: event.clientY,
       },
     };
     currentSocket?.emit('new', node, () => console.log(node));
-    setNewNodes((el) => el.concat(node));
+    // setNewNodes((el) => el.concat(node));
+  };
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    const cursor = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+    currentSocket?.emit('cursor', cursor);
   };
 
   return (
-    <div className=' h-screen w-screen bg-gray-600'>
-      <p className='absolute top-0 right-0 m-4'>{socketConnection}</p>
+    <div className=' h-screen w-screen bg-gray-600' onMouseMove={handleMouseMove}>
+      <p className='absolute top-0 right-0 m-4'>{socketString}</p>
+      {cursor && <Cursor x={cursor.x} y={cursor.y} />}
       <div className='h-screen w-screen bg-blue-300' onDrop={onDrop} onDragOver={onDragOver}>
         {newNodes.map(({ name, className, position }, index) => (
           <Draggable key={index}>
