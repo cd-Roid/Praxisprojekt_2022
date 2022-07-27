@@ -19,6 +19,16 @@ io.on("connection", (socket) => {
 		io.emit("new", data, () => console.log("Resent event"));
 		console.log(data);
 	});
+	socket.on("node-dragging", (data) => {
+		io.emit("node-dragging", data);
+		console.log(data);
+	});
+	socket.on("cursor", (data) => {
+		io.emit("cursor", data);
+		console.log(data);
+	});
+	
+	
 });
 
 io.listen(9001);
