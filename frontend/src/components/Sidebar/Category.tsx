@@ -31,8 +31,8 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
       name: nodeName,
       class: nodeClass,
       position: {
-        x: event.clientX,
-        y: event.clientY,
+        x: event.pageX,
+        y: event.pageY,
       },
     };
     currentSocket?.emit('node-dragging', node);
