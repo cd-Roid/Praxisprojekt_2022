@@ -45,8 +45,8 @@ function App() {
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const cursor = {
-      x: event.clientX,
-      y: event.clientY,
+      x: event.pageX,
+      y: event.pageY,
     };
     currentSocket?.emit('cursor', cursor);
   };
