@@ -17,8 +17,6 @@ const Board = () => {
 
   const handleDrop = (event: React.DragEvent) => {
     const draggedData = event.dataTransfer.getData('dragStart/Tile');
-    console.log(cursorPos?.x, cursorPos?.y);
-    console.log(draggedData);
     if (draggedData && stageRef.current != null) {
       stageRef.current.setPointersPositions(event);
       const coordinates = stageRef.current.getPointerPosition();
@@ -34,6 +32,7 @@ const Board = () => {
       }
     }
   };
+
   const handleMouseMove = () => {
     if (stageRef.current != null) {
       setCursorPos(stageRef.current.getPointerPosition());
