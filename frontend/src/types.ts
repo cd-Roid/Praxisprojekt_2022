@@ -1,13 +1,19 @@
 export type NewNode = {
-  className: string;
+  category: string;
   name: string;
-  position: {
-    x: number;
-    y: number;
-  };
+  x: number;
+  y: number;
 };
 
 export type CursorData = {
   x: number;
   y: number;
+};
+
+export type Tile = {
+  name: string;
+  category: string;
+  x?: number;
+  y?: number;
+  customClass?: string;
 };
