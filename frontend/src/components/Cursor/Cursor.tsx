@@ -21,13 +21,7 @@ const Cursor = ({ x, y }: CursorProps) => {
       <div style={{ left: x, top: y }} className='w-2 h-3 bg-red-400 absolute'>
         Cursor
       </div>
-      {draggingTile && (
-        <Tile
-          name={draggingTile.name}
-          category={draggingTile.className}
-          styles={{ left: draggingTile.position.x, top: draggingTile.position.y }}
-        />
-      )}
+      {draggingTile && <Tile {...draggingTile} />}
     </>
   );
 };
