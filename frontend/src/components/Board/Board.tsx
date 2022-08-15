@@ -1,14 +1,24 @@
 import Konva from 'konva';
 import { Vector2d } from 'konva/lib/types';
-import React, { useEffect, useState } from 'react';
-import { Stage, Layer, Line } from 'react-konva';
+import React, { useState, useRef, useEffect, LegacyRef } from 'react';
+import { Stage, Layer, Line, Group, Text, RegularPolygon } from 'react-konva';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { NewNode } from '../../types';
-import Tile from '../Tile/Tile';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
 const Board = () => {
+  const textRef = useRef<Konva.Text>();
+  const [size, setSize] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  useEffect(() => {
+    if (textRef.current != undefined) {
+      setSize({
+        x: textRef.current.width(),
+        y: textRef.current.height(),
+      });
+    }
+  }, []);
+
   const { height, width } = useWindowDimensions();
   const [tilesOnBoard, setTilesOnBoard] = useState<NewNode[]>([]);
   const [cursorPos, setCursorPos] = useState<Vector2d | null>();
@@ -28,6 +38,7 @@ const Board = () => {
           x: coordinates?.x - offsetX,
           y: coordinates?.y - offsetY,
         };
+        console.log(offsetX, offsetY);
         setTilesOnBoard(tilesOnBoard.concat(newTile));
       }
     }
@@ -47,19 +58,20 @@ const Board = () => {
           <Layer>
             {tilesOnBoard.map((tile, index) => {
               return (
-                <Line
-                  key={index}
-                  draggable
-                  x={tile.x}
-                  y={tile.y}
-                  points={[0, 0, 100, 0, 100, 100]}
-                  tension={0.5}
-                  closed
-                  stroke='black'
-                  fillLinearGradientStartPoint={{ x: -50, y: -50 }}
-                  fillLinearGradientEndPoint={{ x: 50, y: 50 }}
-                  fillLinearGradientColorStops={[0, 'red', 1, 'yellow']}
-                />
+                <Group draggable key={index} x={tile.x} y={tile.y}>
+                  <RegularPolygon
+                    x={0}
+                    y={0}
+                    width={size.x}
+                    height={size.y}
+                    sides={6}
+                    radius={70}
+                    fill='red'
+                    stroke='black'
+                    strokeWidth={4}
+                  />
+                  <Text text={tile.name} x={0} y={0} ref={textRef as any} />
+                </Group>
               );
             })}
           </Layer>
