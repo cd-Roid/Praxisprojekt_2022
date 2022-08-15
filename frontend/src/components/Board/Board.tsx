@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Konva from 'konva';
 import { Vector2d } from 'konva/lib/types';
-import React, { useState, useRef, useEffect, LegacyRef } from 'react';
-import { Stage, Layer, Line, Group, Text, RegularPolygon } from 'react-konva';
+import React, { useState, useRef, useEffect } from 'react';
+import { Stage, Layer, Group, Text, RegularPolygon } from 'react-konva';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { NewNode } from '../../types';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
+
+// TODO: move all Shape Logic to own File
+// TODO: maybe move drag Logic to own hook
 
 const Board = () => {
   const textRef = useRef<Konva.Text>();
