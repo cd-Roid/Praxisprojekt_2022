@@ -1,17 +1,11 @@
 import React from 'react';
+import { Tile as TileProps } from '../../types';
 
-
-type TileProps = {
-  name: string;
-  category: string;
-  styles?: object;
-};
-
-const Tile: React.FC<TileProps> = ({ name, category, styles }) => {
+const Tile: React.FC<TileProps> = ({ name, category, customClass }) => {
   return (
-    <div style={styles} className={`${category} flex justify-center items-center `}>
-      {name}
-    </div>
+    <>
+      <div className={`${category} flex justify-center items-center ${customClass} `}>{name}</div>
+    </>
   );
 };
 
