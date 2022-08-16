@@ -87,23 +87,3 @@ const Board = () => {
 
 export default Board;
 
-/**
- *     <Stage width={width} height={height}>
-        <Layer>
-          {tilesOnBoard.map((tile, index) => {
-            <Line
-              draggable
-              x={tile.x}
-              y={tile.y}
-              points={[0, 0, 100, 0, 100, 100]}
-              tension={0.5}
-              closed
-              stroke='black'
-              fillLinearGradientStartPoint={{ x: -50, y: -50 }}
-              fillLinearGradientEndPoint={{ x: 50, y: 50 }}
-              fillLinearGradientColorStops={[0, 'red', 1, 'yellow']}
-            />;
-          })}
-        </Layer>
-      </Stage>
- */
