@@ -4,7 +4,8 @@ import { Stage, Layer } from 'react-konva';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { NewNode } from '../../types';
 import Tile from '../Tiles/Tile';
-import { handleDragOver, handleDrop } from '../../hooks/useDrag';
+import { handleDragOver, handleDrop, handleWheel } from '../../hooks/useMouse';
+import { KonvaEventObject } from 'konva/lib/Node';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -19,7 +20,13 @@ const Board = () => {
       onDragOver={handleDragOver}
     >
       <div>
-        <Stage width={width} height={height} ref={stageRef} draggable>
+        <Stage
+          width={width}
+          height={height}
+          ref={stageRef}
+          draggable
+          onWheel={(e) => handleWheel(e, stageRef)}
+        >
           <Layer>
             {tilesOnBoard.map((tile, index) => {
               return (
