@@ -15,13 +15,13 @@ export const handleDrop = (
   if (draggedData && stageReference.current != null) {
     stageReference.current.setPointersPositions(event);
     const coordinates = stageReference.current.getPointerPosition();
-    const { name, nodeClass } = JSON.parse(draggedData);
+    const { name, nodeClass, offsetX, offsetY } = JSON.parse(draggedData);
     if (coordinates != undefined) {
       const newTile: NewNode = {
         name: name,
         category: nodeClass,
-        x: coordinates?.x,
-        y: coordinates?.y - 100,
+        x: coordinates?.x - offsetX,
+        y: coordinates?.y - offsetY,
       };
       setTilesOnBoard(tilesOnBoard.concat(newTile));
     }
