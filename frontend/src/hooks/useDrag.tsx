@@ -20,7 +20,7 @@ export const handleDrop = (
         name: name,
         category: nodeClass,
         x: coordinates?.x,
-        y: coordinates?.y,
+        y: coordinates?.y - 100,
       };
       setTilesOnBoard(tilesOnBoard.concat(newTile));
     }
