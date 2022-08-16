@@ -19,7 +19,7 @@ const Board = () => {
       onDragOver={handleDragOver}
     >
       <div>
-        <Stage width={width} height={height} ref={stageRef}>
+        <Stage width={width} height={height} ref={stageRef} draggable>
           <Layer>
             {tilesOnBoard.map((tile, index) => {
               return (
