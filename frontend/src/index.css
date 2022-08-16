@@ -126,6 +126,6 @@ button {
   width: 120px; 
   height: 100px;
   background-color: #bababa;
-    border: 2px solid green ;
+  border: 2px solid green ;
   clip-path: polygon(50% 6%, 100% 43%, 100% 100%, 50% 64%, 0 100%, 0 44%);
 }

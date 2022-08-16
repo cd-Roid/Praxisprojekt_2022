@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import data from '../../json/kacheln.json';
-import Tile from '../Tile/Tile';
+import MenuTile from '../Tiles/MenuTile';
 
 type InnerObject = {
   category: string;
@@ -14,29 +14,41 @@ type CategoryProps = {
 const Category: React.FC<CategoryProps> = ({ category }) => {
   const [stateItems, setStateItems] = useState<InnerObject[]>([]);
 
-  const onDragStart = (event: React.DragEvent, nodeType: string) => {
-    event.dataTransfer.setData('application/Tile', nodeType);
-    event.dataTransfer.effectAllowed = 'move';
-  };
-  useEffect(() => {
-    const a: InnerObject[] = [];
-    data.forEach((object) => {
-      object.category === category && a.push(object);
+  const handleDragStart = (event: React.DragEvent) => {
+    const offsetX = event.nativeEvent.offsetX;
+    const offsetY = event.nativeEvent.offsetY;
+
+    const dragPayload = JSON.stringify({
+      name: event.currentTarget.getAttribute('data-name'),
+      nodeClass: event.currentTarget.getAttribute('data-class'),
+      offsetX: offsetX,
+      offsetY: offsetY,
     });
-    setStateItems(a);
+
+    event.dataTransfer.setData('dragStart/Tile', dragPayload);
+  };
+
+  useEffect(() => {
+    const InnerObjectArray: InnerObject[] = [];
+    data.forEach((object) => {
+      object.category === category && InnerObjectArray.push(object);
+    });
+    setStateItems(InnerObjectArray);
   }, []);
 
   return (
     <div className='content-tabs  inline-flex'>
       {stateItems &&
-        stateItems.map((a, index: number) => (
+        stateItems.map((tile, index: number) => (
           <div
+            data-name={tile.name}
+            data-class={category}
             className={`${category} m-4`}
             key={index}
-            onDragStart={(e) => onDragStart(e, a.name)}
             draggable
+            onDragStart={(e) => handleDragStart(e)}
           >
-            <Tile key={index} name={a.name} category={category} />
+            <MenuTile {...tile} />
           </div>
         ))}
     </div>
