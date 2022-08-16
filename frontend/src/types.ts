@@ -14,9 +14,6 @@ export type Tile = {
   x: number;
   y: number;
   name: string;
-  textRef: any;
-  sizeX: number;
-  sizeY: number;
   category: string;
 };
 
