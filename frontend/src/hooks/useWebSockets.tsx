@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { io, Socket } from 'socket.io-client';
 
-export const SocketProvider = () => {
+export const useWebSockets = () => {
   const [currentSocket, setCurrentSocket] = useState<Socket | null>(null);
   const [socketString, setSocketString] = useState<string>();
 

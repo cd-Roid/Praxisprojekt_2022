@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SocketProvider } from '../../providers/SocketProvider';
+import { useWebSockets } from '../../hooks/useWebSockets';
 import { NewNode } from '../../types';
 import Tile from '../Tile/Tile';
 
@@ -8,8 +8,8 @@ type CursorProps = {
   y: number;
 };
 
-const Cursor = ({ x, y }: CursorProps) => {
-  const { currentSocket } = SocketProvider();
+const Cursor: React.FC<CursorProps> = ({ x, y }) => {
+  const { currentSocket } = useWebSockets();
   const [draggingTile, setDraggingTile] = useState<NewNode | null>(null);
 
   useEffect(() => {
