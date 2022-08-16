@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Konva from 'konva';
 import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
@@ -55,4 +54,3 @@ const Board = () => {
 };
 
 export default Board;
-
