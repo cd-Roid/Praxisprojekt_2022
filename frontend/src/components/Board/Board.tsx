@@ -5,6 +5,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Stage, Layer, Group, Text, RegularPolygon } from 'react-konva';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { NewNode } from '../../types';
+import Tile from '../Tiles/Tile';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -62,20 +63,16 @@ const Board = () => {
           <Layer>
             {tilesOnBoard.map((tile, index) => {
               return (
-                <Group draggable key={index} x={tile.x} y={tile.y}>
-                  <RegularPolygon
-                    x={0}
-                    y={0}
-                    width={size.x}
-                    height={size.y}
-                    sides={6}
-                    radius={70}
-                    fill='red'
-                    stroke='black'
-                    strokeWidth={4}
-                  />
-                  <Text text={tile.name} x={0} y={0} ref={textRef as any} />
-                </Group>
+                <Tile
+                  key={index}
+                  category={tile.category}
+                  name={tile.name}
+                  sizeX={size.x}
+                  sizeY={size.y}
+                  textRef={textRef}
+                  x={tile.x}
+                  y={tile.y}
+                />
               );
             })}
           </Layer>
