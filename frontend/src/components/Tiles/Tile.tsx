@@ -1,23 +1,15 @@
 import React from 'react';
 import { Tile as TileProps } from '../../types';
-import { Group, Text, RegularPolygon } from 'react-konva';
+import { Group, Text, Line } from 'react-konva';
+import { getTileType } from '../../hooks/useCategory';
 
-const Tile: React.FC<TileProps> = ({ name, x, y, sizeX, sizeY, textRef }) => {
+const Tile: React.FC<TileProps> = ({ name, x, y, category }) => {
+  const { fill, points, text } = getTileType(category);
   return (
     <>
       <Group draggable x={x} y={y}>
-        <RegularPolygon
-          x={0}
-          y={0}
-          width={sizeX}
-          height={sizeY}
-          sides={6}
-          radius={70}
-          fill='red'
-          stroke='black'
-          strokeWidth={4}
-        />
-        <Text text={name} x={0} y={0} ref={textRef} />
+        <Line fill={fill} stroke='black' closed={true} strokeWidth={0} points={points} />
+        <Text text={name} x={text.x} y={text.y} />
       </Group>
     </>
   );
