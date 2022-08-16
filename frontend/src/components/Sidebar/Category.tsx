@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import data from '../../json/kacheln.json';
-import Tile from '../Tile/Tile';
+import MenuTile from '../Tiles/MenuTile';
 
 type InnerObject = {
   category: string;
@@ -48,7 +48,7 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
             draggable
             onDragStart={(e) => handleDragStart(e)}
           >
-            <Tile key={index} name={tile.name} category={category} />
+            <MenuTile {...tile} />
           </div>
         ))}
     </div>

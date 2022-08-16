@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useWebSockets } from '../../hooks/useWebSockets';
 import { NewNode } from '../../types';
-import Tile from '../Tile/Tile';
+import Tile from '../Tiles/Tile';
 
 type CursorProps = {
   x: number;
@@ -21,7 +21,6 @@ const Cursor: React.FC<CursorProps> = ({ x, y }) => {
       <div style={{ left: x, top: y }} className='w-2 h-3 bg-red-400 absolute'>
         Cursor
       </div>
-      {draggingTile && <Tile {...draggingTile} />}
     </>
   );
 };
