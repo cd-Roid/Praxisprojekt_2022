@@ -28,7 +28,7 @@ export const handleDrop = (
   const draggedData = event.dataTransfer.getData('dragStart/Tile');
   if (draggedData && stageReference.current != null) {
     stageReference.current.setPointersPositions(event);
-    const coordinates = stageReference.current.getPointerPosition();
+    const coordinates = stageReference.current.getRelativePointerPosition();
     const { name, nodeClass, offsetX, offsetY } = JSON.parse(draggedData);
     if (coordinates != undefined) {
       const newTile: NewNode = {
