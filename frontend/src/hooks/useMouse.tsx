@@ -5,6 +5,20 @@ import { NewNode } from '../types';
 
 export const handleDragOver = (event: React.DragEvent) => event.preventDefault();
 
+export const handleDragStart = (event: React.DragEvent) => {
+  const offsetX = event.nativeEvent.offsetX;
+  const offsetY = event.nativeEvent.offsetY;
+
+  const dragPayload = JSON.stringify({
+    name: event.currentTarget.getAttribute('data-name'),
+    nodeClass: event.currentTarget.getAttribute('data-class'),
+    offsetX: offsetX,
+    offsetY: offsetY,
+  });
+
+  event.dataTransfer.setData('dragStart/Tile', dragPayload);
+};
+
 export const handleDrop = (
   event: React.DragEvent,
   tilesOnBoard: NewNode[],
@@ -57,3 +71,4 @@ export const handleWheel = (
     }
   }
 };
+

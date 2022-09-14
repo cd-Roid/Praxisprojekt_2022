@@ -21,3 +21,8 @@ export type MenuTileProps = {
   name: string;
   category: string;
 };
+
+export type InnerObject = {
+  category: string;
+  name: string;
+};

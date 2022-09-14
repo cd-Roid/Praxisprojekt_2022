@@ -5,7 +5,6 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { NewNode } from '../../types';
 import Tile from '../Tiles/Tile';
 import { handleDragOver, handleDrop, handleWheel } from '../../hooks/useMouse';
-import { KonvaEventObject } from 'konva/lib/Node';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 

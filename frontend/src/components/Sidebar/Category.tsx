@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { handleDragStart } from '../../hooks/useMouse';
 import data from '../../json/kacheln.json';
+import { InnerObject } from '../../types';
 import MenuTile from '../Tiles/MenuTile';
-
-type InnerObject = {
-  category: string;
-  name: string;
-};
 
 type CategoryProps = {
   category: string;
@@ -14,27 +11,13 @@ type CategoryProps = {
 const Category: React.FC<CategoryProps> = ({ category }) => {
   const [stateItems, setStateItems] = useState<InnerObject[]>([]);
 
-  const handleDragStart = (event: React.DragEvent) => {
-    const offsetX = event.nativeEvent.offsetX;
-    const offsetY = event.nativeEvent.offsetY;
-
-    const dragPayload = JSON.stringify({
-      name: event.currentTarget.getAttribute('data-name'),
-      nodeClass: event.currentTarget.getAttribute('data-class'),
-      offsetX: offsetX,
-      offsetY: offsetY,
-    });
-
-    event.dataTransfer.setData('dragStart/Tile', dragPayload);
-  };
-
   useEffect(() => {
     const InnerObjectArray: InnerObject[] = [];
     data.forEach((object) => {
       object.category === category && InnerObjectArray.push(object);
     });
     setStateItems(InnerObjectArray);
-  }, []);
+  }, [data]);
 
   return (
     <div className='content-tabs  inline-flex'>
