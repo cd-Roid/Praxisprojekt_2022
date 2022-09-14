@@ -6,14 +6,9 @@ import { NewNode } from '../types';
 export const handleDragOver = (event: React.DragEvent) => event.preventDefault();
 
 export const handleDragStart = (event: React.DragEvent) => {
-  const offsetX = event.nativeEvent.offsetX;
-  const offsetY = event.nativeEvent.offsetY;
-
   const dragPayload = JSON.stringify({
     name: event.currentTarget.getAttribute('data-name'),
     nodeClass: event.currentTarget.getAttribute('data-class'),
-    offsetX: offsetX,
-    offsetY: offsetY,
   });
 
   event.dataTransfer.setData('dragStart/Tile', dragPayload);
@@ -28,15 +23,16 @@ export const handleDrop = (
   const draggedData = event.dataTransfer.getData('dragStart/Tile');
   if (draggedData && stageReference.current != null) {
     stageReference.current.setPointersPositions(event);
-    const coordinates = stageReference.current.getPointerPosition();
-    const { name, nodeClass, offsetX, offsetY } = JSON.parse(draggedData);
+    const coordinates = stageReference.current.getRelativePointerPosition();
+    const { name, nodeClass, width, height } = JSON.parse(draggedData);
     if (coordinates != undefined) {
       const newTile: NewNode = {
         name: name,
         category: nodeClass,
-        x: coordinates?.x - offsetX,
-        y: coordinates?.y - offsetY,
+        x: coordinates?.x,
+        y: coordinates?.y,
       };
+      console.log(width, height);
       setTilesOnBoard(tilesOnBoard.concat(newTile));
     }
   }

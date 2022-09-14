@@ -2,32 +2,33 @@ export const getTileType = (categoryName: string) => {
   switch (categoryName) {
     case 'Objects':
       return {
-        points: [12, -25, -90, 25, -90, 120, 10, 165, 110, 120, 110, 25],
-        text: { x: -6, y: 70 },
+        // points for a top pointed hexagon
+        points: [0, -100, 100, -50, 100, 50, 0, 100, -100, 50, -100, -50],
+        text: { x: -22, y: 0 },
         fill: '#008000',
       };
     case 'Actions':
       return {
-        points: [7, 49, -95, 95, 5, 145, 105, 97],
-        text: { x: -6, y: 90 },
+        points: [0, -50, -100, 0, 0, 50, 100, 0],
+        text: { x: -25, y: -5 },
         fill: '#db5d41',
       };
     case 'Conditions':
       return {
-        points: [12, -25, -90, 25, -90, 120, 12, 70, 110, 120, 110, 25],
-        text: { x: -6, y: 40 },
+        points: [0, -50, -100, 0, -100, 100, 0, 50, 100, 100, 100, 0],
+        text: { x: -25, y: 0 },
         fill: '#bababa',
       };
     case 'Negation':
       return {
-        points: [12, -25, -90, 25, -90, 120, 12, 70, 110, 120, 110, 25],
-        text: { x: -6, y: 40 },
+        points: [0, -50, -100, 0, -100, 100, 0, 50, 100, 100, 100, 0],
+        text: { x: -25, y: 0 },
         fill: '#db5d41',
       };
     case 'Union':
       return {
-        points: [12, -25, 12, 165, 110, 120, 110, 25],
-        text: { x: 50, y: 70 },
+        points: [-50, -100, -50, 100, 50, 50, 50, -50],
+        text: { x: -20, y: 0 },
         fill: '#bababa',
       };
     default:
