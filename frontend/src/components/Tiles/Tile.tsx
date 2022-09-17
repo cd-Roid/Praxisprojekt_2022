@@ -9,7 +9,7 @@ const Tile: React.FC<TileProps> = ({ name, x, y, category }) => {
     <>
       <Group draggable x={x} y={y}>
         <Line fill={fill} stroke='black' closed={true} strokeWidth={0} points={points} />
-        <Text text={name} x={text.x} y={text.y} align='center' width={50} />
+        <Text text={name} x={text.x} y={text.y} align='center' width={120} fontSize={18} />
       </Group>
     </>
   );
