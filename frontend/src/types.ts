@@ -1,4 +1,5 @@
 export type NewNode = {
+  id: string;
   category: string;
   name: string;
   x: number;
