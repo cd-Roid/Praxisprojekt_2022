@@ -12,6 +12,7 @@ export type CursorData = {
 };
 
 export type Tile = {
+  uid: string;
   x: number;
   y: number;
   name: string;
