@@ -1,7 +1,7 @@
 import Konva from 'konva';
 import Tile from '../Tiles/Tile';
 import { NewNode } from '../../types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useBoardState } from '../../state/BoardContext';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
@@ -14,11 +14,12 @@ const Board = () => {
   const [tiles, setTiles] = useState<NewNode[]>([]);
   const stageRef = React.useRef<Konva.Stage>(null);
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
-  useBoardState((state) => state.setStageReference(stageRef));
+  const setStageReference = useBoardState((state) => state.setStageReference);
+  setStageReference(stageRef);
   const { handleDragOver, handleDrop, handleWheel } = useMouse();
 
   return (
-    <main onDrop={(e) => handleDrop(e, tiles, setTiles)} onDragOver={handleDragOver}>
+    <main onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}>
       <div>
         <Stage
           width={width}
@@ -31,6 +32,7 @@ const Board = () => {
             {tilesOnBoard.map((tile) => {
               return (
                 <Tile
+                  uid={tile.id}
                   key={tile.id}
                   category={tile.category}
                   name={tile.name}
