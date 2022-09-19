@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NewNode } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { KonvaEventObject } from 'konva/lib/Node';
-import { BoardContext } from '../contexts/BoardContext';
+import { useBoardState } from '../state/BoardContext';
 
 export const useMouse = () => {
-  const T = useContext(BoardContext).tilesOnBoard;
-  const setTiles = useContext(BoardContext).updateBoard;
-  const stageRef = useContext(BoardContext).stageReference;
+  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
+  const setTiles = useBoardState((state) => state.addTile);
+  const updateTile = useBoardState((state) => state.updateTile);
+  const stageRef = useBoardState((state) => state.stageReference);
 
   const handleDragOver = (event: React.DragEvent) => event.preventDefault();
 
@@ -24,8 +25,9 @@ export const useMouse = () => {
     if (stageRef.current) {
       const coordinates = stageRef.current.getRelativePointerPosition();
       // update the tile position
-      if (coordinates) {
-        const newTiles = T.map((tile) => {
+      /**
+ *       if (coordinates) {
+        const newTiles = tilesOnBoard.map((tile) => {
           if (tile.id === event.target.id()) {
             return {
               ...tile,
@@ -36,8 +38,8 @@ export const useMouse = () => {
           return tile;
         });
         console.log(newTiles);
-        setTiles(newTiles);
-      }
+
+ *  */
     }
   };
 
