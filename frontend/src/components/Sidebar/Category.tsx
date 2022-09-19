@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { handleDragStart } from '../../hooks/useMouse';
+import { useMouse } from '../../hooks/useMouse';
 import data from '../../json/kacheln.json';
 import { InnerObject } from '../../types';
 import MenuTile from '../Tiles/MenuTile';
@@ -10,7 +10,7 @@ type CategoryProps = {
 
 const Category: React.FC<CategoryProps> = ({ category }) => {
   const [stateItems, setStateItems] = useState<InnerObject[]>([]);
-
+  const { handleDragStart } = useMouse();
   useEffect(() => {
     const InnerObjectArray: InnerObject[] = [];
     data.forEach((object) => {

@@ -1,4 +1,5 @@
 export type NewNode = {
+  id: string;
   category: string;
   name: string;
   x: number;
@@ -11,6 +12,7 @@ export type CursorData = {
 };
 
 export type Tile = {
+  uid: string;
   x: number;
   y: number;
   name: string;
