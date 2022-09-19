@@ -2,7 +2,7 @@ import Konva from 'konva';
 import Tile from '../Tiles/Tile';
 import React from 'react';
 import { Stage, Layer } from 'react-konva';
-import { useBoardState } from '../../state/BoardContext';
+import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useMouse } from '../../hooks/useMouse';
 

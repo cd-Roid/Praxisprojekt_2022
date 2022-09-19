@@ -2,7 +2,7 @@ import React from 'react';
 import { NewNode } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { KonvaEventObject } from 'konva/lib/Node';
-import { useBoardState } from '../state/BoardContext';
+import { useBoardState } from '../state/BoardState';
 
 export const useMouse = () => {
   const setTiles = useBoardState((state) => state.addTile);
