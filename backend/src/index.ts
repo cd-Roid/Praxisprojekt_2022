@@ -1,5 +1,5 @@
 import express from "express";
-import { Server } from "socket.io";
+import { Server } from "socket.io/dist/index";
 import cors from "cors";
 
 const server = express();
