@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import create from 'zustand';
-import { NewNode } from '../types';
 import { createRef } from 'react';
+import { NewNode } from '../types';
 import { Stage } from 'konva/lib/Stage';
+import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type BoardContextType = {
   tilesOnBoard: NewNode[];
@@ -31,3 +32,6 @@ export const useBoardState = create<BoardContextType>((set) => ({
   setStageReference: (stageRef: React.RefObject<Stage>) =>
     set(() => ({ stageReference: stageRef })),
 }));
+
+// :TODO: Remove this before production
+mountStoreDevtool('BoardStore', useBoardState);
