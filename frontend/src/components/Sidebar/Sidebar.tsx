@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import data from '../../json/kacheln.json';
-import Category from './Category';
 import Tab from './Tab';
+import Category from './Category';
+import data from '../../json/kacheln.json';
+import React, { useState, useEffect } from 'react';
 
 const Sidebar: React.FC = () => {
   const [toggleState, setToggleState] = useState(0);

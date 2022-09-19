@@ -93,7 +93,7 @@ button {
   width: 120px; 
   height: 100px;
   background-color: #4ab22d;
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  clip-path: polygon(50% 0, 90% 25%, 90% 75%, 50% 100%, 10% 75%, 10% 25%);
 }
 
 .Actions {
@@ -118,7 +118,7 @@ button {
   height: 100px;
   background-color: #bababa;
   clip-path: polygon(0 0, 100% 30%, 100% 70%, 0 100%, 0 70%, 0 30%);
-  border: 2px solid green ;
+
 }
 
 .Conditions {
@@ -126,6 +126,5 @@ button {
   width: 120px; 
   height: 100px;
   background-color: #bababa;
-  border: 2px solid green ;
   clip-path: polygon(50% 6%, 100% 43%, 100% 100%, 50% 64%, 0 100%, 0 44%);
 }

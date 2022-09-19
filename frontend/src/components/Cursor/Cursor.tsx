@@ -1,7 +1,6 @@
+import { NewNode } from '../../types';
 import React, { useState, useEffect } from 'react';
 import { useWebSockets } from '../../hooks/useWebSockets';
-import { NewNode } from '../../types';
-import Tile from '../Tiles/Tile';
 
 type CursorProps = {
   x: number;

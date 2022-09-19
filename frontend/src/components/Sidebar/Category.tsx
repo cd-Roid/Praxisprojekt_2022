@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useMouse } from '../../hooks/useMouse';
-import data from '../../json/kacheln.json';
-import { InnerObject } from '../../types';
 import MenuTile from '../Tiles/MenuTile';
+import { InnerObject } from '../../types';
+import data from '../../json/kacheln.json';
+import { useMouse } from '../../hooks/useMouse';
+import React, { useEffect, useState } from 'react';
 
 type CategoryProps = {
   category: string;

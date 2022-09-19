@@ -1,16 +1,16 @@
-import Konva from 'konva';
-import Tile from '../Tiles/Tile';
 import React from 'react';
+import Tile from '../Tiles/Tile';
 import { Stage, Layer } from 'react-konva';
+import { useMouse } from '../../hooks/useMouse';
+import { Stage as StageType } from 'konva/lib/Stage';
 import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
-import { useMouse } from '../../hooks/useMouse';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
 const Board = () => {
   const { height, width } = useWindowDimensions();
-  const stageRef = React.useRef<Konva.Stage>(null);
+  const stageRef = React.useRef<StageType>(null);
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const setStageReference = useBoardState((state) => state.setStageReference);
   setStageReference(stageRef);

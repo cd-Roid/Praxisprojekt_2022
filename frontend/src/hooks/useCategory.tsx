@@ -5,7 +5,7 @@ export const getTileType = (categoryName: string) => {
         // points for a top pointed hexagon
         points: [0, -100, 100, -50, 100, 50, 0, 100, -100, 50, -100, -50],
         text: { x: -60, y: 0 },
-        fill: '#008000',
+        fill: '#4ab22d',
       };
     case 'Actions':
       return {
