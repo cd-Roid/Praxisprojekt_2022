@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Praxisprojekt_2022/static/css/main.1fdde360.css",
-    "main.js": "/Praxisprojekt_2022/static/js/main.cf836668.js",
+    "main.css": "/Praxisprojekt_2022/static/css/main.1916be74.css",
+    "main.js": "/Praxisprojekt_2022/static/js/main.99d23e98.js",
     "static/js/496.02634aee.chunk.js": "/Praxisprojekt_2022/static/js/496.02634aee.chunk.js",
     "index.html": "/Praxisprojekt_2022/index.html",
-    "main.1fdde360.css.map": "/Praxisprojekt_2022/static/css/main.1fdde360.css.map",
-    "main.cf836668.js.map": "/Praxisprojekt_2022/static/js/main.cf836668.js.map",
+    "main.1916be74.css.map": "/Praxisprojekt_2022/static/css/main.1916be74.css.map",
+    "main.99d23e98.js.map": "/Praxisprojekt_2022/static/js/main.99d23e98.js.map",
     "496.02634aee.chunk.js.map": "/Praxisprojekt_2022/static/js/496.02634aee.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1fdde360.css",
-    "static/js/main.cf836668.js"
+    "static/css/main.1916be74.css",
+    "static/js/main.99d23e98.js"
   ]
 }
