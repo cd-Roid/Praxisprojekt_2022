@@ -1,7 +1,6 @@
 import Konva from 'konva';
 import Tile from '../Tiles/Tile';
-import { NewNode } from '../../types';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Stage, Layer } from 'react-konva';
 import { useBoardState } from '../../state/BoardContext';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
@@ -11,7 +10,6 @@ import { useMouse } from '../../hooks/useMouse';
 
 const Board = () => {
   const { height, width } = useWindowDimensions();
-  const [tiles, setTiles] = useState<NewNode[]>([]);
   const stageRef = React.useRef<Konva.Stage>(null);
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const setStageReference = useBoardState((state) => state.setStageReference);
