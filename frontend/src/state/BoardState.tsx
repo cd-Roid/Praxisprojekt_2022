@@ -1,22 +1,26 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import create from 'zustand';
-import { createRef } from 'react';
-import { NewNode } from '../types';
+import React, { createRef } from 'react';
+import { NewNode, InnerObject } from '../types';
 import { Stage } from 'konva/lib/Stage';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type BoardContextType = {
+  allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
   stageReference: React.RefObject<Stage>;
   addTile: (newNode: NewNode) => void;
   updateTile: (updatedNode: NewNode) => void;
   removeTile: (nodeToRemove: NewNode) => void;
   setStageReference: (stage: React.RefObject<Stage>) => void;
+  setAllTiles: (tilesArray: InnerObject[]) => void;
 };
 
 export const useBoardState = create<BoardContextType>((set) => ({
+  allTiles: [],
   tilesOnBoard: [],
   stageReference: createRef<Stage>(),
+  setAllTiles: (tilesArray: InnerObject[]) => set(() => ({ allTiles: tilesArray })),
   addTile: (newTile: NewNode) =>
     set((state) => ({ tilesOnBoard: [...state.tilesOnBoard, newTile] })),
   updateTile: (updatedTile: NewNode) =>
