@@ -8,7 +8,9 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 export type BoardContextType = {
   allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
+  modalOpen: boolean;
   stageReference: React.RefObject<Stage>;
+  toggleModal: (toggle: boolean) => void;
   addTile: (newNode: NewNode) => void;
   updateTile: (updatedNode: NewNode) => void;
   removeTile: (nodeToRemove: NewNode) => void;
@@ -17,9 +19,11 @@ export type BoardContextType = {
 };
 
 export const useBoardState = create<BoardContextType>((set) => ({
+  modalOpen: false,
   allTiles: [],
   tilesOnBoard: [],
   stageReference: createRef<Stage>(),
+  toggleModal: (toggle: boolean) => set(() => ({ modalOpen: toggle })),
   setAllTiles: (tilesArray: InnerObject[]) => set(() => ({ allTiles: tilesArray })),
   addTile: (newTile: NewNode) =>
     set((state) => ({ tilesOnBoard: [...state.tilesOnBoard, newTile] })),

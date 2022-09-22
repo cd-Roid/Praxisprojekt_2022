@@ -5,7 +5,7 @@ type TabProps = {
 };
 
 const Tab: React.FC<TabProps> = ({ tabText }) => {
-  return <button>{tabText}</button>;
+  return <div>{tabText}</div>;
 };
 
 export default Tab;

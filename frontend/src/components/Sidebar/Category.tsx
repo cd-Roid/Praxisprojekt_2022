@@ -21,7 +21,7 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
   }, [allTiles]);
 
   return (
-    <div className='content-tabs  inline-flex'>
+    <div className='content-tabs '>
       {stateItems &&
         stateItems.map((tile, index: number) => (
           <div

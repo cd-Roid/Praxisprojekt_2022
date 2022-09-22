@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faX } from '@fortawesome/free-solid-svg-icons';
 import { useBoardState } from '../../state/BoardState';
 import { InnerObject } from '../../types';
+import { useToggle } from '../../hooks/useToggle';
 
 type AddTileFormProps = {
   closeForm: () => void;
 };
 
 const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
+  const { toggleForm } = useToggle();
   const [isOpen, setIsOpen] = useState(false);
   const allTiles = useBoardState((state) => state.allTiles);
   const setAllTiles = useBoardState((state) => state.setAllTiles);
@@ -50,8 +52,15 @@ const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
   }, []);
 
   return (
-    <div className='w-full max-w-xs z-40 absolute'>
+    <div className='w-fit max-w-xs z-40 absolute top-1/3 left-[40%]'>
       <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 z-40'>
+        <div className='flex justify-end'>
+          <FontAwesomeIcon
+            icon={faX}
+            onClick={() => toggleForm()}
+            className='mb-2 relative text-green-800'
+          />
+        </div>
         <div className='mb-4'>
           <label className='block text-gray-700 text-sm font-bold mb-2'>Tile Name</label>
           <input
