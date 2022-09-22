@@ -1,7 +1,8 @@
-import data from '../../json/kacheln.json';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { useBoardState } from '../../state/BoardState';
+import { InnerObject } from '../../types';
 
 type AddTileFormProps = {
   closeForm: () => void;
@@ -9,8 +10,10 @@ type AddTileFormProps = {
 
 const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const allTiles = useBoardState((state) => state.allTiles);
+  const setAllTiles = useBoardState((state) => state.setAllTiles);
   const [categories, setCategories] = useState<Array<string>>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>();
+  const [selectedCategory, setSelectedCategory] = useState<string>(allTiles[0].category);
   const [selectedName, setSelectedName] = useState<string>();
 
   const setCategory = (category: string) => {
@@ -20,14 +23,15 @@ const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
 
   // TODO: Add a database to save the new Tiles to.
   const handleSubmit = () => {
-    selectedName &&
-      selectedCategory &&
-      data.push({
+    console.log(selectedName, selectedCategory);
+    if (selectedName && selectedCategory) {
+      const newNode: InnerObject = {
         category: selectedCategory,
         name: selectedName,
-      });
+      };
+      setAllTiles([...allTiles, newNode]);
+    }
     closeForm();
-    console.log(data);
     setIsOpen(false);
   };
 
@@ -38,7 +42,7 @@ const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
   useEffect(() => {
     const categoryArray: Array<string> = [];
     const categorySet: Set<string> = new Set();
-    data.forEach((item) => {
+    allTiles.forEach((item) => {
       categorySet.add(item.category);
     });
     categorySet.forEach((item) => categoryArray.push(item));
@@ -81,7 +85,11 @@ const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
               >
                 {categories &&
                   categories.map((category, index) => (
-                    <li key={index} onClick={() => setCategory(category)}>
+                    <li
+                      key={index}
+                      className='cursor-pointer mb-1 ml-1'
+                      onClick={() => setCategory(category)}
+                    >
                       {category}
                     </li>
                   ))}

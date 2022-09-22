@@ -1,8 +1,8 @@
 import MenuTile from '../Tiles/MenuTile';
 import { InnerObject } from '../../types';
-import data from '../../json/kacheln.json';
 import { useMouse } from '../../hooks/useMouse';
 import React, { useEffect, useState } from 'react';
+import { useBoardState } from '../../state/BoardState';
 
 type CategoryProps = {
   category: string;
@@ -10,14 +10,15 @@ type CategoryProps = {
 
 const Category: React.FC<CategoryProps> = ({ category }) => {
   const [stateItems, setStateItems] = useState<InnerObject[]>([]);
+  const allTiles = useBoardState((state) => state.allTiles);
   const { handleDragStart } = useMouse();
   useEffect(() => {
     const InnerObjectArray: InnerObject[] = [];
-    data.forEach((object) => {
+    allTiles.forEach((object) => {
       object.category === category && InnerObjectArray.push(object);
     });
     setStateItems(InnerObjectArray);
-  }, [data]);
+  }, [allTiles]);
 
   return (
     <div className='content-tabs  inline-flex'>
