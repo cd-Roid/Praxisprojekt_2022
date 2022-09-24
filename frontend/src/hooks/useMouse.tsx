@@ -9,6 +9,11 @@ export const useMouse = () => {
   const updateTile = useBoardState((state) => state.updateTile);
   const stageRef = useBoardState((state) => state.stageReference);
 
+  const handleClick = (event: KonvaEventObject<MouseEvent>, strokeWidth: number) => {
+    // function to set the stroke width when user hovers over a Tile
+    event.target.setAttr('strokeWidth', strokeWidth);
+  };
+
   const handleDragOver = (event: React.DragEvent) => event.preventDefault();
 
   const handleDragStart = (event: React.DragEvent) => {
@@ -61,7 +66,6 @@ export const useMouse = () => {
     }
   };
 
-
   const handleWheel = (event: KonvaEventObject<WheelEvent>) => {
     event.evt.preventDefault();
     if (stageRef.current !== null) {
@@ -88,5 +92,12 @@ export const useMouse = () => {
       }
     }
   };
-  return { handleDragOver, handleDragStart, handleDrop, handleWheel, updateTilePosition };
+  return {
+    handleDragOver,
+    handleDragStart,
+    handleDrop,
+    handleWheel,
+    updateTilePosition,
+    handleClick,
+  };
 };
