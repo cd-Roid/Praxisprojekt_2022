@@ -15,20 +15,24 @@ export const useMouse = () => {
     const dragPayload = JSON.stringify({
       name: event.currentTarget.getAttribute('data-name'),
       nodeClass: event.currentTarget.getAttribute('data-class'),
+      offsetX: event.nativeEvent.offsetX,
+      offsetY: event.nativeEvent.offsetY,
+      clientWidth: event.currentTarget.clientWidth,
+      clientHeight: event.currentTarget.clientHeight,
     });
     event.dataTransfer.setData('dragStart/Tile', dragPayload);
   };
 
   const updateTilePosition = (event: KonvaEventObject<DragEvent>) => {
     const { text } = event.target.getAttr('children')[1].attrs;
+
     if (stageRef.current) {
-      const { x, y } = stageRef.current.getRelativePointerPosition();
       const updatedTile: NewNode = {
         id: event.target.attrs.id,
         name: text,
         category: event.target.attrs.name,
-        x: x,
-        y: y,
+        x: event.target.x(),
+        y: event.target.y(),
       };
       updateTile(updatedTile);
     }
@@ -36,23 +40,27 @@ export const useMouse = () => {
 
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
+
     const draggedData = event.dataTransfer.getData('dragStart/Tile');
     if (draggedData && stageRef.current != null) {
       stageRef.current.setPointersPositions(event);
-      const coordinates = stageRef.current.getRelativePointerPosition();
-      const { name, nodeClass } = JSON.parse(draggedData);
-      if (coordinates != undefined) {
+      const { x, y } = stageRef.current.getRelativePointerPosition();
+      const { name, nodeClass, offsetX, offsetY, clientHeight, clientWidth } =
+        JSON.parse(draggedData);
+      console.log(clientWidth, offsetX, clientHeight, offsetY);
+      if (x && y) {
         const newTile: NewNode = {
           id: uuidv4(),
           name: name,
           category: nodeClass,
-          x: coordinates?.x,
-          y: coordinates?.y,
+          x: x - (offsetY - clientHeight / 2),
+          y: y - (offsetY - clientHeight / 2),
         };
         setTiles(newTile);
       }
     }
   };
+
 
   const handleWheel = (event: KonvaEventObject<WheelEvent>) => {
     event.evt.preventDefault();
