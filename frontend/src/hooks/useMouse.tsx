@@ -17,6 +17,7 @@ export const useMouse = () => {
   const handleDragOver = (event: React.DragEvent) => event.preventDefault();
 
   const handleDragStart = (event: React.DragEvent) => {
+    // use HTML DnD API to send Tile Information
     const dragPayload = JSON.stringify({
       name: event.currentTarget.getAttribute('data-name'),
       nodeClass: event.currentTarget.getAttribute('data-class'),
@@ -29,6 +30,7 @@ export const useMouse = () => {
   };
 
   const updateTilePosition = (event: KonvaEventObject<DragEvent>) => {
+    // update Tiles position in state
     const { text } = event.target.getAttr('children')[1].attrs;
 
     if (stageRef.current) {
@@ -44,6 +46,7 @@ export const useMouse = () => {
   };
 
   const handleDrop = (event: React.DragEvent) => {
+    // add Tile to stage
     event.preventDefault();
 
     const draggedData = event.dataTransfer.getData('dragStart/Tile');
@@ -67,6 +70,7 @@ export const useMouse = () => {
   };
 
   const handleWheel = (event: KonvaEventObject<WheelEvent>) => {
+    // scale a stage up or down
     event.evt.preventDefault();
     if (stageRef.current !== null) {
       const scaleBy = 1.05;
@@ -92,6 +96,7 @@ export const useMouse = () => {
       }
     }
   };
+
   return {
     handleDragOver,
     handleDragStart,
