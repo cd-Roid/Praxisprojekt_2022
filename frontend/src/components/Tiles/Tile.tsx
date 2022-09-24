@@ -22,7 +22,15 @@ const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
         onMouseLeave={(e) => handleClick(e, 0)}
       >
         <Line fill={fill} stroke='black' closed={true} strokeWidth={0} points={points} />
-        <Text text={name} x={text.x} y={text.y} align='center' width={120} fontSize={18} />
+        <Text
+          text={name}
+          x={text.x}
+          y={text.y}
+          align='center'
+          width={120}
+          fontSize={24}
+          fontStyle={'600'}
+        />
       </Group>
     </>
   );
