@@ -8,6 +8,22 @@ export const useMouse = () => {
   const setTiles = useBoardState((state) => state.addTile);
   const updateTile = useBoardState((state) => state.updateTile);
   const stageRef = useBoardState((state) => state.stageReference);
+  const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
+
+  const setActiveDragElement = (event: KonvaEventObject<DragEvent>) => {
+    const { text } = event.target.getAttr('children')[1].attrs;
+
+    if (stageRef.current) {
+      const activeTile: NewNode = {
+        id: event.target.attrs.id,
+        name: text,
+        category: event.target.attrs.name,
+        x: event.target.x(),
+        y: event.target.y(),
+      };
+      setActiveDragTile(activeTile);
+    }
+  };
 
   const handleClick = (event: KonvaEventObject<MouseEvent>, strokeWidth: number) => {
     // function to set the stroke width when user hovers over a Tile
@@ -30,7 +46,10 @@ export const useMouse = () => {
   };
 
   const updateTilePosition = (event: KonvaEventObject<DragEvent>) => {
-    // update Tiles position in state
+    /**
+     * updates the Tile position in the state
+     * also clears the active Drag Element
+     */
     const { text } = event.target.getAttr('children')[1].attrs;
 
     if (stageRef.current) {
@@ -42,6 +61,7 @@ export const useMouse = () => {
         y: event.target.y(),
       };
       updateTile(updatedTile);
+      setActiveDragTile(updatedTile);
     }
   };
 
@@ -55,13 +75,12 @@ export const useMouse = () => {
       const { x, y } = stageRef.current.getRelativePointerPosition();
       const { name, nodeClass, offsetX, offsetY, clientHeight, clientWidth } =
         JSON.parse(draggedData);
-      console.log(clientWidth, offsetX, clientHeight, offsetY);
       if (x && y) {
         const newTile: NewNode = {
           id: uuidv4(),
           name: name,
           category: nodeClass,
-          x: x - (offsetY - clientHeight / 2),
+          x: x - (offsetX - clientWidth / 2),
           y: y - (offsetY - clientHeight / 2),
         };
         setTiles(newTile);
@@ -104,5 +123,6 @@ export const useMouse = () => {
     handleWheel,
     updateTilePosition,
     handleClick,
+    setActiveDragElement,
   };
 };
