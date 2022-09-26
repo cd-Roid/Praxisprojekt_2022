@@ -1,6 +1,6 @@
 import React from 'react';
 import Tile from '../Tiles/Tile';
-import { Stage, Layer, Rect } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 import { useMouse } from '../../hooks/useMouse';
 import { Stage as StageType } from 'konva/lib/Stage';
 import { useBoardState } from '../../state/BoardState';
