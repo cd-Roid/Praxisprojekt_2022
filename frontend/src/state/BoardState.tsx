@@ -6,23 +6,29 @@ import { Stage } from 'konva/lib/Stage';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type BoardContextType = {
+  modalOpen: boolean;
   allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
-  modalOpen: boolean;
+  activeDragTile: NewNode | null;
   stageReference: React.RefObject<Stage>;
-  toggleModal: (toggle: boolean) => void;
+  clearActiveDragTile: () => void;
   addTile: (newNode: NewNode) => void;
+  toggleModal: (toggle: boolean) => void;
   updateTile: (updatedNode: NewNode) => void;
   removeTile: (nodeToRemove: NewNode) => void;
-  setStageReference: (stage: React.RefObject<Stage>) => void;
   setAllTiles: (tilesArray: InnerObject[]) => void;
+  setActiveDragTile: (newActiveTile: NewNode) => void;
+  setStageReference: (stage: React.RefObject<Stage>) => void;
 };
 
 export const useBoardState = create<BoardContextType>((set) => ({
-  modalOpen: false,
   allTiles: [],
+  modalOpen: false,
   tilesOnBoard: [],
+  activeDragTile: null,
   stageReference: createRef<Stage>(),
+  clearActiveDragTile: () => set(() => ({ activeDragTile: null })),
+  setActiveDragTile: (newActiveTile: NewNode) => set(() => ({ activeDragTile: newActiveTile })),
   toggleModal: (toggle: boolean) => set(() => ({ modalOpen: toggle })),
   setAllTiles: (tilesArray: InnerObject[]) => set(() => ({ allTiles: tilesArray })),
   addTile: (newTile: NewNode) =>
