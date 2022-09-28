@@ -3,6 +3,7 @@ import { NewNode } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
+import { Group } from 'konva/lib/Group';
 
 export const useMouse = () => {
   const setTiles = useBoardState((state) => state.addTile);
@@ -10,19 +11,8 @@ export const useMouse = () => {
   const stageRef = useBoardState((state) => state.stageReference);
   const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
 
-  const setActiveDragElement = (event: KonvaEventObject<DragEvent>) => {
-    const { text } = event.target.getAttr('children')[1].attrs;
-
-    if (stageRef.current) {
-      const activeTile: NewNode = {
-        id: event.target.attrs.id,
-        name: text,
-        category: event.target.attrs.name,
-        x: event.target.x(),
-        y: event.target.y(),
-      };
-      setActiveDragTile(activeTile);
-    }
+  const setActiveDragElement = (activeTileReference: React.RefObject<Group>) => {
+    setActiveDragTile(activeTileReference);
   };
 
   const handleClick = (event: KonvaEventObject<MouseEvent>, strokeWidth: number) => {
@@ -61,7 +51,6 @@ export const useMouse = () => {
         y: event.target.y(),
       };
       updateTile(updatedTile);
-      setActiveDragTile(updatedTile);
     }
   };
 

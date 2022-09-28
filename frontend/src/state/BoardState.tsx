@@ -4,12 +4,13 @@ import React, { createRef } from 'react';
 import { NewNode, InnerObject } from '../types';
 import { Stage } from 'konva/lib/Stage';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
+import { Group } from 'konva/lib/Group';
 
 export type BoardContextType = {
   modalOpen: boolean;
   allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
-  activeDragTile: NewNode | null;
+  activeDragTile: React.RefObject<Group> | null;
   stageReference: React.RefObject<Stage>;
   clearActiveDragTile: () => void;
   addTile: (newNode: NewNode) => void;
@@ -17,7 +18,7 @@ export type BoardContextType = {
   updateTile: (updatedNode: NewNode) => void;
   removeTile: (nodeToRemove: NewNode) => void;
   setAllTiles: (tilesArray: InnerObject[]) => void;
-  setActiveDragTile: (newActiveTile: NewNode) => void;
+  setActiveDragTile: (newActiveTile: React.RefObject<Group>) => void;
   setStageReference: (stage: React.RefObject<Stage>) => void;
 };
 
@@ -28,7 +29,8 @@ export const useBoardState = create<BoardContextType>((set) => ({
   activeDragTile: null,
   stageReference: createRef<Stage>(),
   clearActiveDragTile: () => set(() => ({ activeDragTile: null })),
-  setActiveDragTile: (newActiveTile: NewNode) => set(() => ({ activeDragTile: newActiveTile })),
+  setActiveDragTile: (newActiveTile: React.RefObject<Group>) =>
+    set(() => ({ activeDragTile: newActiveTile })),
   toggleModal: (toggle: boolean) => set(() => ({ modalOpen: toggle })),
   setAllTiles: (tilesArray: InnerObject[]) => set(() => ({ allTiles: tilesArray })),
   addTile: (newTile: NewNode) =>

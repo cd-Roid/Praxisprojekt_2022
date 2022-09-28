@@ -1,3 +1,4 @@
+import { Group } from 'react-konva';
 export type NewNode = {
   id: string;
   category: string;
@@ -17,6 +18,7 @@ export type Tile = {
   y: number;
   name: string;
   category: string;
+  ref: React.RefObject<Group>;
 };
 
 export type MenuTileProps = {

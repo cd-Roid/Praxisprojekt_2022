@@ -1,21 +1,23 @@
 import React from 'react';
 import { Tile as TileProps } from '../../types';
+import { Group as GroupType } from 'konva/lib/Group';
 import { Group, Text, Line } from 'react-konva';
 import { getTileType } from '../../hooks/useCategory';
 import { useMouse } from '../../hooks/useMouse';
 
 const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
-  const { updateTilePosition } = useMouse();
+  const tileRef = React.useRef<GroupType>(null);
   const { fill, points, text } = getTileType(category);
-  const { handleClick } = useMouse();
+  const { handleClick, updateTilePosition } = useMouse();
 
   return (
     <>
       <Group
+        ref={tileRef}
         draggable
         x={x}
         y={y}
-        onDragEnd={updateTilePosition}
+        onDragMove={(e) => updateTilePosition(e)}
         id={uid}
         name={category}
         onMouseOver={(e) => handleClick(e, 4)}
