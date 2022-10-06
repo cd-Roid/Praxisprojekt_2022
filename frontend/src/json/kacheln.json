@@ -1,5 +1,14 @@
 [
   {
+    "category": "Start",
+    "name": "Wenn",
+    "rotation": -45
+  },
+  {
+    "category": "End",
+    "name": "Ende"
+  },
+  {
     "category": "Objects",
     "name": "Handy"
   },

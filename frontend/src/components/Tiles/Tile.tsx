@@ -4,15 +4,18 @@ import { Group as GroupType } from 'konva/lib/Group';
 import { Group, Text, Line } from 'react-konva';
 import { getTileType } from '../../hooks/useCategory';
 import { useMouse } from '../../hooks/useMouse';
+import { useContextMenu } from '../../hooks/useContextMenu';
 
 const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
   const tileRef = React.useRef<GroupType>(null);
-  const { fill, points, text } = getTileType(category);
+  const { fill, points, text, rotation } = getTileType(category);
   const { handleClick, updateTilePosition } = useMouse();
+  const { handleContextMenu } = useContextMenu();
 
   return (
     <>
       <Group
+        onContextMenu={handleContextMenu}
         ref={tileRef}
         draggable
         x={x}
@@ -25,6 +28,7 @@ const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
       >
         <Line fill={fill} stroke='black' closed={true} strokeWidth={0} points={points} />
         <Text
+          rotation={rotation}
           text={name}
           x={text.x}
           y={text.y}
