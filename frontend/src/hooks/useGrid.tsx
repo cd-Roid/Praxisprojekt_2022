@@ -86,6 +86,7 @@ export const useGrid = ({ stageRef, gridLayer }: gridProps) => {
       for (let i = 0; i <= xSteps; i++) {
         gridLines.push(
           <Line
+            name='grid'
             key={`vline-${i}`}
             points={[
               fullRect.x1 + i * stepSize,
@@ -102,6 +103,7 @@ export const useGrid = ({ stageRef, gridLayer }: gridProps) => {
       for (let i = 0; i <= ySteps; i++) {
         gridLines.push(
           <Line
+            name='grid'
             key={`hline-${i}`}
             points={[
               fullRect.x1,

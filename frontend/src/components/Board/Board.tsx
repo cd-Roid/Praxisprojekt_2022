@@ -7,6 +7,7 @@ import { Layer as LayerType } from 'konva/lib/Layer';
 import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useGrid } from '../../hooks/useGrid';
+import Preview from './Preview';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -33,6 +34,9 @@ const Board = () => {
 
   return (
     <main onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}>
+      <div>
+        <Preview layerRef={gridLayer} stageRef={stageRef} />
+      </div>
       <div>
         <Stage
           width={width}
