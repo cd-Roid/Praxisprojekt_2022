@@ -20,7 +20,6 @@ const Board = () => {
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const activeDragTile = useBoardState((state) => state.activeDragTile);
   const setStageReference = useBoardState((state) => state.setStageReference);
-  const clearActiveDragTile = useBoardState((state) => state.clearActiveDragTile);
   setStageReference(stageRef);
   const { handleDragOver, handleDrop, handleWheel } = useMouse();
   const { handleClick } = useContextMenu();
@@ -35,9 +34,6 @@ const Board = () => {
 
   return (
     <main onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}>
-      <div>
-        <Preview layerRef={gridLayer} stageRef={stageRef} />
-      </div>
       <div>
         <Stage
           onClick={handleClick}
