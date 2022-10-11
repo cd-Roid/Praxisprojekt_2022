@@ -8,21 +8,22 @@ import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useGrid } from '../../hooks/useGrid';
 import Preview from './Preview';
+import { useContextMenu } from '../../hooks/useContextMenu';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
 const Board = () => {
   const gridLayer = React.useRef<LayerType>(null);
   const stageRef = React.useRef<StageType>(null);
-
   const { height, width } = useWindowDimensions();
   const { gridComponents } = useGrid({ stageRef, gridLayer });
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const activeDragTile = useBoardState((state) => state.activeDragTile);
   const setStageReference = useBoardState((state) => state.setStageReference);
-
+  const clearActiveDragTile = useBoardState((state) => state.clearActiveDragTile);
   setStageReference(stageRef);
   const { handleDragOver, handleDrop, handleWheel } = useMouse();
+  const { handleClick } = useContextMenu();
 
   useEffect(() => {
     tilesOnBoard.forEach((tile) => {
@@ -39,6 +40,7 @@ const Board = () => {
       </div>
       <div>
         <Stage
+          onClick={handleClick}
           width={width}
           height={height}
           ref={stageRef}
@@ -67,6 +69,3 @@ const Board = () => {
 };
 
 export default Board;
-
-
-

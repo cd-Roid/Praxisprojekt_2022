@@ -103,3 +103,19 @@ code {
   background-color: #bababa;
   clip-path: polygon(50% 6%, 100% 43%, 100% 100%, 50% 64%, 0 100%, 0 44%);
 }
+
+.Start {
+  position: relative;
+  width: 120px; 
+  height: 100px;
+  background-color: #4ab22d;
+  clip-path: polygon(0 69%, 26% 0, 99% 28%, 74% 54%, 74% 100%);
+}
+.End {
+  position: relative;
+  width: 120px; 
+  height: 100px;
+  background-color: #db5d41;
+  clip-path: polygon(34% 49%, 0 0, 100% 0, 100% 100%, 0 100%);
+}
+
