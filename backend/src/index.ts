@@ -1,5 +1,5 @@
 import express from "express";
-import { Server } from "socket.io/dist/index";
+import { Server } from "socket.io";
 import cors from "cors";
 
 const server = express();
@@ -28,6 +28,9 @@ io.on("connection", (socket) => {
 		console.log(data);
 	});
 	
+	socket.on("disconnect", () => {
+		console.log(`${socket.id} disconnected`);
+	});
 	
 });
 
