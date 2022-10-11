@@ -1,7 +1,7 @@
 import React from 'react';
+import { useToggle } from '../../hooks/useToggle';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useToggle } from '../../hooks/useToggle';
 
 const NewTileButton: React.FC = () => {
   const { toggleForm } = useToggle();

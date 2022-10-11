@@ -2,8 +2,8 @@ import Tab from './Tab';
 import Category from './Category';
 import data from '../../json/kacheln.json';
 import React, { useState, useEffect } from 'react';
-import { useBoardState } from '../../state/BoardState';
 import NewTileButton from '../Buttons/NewTileButton';
+import { useBoardState } from '../../state/BoardState';
 
 const Sidebar: React.FC = () => {
   const allTiles = useBoardState((state) => state.allTiles);
