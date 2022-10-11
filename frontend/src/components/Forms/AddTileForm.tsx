@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp, faX } from '@fortawesome/free-solid-svg-icons';
-import { useBoardState } from '../../state/BoardState';
 import { InnerObject } from '../../types';
 import { useToggle } from '../../hooks/useToggle';
+import React, { useEffect, useState } from 'react';
+import { useBoardState } from '../../state/BoardState';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown, faAngleUp, faX } from '@fortawesome/free-solid-svg-icons';
 
 type AddTileFormProps = {
   closeForm: () => void;
