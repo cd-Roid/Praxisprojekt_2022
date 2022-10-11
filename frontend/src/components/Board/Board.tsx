@@ -20,7 +20,7 @@ const Board = () => {
   const activeDragTile = useBoardState((state) => state.activeDragTile);
   const setStageReference = useBoardState((state) => state.setStageReference);
   setStageReference(stageRef);
-  const { handleDragOver, handleDrop, handleWheel } = useMouse();
+  const { handleDragOver, handleDrop, handleWheel, handleMouseMove } = useMouse();
   const { handleClick } = useContextMenu();
 
   useEffect(() => {
@@ -35,6 +35,7 @@ const Board = () => {
     <main onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}>
       <div>
         <Stage
+          onMouseMove={handleMouseMove}
           onClick={handleClick}
           width={width}
           height={height}

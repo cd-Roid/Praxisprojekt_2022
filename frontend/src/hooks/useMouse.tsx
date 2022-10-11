@@ -4,12 +4,29 @@ import { v4 as uuidv4 } from 'uuid';
 import { Group } from 'konva/lib/Group';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
+import { useWebSockets } from './useWebSockets';
 
 export const useMouse = () => {
+  const { currentSocket } = useWebSockets();
   const setTiles = useBoardState((state) => state.addTile);
   const updateTile = useBoardState((state) => state.updateTile);
   const stageRef = useBoardState((state) => state.stageReference);
   const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
+
+  const handleMouseMove = () => {
+    if (stageRef.current) {
+      const stage = stageRef.current;
+      const pos = stage.getPointerPosition();
+      if (pos) {
+        const { x, y } = pos;
+        const cursorPos = {
+          x: x,
+          y: y,
+        };
+        currentSocket?.emit('cursor', cursorPos);
+      }
+    }
+  };
 
   const setActiveDragElement = (activeTileReference: React.RefObject<Group>) => {
     setActiveDragTile(activeTileReference);
@@ -106,6 +123,7 @@ export const useMouse = () => {
   };
 
   return {
+    handleMouseMove,
     handleDragOver,
     handleDragStart,
     handleDrop,
