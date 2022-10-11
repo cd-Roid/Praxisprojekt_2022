@@ -1,9 +1,9 @@
 import React from 'react';
 import { Tile as TileProps } from '../../types';
 import { Group, Text, Line } from 'react-konva';
+import { useMouse } from '../../hooks/useMouse';
 import { Group as GroupType } from 'konva/lib/Group';
 import { getTileType } from '../../hooks/useCategory';
-import { useMouse } from '../../hooks/useMouse';
 import { useContextMenu } from '../../hooks/useContextMenu';
 
 const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {

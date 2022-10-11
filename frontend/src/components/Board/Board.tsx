@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
 import Tile from '../Tiles/Tile';
+import React, { useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
+import { useGrid } from '../../hooks/useGrid';
 import { useMouse } from '../../hooks/useMouse';
 import { Stage as StageType } from 'konva/lib/Stage';
 import { Layer as LayerType } from 'konva/lib/Layer';
 import { useBoardState } from '../../state/BoardState';
-import useWindowDimensions from '../../hooks/useWindowDimensions';
-import { useGrid } from '../../hooks/useGrid';
-import Preview from './Preview';
 import { useContextMenu } from '../../hooks/useContextMenu';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
