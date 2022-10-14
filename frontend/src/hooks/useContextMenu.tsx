@@ -1,5 +1,5 @@
-import { KonvaEventObject } from 'konva/lib/Node';
 import { useCallback } from 'react';
+import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
 
 export const useContextMenu = () => {

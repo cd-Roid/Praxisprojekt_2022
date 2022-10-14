@@ -1,15 +1,15 @@
 import React from 'react';
 import { Tile as TileProps } from '../../types';
-import { Group as GroupType } from 'konva/lib/Group';
 import { Group, Text, Line } from 'react-konva';
-import { getTileType } from '../../hooks/useCategory';
 import { useMouse } from '../../hooks/useMouse';
+import { Group as GroupType } from 'konva/lib/Group';
+import { getTileType } from '../../hooks/useCategory';
 import { useContextMenu } from '../../hooks/useContextMenu';
 
 const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
   const tileRef = React.useRef<GroupType>(null);
   const { fill, points, text, rotation } = getTileType(category);
-  const { handleClick, updateTilePosition } = useMouse();
+  const { handleClick, updateTilePosition, setActiveDragElement } = useMouse();
   const { handleContextMenu } = useContextMenu();
 
   return (
@@ -20,9 +20,10 @@ const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
         draggable
         x={x}
         y={y}
-        onDragMove={(e) => updateTilePosition(e)}
         id={uid}
         name={category}
+        onDragMove={() => setActiveDragElement(tileRef)}
+        onDragEnd={updateTilePosition}
         onMouseOver={(e) => handleClick(e, 4)}
         onMouseLeave={(e) => handleClick(e, 0)}
       >

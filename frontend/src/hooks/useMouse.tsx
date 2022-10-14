@@ -1,9 +1,9 @@
 import React from 'react';
 import { NewNode } from '../types';
 import { v4 as uuidv4 } from 'uuid';
+import { Group } from 'konva/lib/Group';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
-import { Group } from 'konva/lib/Group';
 
 export const useMouse = () => {
   const setTiles = useBoardState((state) => state.addTile);

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import create from 'zustand';
+import { Stage } from 'konva/lib/Stage';
+import { Group } from 'konva/lib/Group';
 import React, { createRef } from 'react';
 import { NewNode, InnerObject } from '../types';
-import { Stage } from 'konva/lib/Stage';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
-import { Group } from 'konva/lib/Group';
 
 export type BoardContextType = {
   modalOpen: boolean;
