@@ -8,12 +8,10 @@ export const useWebSockets = () => {
   useEffect(() => {
     const socket = io('http://localhost:9001', { transports: ['websocket'] });
     socket.connect();
-    socket.on('connect', () => setSocketId('socket.id'));
+    socket.on('connect', () => setSocketId(socket.id));
     setCurrentSocket(socket);
 
-    return () => {
-      socket.disconnect();
-    };
+
   }, []);
 
   return { currentSocket, socketId };

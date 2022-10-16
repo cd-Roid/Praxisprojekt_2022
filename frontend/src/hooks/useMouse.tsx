@@ -4,14 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { Group } from 'konva/lib/Group';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
-import { useWebSockets } from './useWebSockets';
+import { useWebSocketState } from '../state/WebSocketState';
 
 export const useMouse = () => {
-  const { currentSocket } = useWebSockets();
   const setTiles = useBoardState((state) => state.addTile);
   const updateTile = useBoardState((state) => state.updateTile);
   const stageRef = useBoardState((state) => state.stageReference);
   const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
+  const socket = useWebSocketState((state) => state.socket);
 
   const handleMouseMove = () => {
     if (stageRef.current) {
@@ -23,7 +23,9 @@ export const useMouse = () => {
           x: x,
           y: y,
         };
-        currentSocket?.emit('cursor', cursorPos);
+        if (socket !== null) {
+          socket?.emit('cursor', cursorPos);
+        }
       }
     }
   };
