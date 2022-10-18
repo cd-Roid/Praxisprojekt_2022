@@ -19,7 +19,7 @@ const Cursor: React.FC = () => {
       {socket && cursorData.remoteUser !== socket.id && (
         <div
           style={{ left: Math.floor(cursorData.x), top: Math.floor(cursorData.y) }}
-          className=' absolute top-0 left-0'
+          className=' absolute z-50 top-0 left-0'
         >
           <FontAwesomeIcon className='w-4 h-4' icon={faArrowPointer} />
           {cursorData.remoteUser}
