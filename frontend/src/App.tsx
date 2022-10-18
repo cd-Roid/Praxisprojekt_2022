@@ -12,21 +12,18 @@ import { useWebSocketState } from './state/WebSocketState';
 const App = () => {
   const { isOpen, toggleForm } = useToggle();
   const { contextMenu } = useContextMenu();
-  const { currentSocket, socketId } = useWebSockets();
+  const { socketRef } = useWebSockets();
   const setSocket = useWebSocketState((state) => state.setSocket);
-  const setSocketId = useWebSocketState((state) => state.setSocketId);
-  const socket = useWebSocketState((state) => state.socket);
 
   useEffect(() => {
-    if (currentSocket && socketId) {
-      setSocket(currentSocket);
-      setSocketId(socketId);
+    if (socketRef.current) {
+      setSocket(socketRef.current);
     }
   }, []);
 
   return (
     <>
-      {socket && <Cursor />}
+      {socketRef && <Cursor />}
       {contextMenu && <RightClickMenu />}
       {isOpen && (
         <div className=' absolute bg-stone-600 w-full h-full'>

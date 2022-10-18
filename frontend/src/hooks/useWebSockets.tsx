@@ -1,18 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 export const useWebSockets = () => {
-  const [currentSocket, setCurrentSocket] = useState<Socket | null>(null);
-  const [socketId, setSocketId] = useState<string>();
+  const socketRef = useRef<Socket | null>(null);
+  const socket = io('http://localhost:9001', { transports: ['websocket'] });
 
   useEffect(() => {
-    const socket = io('http://localhost:9001', { transports: ['websocket'] });
-    socket.connect();
-    socket.on('connect', () => setSocketId(socket.id));
-    setCurrentSocket(socket);
+    socketRef.current = socket;
 
+    socket.on('connect', () => {
+      console.log('SocketIO: Connected');
+    });
 
+    socket.on('disconnect', () => {
+      console.log('SocketIO: Disconnected');
+    });
+
+    socket.on('error', (msg: string) => {
+      console.error('SocketIO: Error', msg);
+    });
+
+    return () => {
+      if (socket) {
+        socket.removeAllListeners();
+        socket.close();
+      }
+    };
   }, []);
-
-  return { currentSocket, socketId };
+  return { socketRef };
 };
