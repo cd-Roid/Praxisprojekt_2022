@@ -12,7 +12,7 @@ export const getTileType = (categoryName: string) => {
       return {
         points: [0, -100, 100, -50, 0, 0, 0, 100, -90, 50],
         textPosition: { x: -60, y: 30 },
-        fill: '#6ab22d',
+        fill: '#f9b43d',
         rotation: -60,
         svgShape: when,
       };
@@ -20,7 +20,7 @@ export const getTileType = (categoryName: string) => {
       return {
         points: [-200, -50, 0, -50, 0, 50, -200, 50, -100, 0],
         textPosition: { x: -125, y: -5 },
-        fill: '#db5d41',
+        fill: '#f9b43d',
         rotation: 0,
         svgShape: end,
       };
@@ -29,7 +29,7 @@ export const getTileType = (categoryName: string) => {
         // points for a top pointed hexagon
         points: [0, -100, 100, -50, 100, 50, 0, 100, -100, 50, -100, -50],
         textPosition: { x: -60, y: 0 },
-        fill: '#4ab22d',
+        fill: '#eb555b',
         rotation: 0,
         svgShape: objects,
       };
@@ -37,7 +37,7 @@ export const getTileType = (categoryName: string) => {
       return {
         points: [0, -50, -100, 0, 0, 50, 100, 0],
         textPosition: { x: -60, y: -5 },
-        fill: '#db5d41',
+        fill: '#f4aece',
         rotation: 0,
         svgShape: actions,
       };
@@ -53,7 +53,7 @@ export const getTileType = (categoryName: string) => {
       return {
         points: [0, -50, -100, 0, -100, 100, 0, 50, 100, 100, 100, 0],
         textPosition: { x: -60, y: 0 },
-        fill: '#db5d41',
+        fill: '#eb555b',
         rotation: 0,
         svgShape: not,
       };
