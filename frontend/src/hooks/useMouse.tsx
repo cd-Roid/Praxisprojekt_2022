@@ -93,13 +93,6 @@ export const useMouse = () => {
         y: event.target.y(),
       };
       updateTile(updatedTile);
-      // if (socket !== null) {
-      //   const socketDragTile: SocketDragTile = {
-      //     remoteUser: socket.id,
-      //     tile: updatedTile,
-      //   };
-      //   socket?.emit('tile-drag', socketDragTile);
-      // }
     }
   };
 
