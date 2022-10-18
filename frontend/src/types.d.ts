@@ -9,6 +9,7 @@ export type NewNode = {
 export type CursorData = {
   x: number;
   y: number;
+  remoteUser: string;
 };
 
 export type Tile = {
