@@ -29,3 +29,8 @@ export type InnerObject = {
   category: string;
   name: string;
 };
+
+export type SocketDragTile = {
+  remoteUser: string;
+  tile: NewNode;
+};
