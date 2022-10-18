@@ -1,5 +1,5 @@
 import React from 'react';
-import { NewNode } from '../types';
+import { NewNode, SocketDragTile } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 import { Group } from 'konva/lib/Group';
 import { KonvaEventObject } from 'konva/lib/Node';
@@ -17,11 +17,12 @@ export const useMouse = () => {
     if (stageRef.current) {
       const stage = stageRef.current;
       const pos = stage.getPointerPosition();
-      if (pos) {
+      if (pos && socket) {
         const { x, y } = pos;
         const cursorPos = {
           x: x,
           y: y,
+          remoteUser: socket.id,
         };
         if (socket !== null) {
           socket?.emit('cursor', cursorPos);
@@ -70,6 +71,13 @@ export const useMouse = () => {
         y: event.target.y(),
       };
       updateTile(updatedTile);
+      // if (socket !== null) {
+      //   const socketDragTile: SocketDragTile = {
+      //     remoteUser: socket.id,
+      //     tile: updatedTile,
+      //   };
+      //   socket?.emit('tile-drag', socketDragTile);
+      // }
     }
   };
 
@@ -92,6 +100,13 @@ export const useMouse = () => {
           y: y - (offsetY - clientHeight / 2),
         };
         setTiles(newTile);
+        if (socket !== null) {
+          const socketDragTile: SocketDragTile = {
+            remoteUser: socket.id,
+            tile: newTile,
+          };
+          socket?.emit('tile-drop', socketDragTile);
+        }
       }
     }
   };
