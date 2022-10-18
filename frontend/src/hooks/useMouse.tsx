@@ -31,8 +31,30 @@ export const useMouse = () => {
     }
   };
 
-  const setActiveDragElement = (activeTileReference: React.RefObject<Group>) => {
+  const setActiveDragElement = (
+    activeTileReference: React.RefObject<Group>,
+    event: KonvaEventObject<DragEvent>,
+  ) => {
     setActiveDragTile(activeTileReference);
+
+    if (stageRef.current) {
+      const { text } = event.target.getAttr('children')[1].attrs;
+      const updatedTile: NewNode = {
+        id: event.target.attrs.id,
+        name: text,
+        category: event.target.attrs.name,
+        x: event.target.x(),
+        y: event.target.y(),
+      };
+      if (socket !== null) {
+        const socketDragTile: SocketDragTile = {
+          remoteUser: socket.id,
+          tile: updatedTile,
+        };
+        socket?.emit('tile-drag', socketDragTile);
+        socket?.emit('cursor', { x: event.evt.x, y: event.evt.y, remoteUser: socket.id });
+      }
+    }
   };
 
   const handleClick = (event: KonvaEventObject<MouseEvent>, strokeWidth: number) => {

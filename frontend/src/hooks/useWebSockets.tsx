@@ -9,7 +9,7 @@ export const useWebSockets = () => {
     socketRef.current = socket;
 
     socket.on('connect', () => {
-      console.log('SocketIO: Connected');
+      console.log('connected');
     });
 
     socket.on('disconnect', () => {
@@ -17,7 +17,7 @@ export const useWebSockets = () => {
     });
 
     socket.on('error', (msg: string) => {
-      console.error('SocketIO: Error', msg);
+      console.error('Client Error:', msg);
     });
 
     return () => {

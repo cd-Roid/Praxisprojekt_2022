@@ -8,6 +8,8 @@ import { Layer as LayerType } from 'konva/lib/Layer';
 import { useBoardState } from '../../state/BoardState';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { useWebSocketState } from '../../state/WebSocketState';
+import { NewNode, SocketDragTile } from '../../types';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -17,19 +19,30 @@ const Board = () => {
   const { height, width } = useWindowDimensions();
   const { gridComponents } = useGrid({ stageRef, gridLayer });
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
-  const activeDragTile = useBoardState((state) => state.activeDragTile);
+  const addTile = useBoardState((state) => state.addTile);
+  const updateTile = useBoardState((state) => state.updateTile);
+  // const activeDragTile = useBoardState((state) => state.activeDragTile);
   const setStageReference = useBoardState((state) => state.setStageReference);
+  const socket = useWebSocketState((state) => state.socket);
   setStageReference(stageRef);
   const { handleDragOver, handleDrop, handleWheel, handleMouseMove } = useMouse();
   const { handleClick } = useContextMenu();
 
   useEffect(() => {
-    tilesOnBoard.forEach((tile) => {
-      if (activeDragTile?.current && tile.id !== activeDragTile.current.id()) {
-        console.log('hm');
-      }
-    });
-  }, [activeDragTile]);
+    if (socket) {
+      socket?.on('tile-drop', (data) => {
+        if (data.remoteUser !== socket.id) {
+          addTile(data.tile);
+        }
+      });
+
+      socket?.on('tile-drag', (data) => {
+        if (data.remoteUser !== socket.id) {
+          updateTile(data.tile);
+        }
+      });
+    }
+  }, [socket]);
 
   return (
     <main onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}>

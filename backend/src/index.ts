@@ -21,19 +21,20 @@ io.on("connection", (socket) => {
 	});
 	socket.on("tile-drop", (data) => {
 		io.emit("tile-drop", data);
-		console.log("tile-drop", data);
 	});
 	socket.on("tile-drag", (data) => {
 		io.emit("tile-drag", data);
-		console.log("tile-drag", data);
 	});
 	socket.on("cursor", (data) => {
 		io.emit("cursor", data);
-		console.log(data);
 	});
-	
+
 	socket.on("disconnect", () => {
 		console.log(`${socket.id} disconnected`);
+	});
+
+	socket.on("error", (err) => {
+		console.log("A Websocket Error happened", err);
 	});
 });
 

@@ -24,7 +24,7 @@ const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
         y={y}
         id={uid}
         name={category}
-        onDragMove={() => setActiveDragElement(tileRef)}
+        onDragMove={(event) => setActiveDragElement(tileRef, event)}
         onDragEnd={updateTilePosition}
         onMouseOver={(e) => handleClick(e, 4)}
         onMouseLeave={(e) => handleClick(e, 0)}
