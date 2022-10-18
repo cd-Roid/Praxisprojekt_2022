@@ -8,9 +8,6 @@ export const useWebSockets = () => {
   useEffect(() => {
     socketRef.current = socket;
 
-    socket.on('connect', () => {
-      console.log('connected');
-    });
 
     socket.on('disconnect', () => {
       console.log('SocketIO: Disconnected');
@@ -21,10 +18,8 @@ export const useWebSockets = () => {
     });
 
     return () => {
-      if (socket) {
-        socket.removeAllListeners();
-        socket.close();
-      }
+      socket.removeAllListeners();
+      socket.close();
     };
   }, []);
   return { socketRef };
