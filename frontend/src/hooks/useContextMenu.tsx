@@ -23,10 +23,6 @@ export const useContextMenu = () => {
     [setContextMenu],
   );
 
-  const handleClick = useCallback(
-    () => (contextMenu ? setContextMenu(false) : null),
-    [contextMenu],
-  );
-
+  const handleClick = () => (contextMenu ? setContextMenu(false) : null);
   return { contextMenu, handleContextMenu, handleClick, contextMenuAnchorPoint };
 };
