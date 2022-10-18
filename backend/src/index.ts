@@ -41,6 +41,10 @@ io.on("connection", (socket) => {
 	if (state.cachedTiles.length > 0) {
 		socket.emit("board-content", state.cachedTiles);
 	}
+	socket.on("tab-focus", (data: boolean) => {
+		console.log("tab-focus", data);
+	});
+
 	socket.on("tile-drop", (data: SocketDragTile) => {
 		state.cachedTiles.push(data);
 		socket.broadcast.emit("tile-drop", data);
