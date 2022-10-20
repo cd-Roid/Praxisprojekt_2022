@@ -2,6 +2,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      screens: {
+        tablet: { min: '768px' },
+        desktop: { min: '1200px' },
+      },
       colors: {
         dark: '#09443E',
         main: '#1E7D73',
@@ -9,6 +13,7 @@ module.exports = {
         lighter: '#BAE1D3',
         white: '#FFFFFF',
         black: '#000000',
+        grey: '#E8E8E8',
         // Tile Colors
         'tile-red': '#eb555b',
         'tile-pink': '#f4aece',
