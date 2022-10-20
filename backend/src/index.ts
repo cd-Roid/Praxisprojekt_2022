@@ -1,13 +1,17 @@
+import cors from "cors";
+import { config } from "dotenv";
 import express from "express";
 import { Server } from "socket.io";
-import cors from "cors";
+import { createServer } from "http";
 
-const server = express();
-server.use(cors({ origin: "localhost:9001", credentials: true }));
-const port = 9000;
-const io = new Server();
+config();
+const app = express();
+const server = createServer(app);
+app.use(cors({ origin: `localhost:${process.env.PORT}`, credentials: true }));
+const port = process.env.PORT || 9000;
+const io = new Server(server);
 
-server.get("/", (req: express.Request, res: express.Response) =>
+app.get("/", (req: express.Request, res: express.Response) =>
 	res.send("Hello from Server" + port),
 );
 
@@ -84,5 +88,4 @@ io.on("connection", (socket) => {
 	});
 });
 
-io.listen(9001);
 server.listen(port, () => console.log(`Server running on port  ${port}`));
