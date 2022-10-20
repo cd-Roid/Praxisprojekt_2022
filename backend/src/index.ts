@@ -39,6 +39,10 @@ const state = {
 	users: [] as string[],
 };
 
+app.get("/state", (req, res) => {
+	res.send(JSON.stringify(state));
+});
+
 io.on("connection", (socket) => {
 	state.users.push(socket.id);
 	console.log(`a user connected ${socket.id}, users: ${state.users.length} `);
