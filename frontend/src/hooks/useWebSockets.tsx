@@ -19,6 +19,7 @@ export const useWebSockets = () => {
 
     return () => {
       socket.removeAllListeners();
+      socket.disconnect();
       socket.close();
     };
   }, []);

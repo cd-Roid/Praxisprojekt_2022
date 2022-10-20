@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useWebSocketState } from '../state/WebSocketState';
 
 export const useWindowFocus = () => {
   const [tabHasFocus, setTabHasFocus] = useState(true);
-  const socket = useWebSocketState((state) => state.socket);
 
   useEffect(() => {
     const handleFocus = () => {
-      console.log('Tab has focus');
-      socket?.emit('tab-focus', true);
       setTabHasFocus(true);
     };
 
     const handleBlur = () => {
-      console.log('Tab lost focus');
-      socket?.emit('tab-focus', false);
       setTabHasFocus(false);
     };
 
@@ -26,5 +20,6 @@ export const useWindowFocus = () => {
       window.removeEventListener('blur', handleBlur);
     };
   }, []);
-  return tabHasFocus;
+
+  return { tabHasFocus };
 };

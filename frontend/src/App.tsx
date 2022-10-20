@@ -8,13 +8,11 @@ import RightClickMenu from './components/ContextMenus/RightClickMenu';
 import Cursor from './components/Cursor/Cursor';
 import { useWebSockets } from './hooks/useWebSockets';
 import { useWebSocketState } from './state/WebSocketState';
-import { useWindowFocus } from './hooks/useWindowFocus';
 
 const App = () => {
   const { isOpen, toggleForm } = useToggle();
   const { contextMenu } = useContextMenu();
   const { socketRef } = useWebSockets();
-  const tabHasFocus = useWindowFocus();
   const setSocket = useWebSocketState((state) => state.setSocket);
 
   useEffect(() => {
@@ -25,7 +23,7 @@ const App = () => {
 
   return (
     <>
-      {socketRef && !tabHasFocus && <Cursor />}
+      {socketRef && <Cursor />}
       {contextMenu && <RightClickMenu />}
       {isOpen && (
         <div className=' absolute bg-stone-600 w-full h-full'>
