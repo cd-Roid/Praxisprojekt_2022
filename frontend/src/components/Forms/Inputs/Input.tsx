@@ -16,9 +16,7 @@ const Input: React.FC<InputProps> = ({ withButton, buttonText, placeholder }) =>
             type='text'
             placeholder={placeholder}
           />
-          <button className='w-[25%] p-[6px]  text-white  bg-main rounded-r-full'>
-            {buttonText}
-          </button>
+          <button className='w-[25%] p-1  text-white  bg-main rounded-r-full'>{buttonText}</button>
         </div>
       ) : (
         <input
