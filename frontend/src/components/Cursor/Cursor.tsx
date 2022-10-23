@@ -1,25 +1,30 @@
-import { NewNode } from '../../types';
+import { CursorData } from '../../types';
 import React, { useState, useEffect } from 'react';
-import { useWebSockets } from '../../hooks/useWebSockets';
+import { faArrowPointer } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useWebSocketState } from '../../state/WebSocketState';
 
-type CursorProps = {
-  x: number;
-  y: number;
-};
-
-const Cursor: React.FC<CursorProps> = ({ x, y }) => {
-  const { currentSocket } = useWebSockets();
-  const [draggingTile, setDraggingTile] = useState<NewNode | null>(null);
+const Cursor: React.FC = () => {
+  const [cursorData, setCursorData] = useState<CursorData>({ x: 0, y: 0, remoteUser: '' });
+  const socket = useWebSocketState((state) => state.socket);
 
   useEffect(() => {
-    currentSocket?.on('node-dragging', (data: NewNode) => setDraggingTile(data));
-  }, [currentSocket]);
+    if (socket) {
+      socket?.on('cursor', (data: CursorData) => setCursorData(data));
+    }
+  }, [socket]);
 
   return (
     <>
-      <div style={{ left: x, top: y }} className='w-2 h-3 bg-red-400 absolute'>
-        Cursor
-      </div>
+      {socket && cursorData.remoteUser !== socket.id && (
+        <div
+          style={{ left: Math.floor(cursorData.x), top: Math.floor(cursorData.y) }}
+          className=' absolute z-50 top-0 left-0'
+        >
+          <FontAwesomeIcon className='w-4 h-4' icon={faArrowPointer} />
+          {cursorData.remoteUser}
+        </div>
+      )}
     </>
   );
 };

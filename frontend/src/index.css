@@ -4,61 +4,9 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Verdana', 'Times New Roman';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-
-.bloc-tabs {
-  display: flex;
-}
-.tabs {
-  padding: 15px;
-}
-
-
-.active-tabs  {
-  -webkit-box-shadow: inset 1px 1px 10px #333;
-  -moz-box-shadow:    inset 1px 1px 10px #333;
-   box-shadow:         inset 1px 1px 10px #333;
-   border-radius: 5%;
-}
-
-
-
-
-.content-tabs {
-  flex-grow : 1;
-}
-.content {
-  padding: 20px;
-  width: 100%;
-  height: 100%;
-  display: none;
-}
-.content h2 {
-  padding: 0px 0 5px 0px;
-}
-.content hr {
-  width: 100px;
-  height: 2px;
-  background: #222;
-  margin-bottom: 5px;
-}
-.content p {
-  width: 100%;
-  height: 100%;
-}
-.active-content {
-  display: block;
 }
 
 
@@ -67,7 +15,7 @@ code {
   position: relative;
   width: 120px; 
   height: 100px;
-  background-color: #4ab22d;
+  background-color: #eb555b;
   clip-path: polygon(50% 0, 90% 25%, 90% 75%, 50% 100%, 10% 75%, 10% 25%);
 }
 
@@ -75,7 +23,7 @@ code {
   position: relative;
   width: 120px; 
   height: 100px;
-  background-color: #db5d41;
+  background-color: #f4aece;
   clip-path: polygon(50% 14%, 100% 50%, 50% 87%, 0 50%);
 }
 
@@ -83,7 +31,7 @@ code {
   position: relative;
   width: 120px; 
   height: 100px;
-  background-color: #db5d41;
+  background-color: #eb555b;
   clip-path: polygon(50% 6%, 100% 43%, 100% 100%, 50% 64%, 0 100%, 0 44%);
 }
 
@@ -108,14 +56,14 @@ code {
   position: relative;
   width: 120px; 
   height: 100px;
-  background-color: #4ab22d;
+  background-color: #f9b43d;
   clip-path: polygon(0 69%, 26% 0, 99% 28%, 74% 54%, 74% 100%);
 }
 .End {
   position: relative;
   width: 120px; 
   height: 100px;
-  background-color: #db5d41;
+  background-color: #f9b43d;
   clip-path: polygon(34% 49%, 0 0, 100% 0, 100% 100%, 0 100%);
 }
 

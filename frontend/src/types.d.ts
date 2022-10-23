@@ -9,6 +9,7 @@ export type NewNode = {
 export type CursorData = {
   x: number;
   y: number;
+  remoteUser: string;
 };
 
 export type Tile = {
@@ -27,4 +28,9 @@ export type MenuTileProps = {
 export type InnerObject = {
   category: string;
   name: string;
+};
+
+export type SocketDragTile = {
+  remoteUser: string;
+  tile: NewNode;
 };

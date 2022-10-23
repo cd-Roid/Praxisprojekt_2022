@@ -25,7 +25,6 @@ const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
 
   // TODO: Add a database to save the new Tiles to.
   const handleSubmit = () => {
-    console.log(selectedName, selectedCategory);
     if (selectedName && selectedCategory) {
       const newNode: InnerObject = {
         category: selectedCategory,

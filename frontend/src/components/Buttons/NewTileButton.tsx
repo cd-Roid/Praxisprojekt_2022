@@ -1,17 +1,17 @@
 import React from 'react';
+import { useToggle } from '../../hooks/useToggle';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useToggle } from '../../hooks/useToggle';
 
 const NewTileButton: React.FC = () => {
   const { toggleForm } = useToggle();
   return (
     <>
       <div
-        className='flex h-4 p-8 items-center justify-center w-full rounded-t-md  text-white font-bold cursor-pointer bg-green-700 hover:bg-green-800'
+        className='flex h-4 p-8 items-center justify-center w-full rounded-t-md  text-white font-bold cursor-pointer bg-main hover:bg-dark'
         onClick={toggleForm}
       >
-        <FontAwesomeIcon icon={faPlus} />
+        <FontAwesomeIcon icon={faPlus} fontSize={20} />
       </div>
     </>
   );

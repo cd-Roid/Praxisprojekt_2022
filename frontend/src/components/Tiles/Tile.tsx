@@ -1,4 +1,5 @@
 import React from 'react';
+// import useImage from 'use-image';
 import { Tile as TileProps } from '../../types';
 import { Group, Text, Line } from 'react-konva';
 import { useMouse } from '../../hooks/useMouse';
@@ -8,9 +9,10 @@ import { useContextMenu } from '../../hooks/useContextMenu';
 
 const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
   const tileRef = React.useRef<GroupType>(null);
-  const { fill, points, text, rotation } = getTileType(category);
-  const { handleClick, updateTilePosition, setActiveDragElement } = useMouse();
+  const { rotation, points, textPosition, fill } = getTileType(category);
+  const { handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
   const { handleContextMenu } = useContextMenu();
+  // const [image] = useImage(svgShape);
 
   return (
     <>
@@ -22,17 +24,17 @@ const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
         y={y}
         id={uid}
         name={category}
-        onDragMove={() => setActiveDragElement(tileRef)}
+        onDragMove={(event) => setActiveDragElement(tileRef, event)}
         onDragEnd={updateTilePosition}
-        onMouseOver={(e) => handleClick(e, 4)}
-        onMouseLeave={(e) => handleClick(e, 0)}
+        onMouseOver={(e) => handleMouseEnL(e, 4)}
+        onMouseLeave={(e) => handleMouseEnL(e, 0)}
       >
         <Line fill={fill} stroke='black' closed={true} strokeWidth={0} points={points} />
         <Text
           rotation={rotation}
           text={name}
-          x={text.x}
-          y={text.y}
+          x={textPosition.x}
+          y={textPosition.y}
           align='center'
           width={120}
           fontSize={24}
