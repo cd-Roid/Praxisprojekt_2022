@@ -8,14 +8,12 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type BoardContextType = {
   modalOpen: boolean;
-  contextMenuOpen: boolean;
-  contextMenuAnchorPoint: { x: number; y: number; id: string };
+
   allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
   activeDragTile: React.RefObject<Group> | null;
   stageReference: React.RefObject<Stage>;
-  setContextMenu: (value: boolean) => void;
-  setContextMenuAnchorPoint: (value: { x: number; y: number; id: string }) => void;
+
   clearActiveDragTile: () => void;
   addTile: (newNode: NewNode) => void;
   toggleModal: (toggle: boolean) => void;
@@ -28,15 +26,12 @@ export type BoardContextType = {
 
 export const useBoardState = create<BoardContextType>((set) => ({
   allTiles: [],
-  contextMenuOpen: false,
-  contextMenuAnchorPoint: { x: 0, y: 0, id: '' },
+
   modalOpen: false,
   tilesOnBoard: [],
   activeDragTile: null,
   stageReference: createRef<Stage>(),
-  setContextMenu: (value: boolean) => set({ contextMenuOpen: value }),
-  setContextMenuAnchorPoint: (value: { x: number; y: number; id: string }) =>
-    set({ contextMenuAnchorPoint: value }),
+
   clearActiveDragTile: () => set(() => ({ activeDragTile: null })),
   setActiveDragTile: (newActiveTile: React.RefObject<Group>) =>
     set(() => ({ activeDragTile: newActiveTile })),
