@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 export const useWebSockets = () => {
-  const port = process.env.REACT_APP_PORT;
+  const port = process.env.REACT_APP_WS_PORT;
   const socketRef = useRef<Socket | null>(null);
   const socket = io(`http://localhost:${port}`, {
     transports: ['websocket'],
