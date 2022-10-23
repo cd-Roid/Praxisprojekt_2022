@@ -9,7 +9,7 @@ type DefaultButtonProps = {
 
 const Default: React.FC<DefaultButtonProps> = ({ text, onClick, isDanger }) => {
   return (
-    // Disconnect Button
+    // Default Button with different styles
     <div
       className={`${
         isDanger ? 'bg-red-500 hover:bg-red-800' : 'bg-main hover:bg-dark'
