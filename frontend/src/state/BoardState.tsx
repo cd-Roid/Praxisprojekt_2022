@@ -8,16 +8,17 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type BoardContextType = {
   modalOpen: boolean;
+  categoriesOpen: boolean;
   allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
   activeDragTile: React.RefObject<Group> | null;
   stageReference: React.RefObject<Stage>;
-
   clearActiveDragTile: () => void;
   addTile: (newNode: NewNode) => void;
   toggleModal: (toggle: boolean) => void;
   updateTile: (updatedNode: NewNode) => void;
   removeTile: (nodeToRemove: string) => void;
+  setCategoriesOpen: (toggle: boolean) => void;
   setAllTiles: (tilesArray: InnerObject[]) => void;
   setActiveDragTile: (newActiveTile: React.RefObject<Group>) => void;
   setStageReference: (stage: React.RefObject<Stage>) => void;
@@ -26,6 +27,7 @@ export type BoardContextType = {
 export const useBoardState = create<BoardContextType>((set) => ({
   allTiles: [],
   modalOpen: false,
+  categoriesOpen: false,
   tilesOnBoard: [],
   activeDragTile: null,
   stageReference: createRef<Stage>(),
@@ -33,6 +35,7 @@ export const useBoardState = create<BoardContextType>((set) => ({
   clearActiveDragTile: () => set(() => ({ activeDragTile: null })),
   setActiveDragTile: (newActiveTile: React.RefObject<Group>) =>
     set(() => ({ activeDragTile: newActiveTile })),
+  setCategoriesOpen: (isOpen: boolean) => set(() => ({ categoriesOpen: isOpen })),
   toggleModal: (toggle: boolean) => set(() => ({ modalOpen: toggle })),
   setAllTiles: (tilesArray: InnerObject[]) => set(() => ({ allTiles: tilesArray })),
   addTile: (newTile: NewNode) =>

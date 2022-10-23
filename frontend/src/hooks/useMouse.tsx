@@ -12,6 +12,14 @@ export const useMouse = () => {
   const stageRef = useBoardState((state) => state.stageReference);
   const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
   const socket = useWebSocketState((state) => state.socket);
+  const categoriesOpen = useBoardState((state) => state.categoriesOpen);
+  const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
+
+  const toggleCategory = () => {
+    if (categoriesOpen) {
+      setCategoriesOpen(false);
+    }
+  };
 
   const handleMouseMove = () => {
     if (stageRef.current) {
@@ -57,7 +65,8 @@ export const useMouse = () => {
     }
   };
 
-  const handleClick = (event: KonvaEventObject<MouseEvent>, strokeWidth: number) => {
+  const handleMouseEnL = (event: KonvaEventObject<MouseEvent>, strokeWidth: number) => {
+    // for mouse Enter and Leave
     // function to set the stroke width when user hovers over a Tile
     event.target.setAttr('strokeWidth', strokeWidth);
   };
@@ -160,8 +169,9 @@ export const useMouse = () => {
     handleDragStart,
     handleDrop,
     handleWheel,
+    toggleCategory,
+    handleMouseEnL,
     updateTilePosition,
-    handleClick,
     setActiveDragElement,
   };
 };

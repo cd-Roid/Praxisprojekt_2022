@@ -18,7 +18,7 @@ const Board = () => {
 
   const { height, width } = useWindowDimensions();
   const { gridComponents } = useGrid({ stageRef, gridLayer });
-  const { handleDragOver, handleDrop, handleWheel, handleMouseMove } = useMouse();
+  const { handleDragOver, handleDrop, handleWheel, handleMouseMove, toggleCategory } = useMouse();
 
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const addTile = useBoardState((state) => state.addTile);
@@ -54,6 +54,7 @@ const Board = () => {
     <main onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}>
       <div>
         <Stage
+          onClick={toggleCategory}
           onMouseMove={handleMouseMove}
           width={width}
           height={height}
