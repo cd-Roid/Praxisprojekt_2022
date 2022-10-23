@@ -10,8 +10,6 @@ export const useWebSockets = () => {
 
   useEffect(() => {
     socketRef.current = socket;
-
-
     socket.on('disconnect', () => {
       console.log('SocketIO: Disconnected');
     });
@@ -26,5 +24,6 @@ export const useWebSockets = () => {
       socket.close();
     };
   }, []);
+
   return { socketRef };
 };

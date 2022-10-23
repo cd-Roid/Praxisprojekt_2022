@@ -8,7 +8,6 @@ import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type BoardContextType = {
   modalOpen: boolean;
-
   allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
   activeDragTile: React.RefObject<Group> | null;
@@ -26,7 +25,6 @@ export type BoardContextType = {
 
 export const useBoardState = create<BoardContextType>((set) => ({
   allTiles: [],
-
   modalOpen: false,
   tilesOnBoard: [],
   activeDragTile: null,

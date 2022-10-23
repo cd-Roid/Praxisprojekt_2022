@@ -1,19 +1,19 @@
 import React from 'react';
-import useImage from 'use-image';
+// import useImage from 'use-image';
 import { Tile as TileProps } from '../../types';
-import { Group, Text, Image, Line } from 'react-konva';
+import { Group, Text, Line } from 'react-konva';
 import { useMouse } from '../../hooks/useMouse';
 import { Group as GroupType } from 'konva/lib/Group';
 import { getTileType } from '../../hooks/useCategory';
 import { useContextMenu } from '../../hooks/useContextMenu';
-import { text } from 'stream/consumers';
 
 const Tile: React.FC<TileProps> = ({ name, x, y, category, uid }) => {
   const tileRef = React.useRef<GroupType>(null);
-  const { rotation, svgShape, points, textPosition, fill } = getTileType(category);
+  const { rotation, points, textPosition, fill } = getTileType(category);
   const { handleClick, updateTilePosition, setActiveDragElement } = useMouse();
   const { handleContextMenu } = useContextMenu();
-  const [image] = useImage(svgShape);
+  // const [image] = useImage(svgShape);
+
   return (
     <>
       <Group

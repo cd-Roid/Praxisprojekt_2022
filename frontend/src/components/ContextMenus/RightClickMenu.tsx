@@ -3,16 +3,13 @@ import { useBoardState } from '../../state/BoardState';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useWebSocketState } from '../../state/WebSocketState';
 
 const RightClickMenu = () => {
   const { contextMenuAnchorPoint, handleClick } = useContextMenu();
   const removeTile = useBoardState((state) => state.removeTile);
-  const socket = useWebSocketState((state) => state.socket);
 
   const handleRemoveTile = () => {
     removeTile(contextMenuAnchorPoint.id);
-    socket?.emit('tile-delete', contextMenuAnchorPoint.id);
     handleClick();
   };
 
