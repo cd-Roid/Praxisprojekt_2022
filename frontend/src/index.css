@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Verdana', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,49 +17,10 @@ code {
 }
 
 
-.bloc-tabs {
-  display: flex;
-}
-.tabs {
-  padding: 15px;
-}
-
-
-.active-tabs  {
-  -webkit-box-shadow: inset 1px 1px 10px #333;
-  -moz-box-shadow:    inset 1px 1px 10px #333;
-   box-shadow:         inset 1px 1px 10px #333;
-   border-radius: 5%;
-}
 
 
 
 
-.content-tabs {
-  flex-grow : 1;
-}
-.content {
-  padding: 20px;
-  width: 100%;
-  height: 100%;
-  display: none;
-}
-.content h2 {
-  padding: 0px 0 5px 0px;
-}
-.content hr {
-  width: 100px;
-  height: 2px;
-  background: #222;
-  margin-bottom: 5px;
-}
-.content p {
-  width: 100%;
-  height: 100%;
-}
-.active-content {
-  display: block;
-}
 
 
 
