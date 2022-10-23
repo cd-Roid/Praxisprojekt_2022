@@ -7,6 +7,7 @@ import Cursor from '../components/Cursor/Cursor';
 import { useWebSocketState } from '../state/WebSocketState';
 import RightClickMenu from '../components/ContextMenus/RightClickMenu';
 import { useContextMenuState } from '../state/ContextMenuState';
+import InfoComponent from '../components/Forms/InfoComponent';
 
 const CanvasPage = () => {
   const { isOpen, toggleForm } = useToggle();
@@ -22,6 +23,7 @@ const CanvasPage = () => {
           <AddTileForm closeForm={() => toggleForm()} />
         </div>
       )}
+      <InfoComponent />
       <Board />
       <Sidebar />
     </>
