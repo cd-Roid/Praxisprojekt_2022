@@ -9,6 +9,8 @@ import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useWebSocketState } from '../../state/WebSocketState';
 import { SocketDragTile } from '../../types';
+import { useContextMenuState } from '../../state/ContextMenuState';
+import RightClickMenu from '../ContextMenus/RightClickMenu';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -25,6 +27,7 @@ const Board = () => {
   const updateTile = useBoardState((state) => state.updateTile);
   const deleteTile = useBoardState((state) => state.removeTile);
   const setStageReference = useBoardState((state) => state.setStageReference);
+  const contextMenuOpen = useContextMenuState((state) => state.contextMenuOpen);
   const socket = useWebSocketState((state) => state.socket);
   setStageReference(stageRef);
 
@@ -53,6 +56,7 @@ const Board = () => {
   return (
     <main onDrop={(e) => handleDrop(e)} onDragOver={handleDragOver}>
       <div>
+        {contextMenuOpen === true && <RightClickMenu />}
         <Stage
           onMouseMove={handleMouseMove}
           width={width}
