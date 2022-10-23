@@ -6,7 +6,6 @@ import { useMouse } from '../../hooks/useMouse';
 import { Stage as StageType } from 'konva/lib/Stage';
 import { Layer as LayerType } from 'konva/lib/Layer';
 import { useBoardState } from '../../state/BoardState';
-import { useContextMenu } from '../../hooks/useContextMenu';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useWebSocketState } from '../../state/WebSocketState';
 import { SocketDragTile } from '../../types';
@@ -17,7 +16,6 @@ const Board = () => {
   const gridLayer = React.useRef<LayerType>(null);
   const stageRef = React.useRef<StageType>(null);
 
-  const { handleClick } = useContextMenu();
   const { height, width } = useWindowDimensions();
   const { gridComponents } = useGrid({ stageRef, gridLayer });
   const { handleDragOver, handleDrop, handleWheel, handleMouseMove } = useMouse();
@@ -57,7 +55,6 @@ const Board = () => {
       <div>
         <Stage
           onMouseMove={handleMouseMove}
-          onClick={handleClick}
           width={width}
           height={height}
           ref={stageRef}
