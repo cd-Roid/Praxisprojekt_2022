@@ -67,7 +67,7 @@ const Sidebar: React.FC = () => {
         {categoriesOpen && (
           <div className='bg-slate-100 flex-col justify-evenly'>
             <FontAwesomeIcon
-              className='p-4 float-right'
+              className='p-4 float-right text-dark'
               icon={faXmark}
               onClick={() => setCategoriesOpen(false)}
             />
