@@ -8,7 +8,7 @@ const NewTileButton: React.FC = () => {
   return (
     <>
       <div
-        className='flex h-4 p-8 items-center justify-center w-full rounded-t-md  text-white font-bold cursor-pointer bg-green-700 hover:bg-green-800'
+        className='flex h-4 p-8 items-center justify-center w-full rounded-t-md  text-white font-bold cursor-pointer bg-main hover:bg-dark'
         onClick={toggleForm}
       >
         <FontAwesomeIcon icon={faPlus} />
