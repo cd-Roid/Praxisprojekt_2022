@@ -2,50 +2,78 @@
   {
     "category": "Start",
     "name": "Wenn",
-    "rotation": -45
+    "svgPath": "M1 186L89 237V117L194 57L97 1L1 186Z",
+    "svgRotate": 45,
+    "fill": "#f9b43d"
   },
   {
     "category": "End",
-    "name": "Ende"
+    "name": "Ende",
+    "svgPath": "M193.5 1H2L105 66.5L2 131.5H193.5V1Z",
+    "svgRotate": 0,
+    "fill": "#f9b43d"
   },
   {
     "category": "Objects",
-    "name": "Handy"
+    "name": "Handy",
+    "svgPath": "M104 0L207.923 60V180L104 240L0.0769501 180V60L104 0Z",
+    "svgRotate": 0,
+    "fill": "#eb555b"
   },
   {
     "category": "Objects",
-    "name": "Licht"
+    "name": "Licht",
+    "svgPath": "M104 0L207.923 60V180L104 240L0.0769501 180V60L104 0Z",
+    "svgRotate": 0,
+    "fill": "#eb555b"
   },
   {
     "category": "Objects",
-    "name": "Heizung"
+    "name": "Heizung",
+    "svgPath": "M104 0L207.923 60V180L104 240L0.0769501 180V60L104 0Z",
+    "svgRotate": 0,
+    "fill": "#eb555b"
   },
   {
     "category": "Actions",
-    "name": "Tag"
+    "name": "Tag",
+    "svgPath": "M103 0L206 66.5L103 131L0 66.5L103 0Z",
+    "svgRotate": 0,
+    "fill": "#f4aece"
   },
   {
     "category": "Actions",
-    "name": "an"
+    "name": "an",
+    "svgPath": "M103 0L206 66.5L103 131L0 66.5L103 0Z",
+    "svgRotate": 0,
+    "fill": "#f4aece"
   },
   {
     "category": "Conditions",
-    "name": "Wenn"
+    "name": "Solange",
+    "svgPath": "M105 0L208 60V149L105 85L0 149V60L105 0Z",
+    "svgRotate": 0,
+    "fill": "#bababa"
   },
   {
     "category": "Conditions",
-    "name": "Solange"
-  },
-  {
-    "category": "Conditions",
-    "name": "Sonst"
+    "name": "Sonst",
+    "svgPath": "M105 0L208 60V149L105 85L0 149V60L105 0Z",
+    "svgRotate": 0,
+    "fill": "#bababa"
   },
   {
     "category": "Negation",
-    "name": "Nicht"
+    "name": "Nicht",
+    "svgPath": "M105 0L208 60V149L105 85L0 149V60L105 0Z",
+    "svgRotate": 0,
+    "fill": "#eb555b"
   },
   {
     "category": "Union",
-    "name": "Und"
+    "name": "Und",
+    "svgPath": "M0 0L102.5 66.5V181L0 246.5V0Z",
+    "svgRotate": 0,
+    "fill": "#bababa"
   }
 ]
