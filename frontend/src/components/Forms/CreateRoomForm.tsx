@@ -1,0 +1,77 @@
+import React, { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useWebSocketState } from '../../state/WebSocketState';
+import Input from './Inputs/Input';
+import { useNavigate } from 'react-router-dom';
+
+type LandingPageFormProps = {
+  title: string;
+  titleColor: string;
+  buttonText: string;
+  inputText: string;
+};
+
+const LandingPageForm: React.FC<LandingPageFormProps> = ({
+  title,
+  inputText,
+  buttonText,
+  titleColor,
+}) => {
+  const [roomCode, setRoomCode] = React.useState<string>('');
+  const [userName, setUserName] = React.useState<string>('');
+  const socket = useWebSocketState((state) => state.socket);
+  const navigate = useNavigate();
+
+  const generateRoomId = () => {
+    // create 6 digit uid
+    const roomId = uuidv4().slice(0, 6);
+    setRoomCode(roomId);
+  };
+
+  const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(event.target.value);
+  };
+
+  const createRoom = (event: React.MouseEvent) => {
+    event.preventDefault();
+    const roomData = {
+      roomCode: roomCode,
+      userName: userName,
+      userId: uuidv4(),
+    };
+    socket?.emit('room-create', roomData);
+  };
+
+  useEffect(() => {
+    generateRoomId();
+  }, []);
+
+  useEffect(() => {
+    if (socket !== null) {
+      socket.on('create-success', (roomData) => {
+        navigate(`/Praxisprojekt_2022/room/${roomData.roomCode}`);
+      });
+    }
+  }, [socket]);
+
+  return (
+    <div>
+      <h2 className='text-h5 mb-3 font-bold text-left tablet:text-h2' style={{ color: titleColor }}>
+        {title}
+      </h2>
+      <form className='flex flex-col items-center justify-center w-full h-full m-auto'>
+        <Input changeHandler={handleUserInput} placeholder={inputText} />
+        <Input
+          readOnly={true}
+          withButton={true}
+          value={roomCode}
+          placeholder={'Room Code'}
+          buttonText={buttonText}
+          clickHandler={createRoom}
+        />
+      </form>
+    </div>
+  );
+};
+
+export default LandingPageForm;
