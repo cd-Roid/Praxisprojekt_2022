@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWebSocketState } from '../../state/WebSocketState';
 import Input from './Inputs/Input';
-import { v4 as uuidv4 } from 'uuid';
 import { UserData } from '../../types';
 
 type LandingPageFormProps = {
@@ -36,7 +35,7 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
     const roomData = {
       roomCode: roomCode,
       userName: userName,
-      userId: uuidv4(),
+      userId: socket?.id,
     };
     socket?.emit('join-room', roomData);
   };
