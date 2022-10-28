@@ -67,10 +67,10 @@ const Board = () => {
             {tilesOnBoard.map((tile) => {
               return (
                 <Tile
+                  url={tile.src}
                   uid={tile.id}
                   key={tile.id}
                   category={tile.category}
-                  name={tile.name}
                   x={tile.x}
                   y={tile.y}
                 />
