@@ -94,7 +94,7 @@ export const useGrid = ({ stageRef, gridLayer }: gridProps) => {
               fullRect.x1 + i * stepSize,
               fullRect.y2,
             ]}
-            stroke='#09443E'
+            stroke='#9abbb7'
             strokeWidth={1}
           />,
         );
@@ -111,7 +111,7 @@ export const useGrid = ({ stageRef, gridLayer }: gridProps) => {
               fullRect.x2,
               fullRect.y1 + i * stepSize,
             ]}
-            stroke='#1E7D73'
+            stroke='#9abbb7'
             strokeWidth={1}
           />,
         );
