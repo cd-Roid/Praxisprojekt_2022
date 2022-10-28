@@ -1,3 +1,9 @@
+export type UserData = {
+  roomCode: string;
+  userName: string;
+  userId: string;
+};
+
 export type NewNode = {
   id: string;
   category: string;

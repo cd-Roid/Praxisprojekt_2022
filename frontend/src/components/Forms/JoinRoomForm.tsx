@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useWebSocketState } from '../../state/WebSocketState';
 import Input from './Inputs/Input';
 import { v4 as uuidv4 } from 'uuid';
+import { UserData } from '../../types';
 
 type LandingPageFormProps = {
   title: string;
@@ -20,6 +21,7 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
   const [userName, setUserName] = React.useState<string>('');
   const [roomCode, setRoomCode] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
+  const addUser = useWebSocketState((state) => state.addUser);
   const navigate = useNavigate();
 
   const handleUserInput = (
@@ -41,8 +43,9 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
 
   useEffect(() => {
     if (socket !== null) {
-      socket.on('join-success', (roomData) => {
+      socket.on('join-success', (roomData: UserData) => {
         navigate(`/Praxisprojekt_2022/room/${roomData.roomCode}`);
+        addUser({ userId: roomData.userId, userName: roomData.userName });
       });
       socket.on('join-failure', () => {
         console.log('Could not join room');

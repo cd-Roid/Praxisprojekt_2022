@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useWebSocketState } from '../../state/WebSocketState';
 import Input from './Inputs/Input';
 import { useNavigate } from 'react-router-dom';
+import { UserData } from '../../types';
 
 type LandingPageFormProps = {
   title: string;
@@ -20,6 +21,8 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
   const [roomCode, setRoomCode] = React.useState<string>('');
   const [userName, setUserName] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
+  const addUser = useWebSocketState((state) => state.addUser);
+  const setRoom = useWebSocketState((state) => state.setRoom);
   const navigate = useNavigate();
 
   const generateRoomId = () => {
@@ -48,7 +51,13 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
 
   useEffect(() => {
     if (socket !== null) {
-      socket.on('create-success', (roomData) => {
+      socket.on('create-success', (roomData: UserData) => {
+        setRoom({
+          roomId: roomData.roomCode,
+          hostName: roomData.userName,
+          hostId: roomData.userId,
+        });
+        addUser({ userId: roomData.userId, userName: roomData.userName });
         navigate(`/Praxisprojekt_2022/room/${roomData.roomCode}`);
       });
     }

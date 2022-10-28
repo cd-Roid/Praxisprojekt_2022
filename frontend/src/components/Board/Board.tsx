@@ -8,7 +8,7 @@ import { Layer as LayerType } from 'konva/lib/Layer';
 import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useWebSocketState } from '../../state/WebSocketState';
-import { SocketDragTile } from '../../types';
+import { SocketDragTile, UserData } from '../../types';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -26,10 +26,15 @@ const Board = () => {
   const deleteTile = useBoardState((state) => state.removeTile);
   const setStageReference = useBoardState((state) => state.setStageReference);
   const socket = useWebSocketState((state) => state.socket);
+  const addUser = useWebSocketState((state) => state.addUser);
   setStageReference(stageRef);
 
   useEffect(() => {
     if (socket) {
+      socket.on('user-joined', (data: UserData) => {
+        addUser({ userId: data.userId, userName: data.userName });
+      });
+
       socket?.on('tile-drop', (data: SocketDragTile) => {
         addTile(data.tile);
       });
