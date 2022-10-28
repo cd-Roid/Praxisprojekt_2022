@@ -18,8 +18,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/canvas' element={<CanvasPage />} />
+        <Route path='Praxisprojekt_2022/' element={<LandingPage />} />
+        <Route path='Praxisprojekt_2022/canvas' element={<CanvasPage />} />
         <Route path='*' element={<NoMatch />} />
       </Routes>
     </BrowserRouter>
