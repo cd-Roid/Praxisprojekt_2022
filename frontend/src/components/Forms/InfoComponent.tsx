@@ -9,11 +9,11 @@ const InfoComponent = () => {
 
   const disconnect = () => {
     socket?.disconnect();
-    navigate('/');
+    navigate('/Praxisprojekt_2022/');
   };
   // Component that displays the connected users and Disconnect Button
   return (
-    <div className='absolute right-24 w-fit flex justify-between bg-slate-200  p-4 rounded-b-xl'>
+    <div className='absolute  flex w-fit justify-between bg-slate-200 right-20 z-40 p-4 rounded-b-xl'>
       <Default text='Verlassen' onClick={disconnect} isDanger={true} />
     </div>
   );
