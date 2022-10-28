@@ -1,11 +1,25 @@
 import React from 'react';
-import { MenuTileProps } from '../../types';
 
-const MenuTile: React.FC<MenuTileProps> = ({ name, category }) => {
+type MenuProps = {
+  name: string;
+  category: string;
+  svgPath: string;
+  fill: string;
+  svgRotate: number;
+  url: string;
+  dragFunction: (event: React.DragEvent) => void;
+};
+
+const MenuTile: React.FC<MenuProps> = ({ url, name, category, dragFunction }) => {
   return (
-    <>
-      <div className={`${category} flex justify-center items-center font-semibold `}>{name}</div>
-    </>
+    <img
+      data-name={name}
+      data-class={category}
+      src={url}
+      draggable
+      onDragStart={dragFunction}
+      className='w-[120px] h-[100px] m-2 object-contain'
+    />
   );
 };
 

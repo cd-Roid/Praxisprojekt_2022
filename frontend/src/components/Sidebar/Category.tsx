@@ -8,10 +8,12 @@ type CategoryProps = {
   category: string;
 };
 
+
 const Category: React.FC<CategoryProps> = ({ category }) => {
   const [stateItems, setStateItems] = useState<InnerObject[]>([]);
   const allTiles = useBoardState((state) => state.allTiles);
   const { handleDragStart } = useMouse();
+
   useEffect(() => {
     const InnerObjectArray: InnerObject[] = [];
     allTiles.forEach((object) => {
@@ -21,19 +23,10 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
   }, [allTiles]);
 
   return (
-    <div className='content-tabs '>
+    <div>
       {stateItems &&
         stateItems.map((tile, index: number) => (
-          <div
-            data-name={tile.name}
-            data-class={category}
-            className={`${category} m-4`}
-            key={index}
-            draggable
-            onDragStart={(e) => handleDragStart(e)}
-          >
-            <MenuTile {...tile} />
-          </div>
+          <MenuTile {...tile} dragFunction={handleDragStart} key={index} />
         ))}
     </div>
   );

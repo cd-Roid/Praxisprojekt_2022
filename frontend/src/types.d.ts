@@ -23,11 +23,19 @@ export type Tile = {
 export type MenuTileProps = {
   name: string;
   category: string;
+  svgPath: string;
+  fill: string;
+  svgRotate: number;
+  url: string;
 };
 
 export type InnerObject = {
   category: string;
   name: string;
+  svgPath: string;
+  fill: string;
+  svgRotate: number;
+  url: string;
 };
 
 export type SocketDragTile = {
