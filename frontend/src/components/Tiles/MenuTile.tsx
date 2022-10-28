@@ -18,7 +18,7 @@ const MenuTile: React.FC<MenuProps> = ({ url, name, category, dragFunction }) =>
       src={url}
       draggable
       onDragStart={dragFunction}
-      className='w-[120px] h-[100px] m-2 object-contain'
+      className=' m-2 object-contain'
     />
   );
 };

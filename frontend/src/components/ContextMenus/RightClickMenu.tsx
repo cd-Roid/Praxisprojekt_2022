@@ -25,8 +25,8 @@ const RightClickMenu = () => {
     >
       <ul className='w-auto h-full rounded'>
         <li className='rounded p-4 border-grey border-b-2 flex justify-evenly hover:bg-slate-200 hover:cursor-pointer'>
-          <p>Remove Tile</p>
-          <FontAwesomeIcon className='p-1' icon={faTrashCan} />
+          <p className='text-black'>Remove Tile</p>
+          <FontAwesomeIcon className='p-1 text-black' icon={faTrashCan} />
         </li>
       </ul>
     </div>
