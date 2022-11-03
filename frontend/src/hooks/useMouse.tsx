@@ -46,13 +46,14 @@ export const useMouse = () => {
     setActiveDragTile(activeTileReference);
 
     if (stageRef.current) {
-      const { text } = event.target.getAttr('children')[1].attrs;
+      const { 'data-src': url } = event.target.attrs;
+
       const updatedTile: NewNode = {
         id: event.target.attrs.id,
-        name: text,
         category: event.target.attrs.name,
         x: event.target.x(),
         y: event.target.y(),
+        src: url,
       };
       if (socket !== null) {
         const socketDragTile: SocketDragTile = {
@@ -76,12 +77,12 @@ export const useMouse = () => {
   const handleDragStart = (event: React.DragEvent) => {
     // use HTML DnD API to send Tile Information
     const dragPayload = JSON.stringify({
-      name: event.currentTarget.getAttribute('data-name'),
       nodeClass: event.currentTarget.getAttribute('data-class'),
       offsetX: event.nativeEvent.offsetX,
       offsetY: event.nativeEvent.offsetY,
       clientWidth: event.currentTarget.clientWidth,
       clientHeight: event.currentTarget.clientHeight,
+      url: event.currentTarget.getAttribute('src'),
     });
     event.dataTransfer.setData('dragStart/Tile', dragPayload);
   };
@@ -91,15 +92,14 @@ export const useMouse = () => {
      * updates the Tile position in the state
      * also clears the active Drag Element
      */
-    const { text } = event.target.getAttr('children')[1].attrs;
-
+    const { 'data-src': url } = event.target.attrs;
     if (stageRef.current) {
       const updatedTile: NewNode = {
         id: event.target.attrs.id,
-        name: text,
         category: event.target.attrs.name,
         x: event.target.x(),
         y: event.target.y(),
+        src: url,
       };
       updateTile(updatedTile);
     }
@@ -113,12 +113,12 @@ export const useMouse = () => {
     if (draggedData && stageRef.current != null) {
       stageRef.current.setPointersPositions(event);
       const { x, y } = stageRef.current.getRelativePointerPosition();
-      const { name, nodeClass, offsetX, offsetY, clientHeight, clientWidth } =
+      const { url, nodeClass, offsetX, offsetY, clientHeight, clientWidth } =
         JSON.parse(draggedData);
       if (x && y) {
         const newTile: NewNode = {
           id: uuidv4(),
-          name: name,
+          src: url,
           category: nodeClass,
           x: x - (offsetX - clientWidth / 2),
           y: y - (offsetY - clientHeight / 2),

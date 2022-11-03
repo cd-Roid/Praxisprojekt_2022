@@ -12,7 +12,7 @@ module.exports = {
         light: '#77B9A5',
         lighter: '#BAE1D3',
         white: '#FFFFFF',
-        black: '#000000',
+        black: '#212427',
         grey: '#E8E8E8',
         // Tile Colors
         'tile-red': '#eb555b',

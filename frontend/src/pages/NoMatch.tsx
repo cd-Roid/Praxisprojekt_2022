@@ -5,7 +5,7 @@ import Default from '../components/Buttons/Default';
 const NoMatch = () => {
   const navigate = useNavigate();
   const toHomePage = () => {
-    navigate('/');
+    navigate('/Praxisprojekt_2022/');
   };
 
   return (

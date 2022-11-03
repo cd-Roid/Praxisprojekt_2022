@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useBoardState } from '../../state/BoardState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faX } from '@fortawesome/free-solid-svg-icons';
+import { getTileType } from '../../hooks/useCategory';
 
 type AddTileFormProps = {
   closeForm: () => void;
@@ -26,9 +27,14 @@ const AddTileForm: React.FC<AddTileFormProps> = ({ closeForm }) => {
   // TODO: Add a database to save the new Tiles to.
   const handleSubmit = () => {
     if (selectedName && selectedCategory) {
+      const svgData = getTileType(selectedCategory);
       const newNode: InnerObject = {
         category: selectedCategory,
         name: selectedName,
+        svgPath: svgData.svgPath,
+        fill: svgData.fill,
+        svgRotate: svgData.rotation,
+        url: '',
       };
       setAllTiles([...allTiles, newNode]);
     }

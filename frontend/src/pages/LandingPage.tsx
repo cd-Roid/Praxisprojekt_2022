@@ -1,5 +1,6 @@
 import React from 'react';
-import LadinPageForm from '../components/Forms/LandingPageForm';
+import CreateRoomForm from '../components/Forms/CreateRoomForm';
+import JoinRoomForm from '../components/Forms/JoinRoomForm';
 import LogoMobile from '../assets/logos/logo-short.png';
 import LogoDesktop from '../assets/logos/INTIA_Plattform_Logo_Horizontal_Kurz.png';
 
@@ -22,14 +23,24 @@ const LandingPage = () => {
             </h1>
           </div>
           <div className='mt-12 col-start-2 col-span-6 row-start-2 row-span-full desktop:col-start-3 desktop:col-span-4 desktop:row-start-4'>
-            <LadinPageForm title='Room Erstellen' titleColor='#000000' />
+            <CreateRoomForm
+              title='Raum Erstellen'
+              inputText='Benutzername'
+              buttonText='Erstellen'
+              titleColor='#000000'
+            />
           </div>
         </div>
       </div>
       <div className='w-full bg-dark  h-1/2 desktop:w-1/2 desktop:h-full'>
         <div className='h-full grid grid-cols-8 grid-rows-6'>
           <div className='mt-12  col-start-2 col-span-6 row-start-2 row-span-full desktop:col-start-3 desktop:col-span-4 desktop:row-start-4'>
-            <LadinPageForm title='Room Erstellen' titleColor='#FFFFFF' />
+            <JoinRoomForm
+              title='Raum Beitreten'
+              buttonText='Beitreten'
+              inputText='Benutzername'
+              titleColor='#FFFFFF'
+            />
           </div>
         </div>
       </div>

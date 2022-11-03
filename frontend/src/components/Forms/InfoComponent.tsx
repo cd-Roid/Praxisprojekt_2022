@@ -8,12 +8,13 @@ const InfoComponent = () => {
   const navigate = useNavigate();
 
   const disconnect = () => {
-    socket?.disconnect();
-    navigate('/');
+    socket?.close();
+    socket?.connect();
+    navigate('/Praxisprojekt_2022/');
   };
   // Component that displays the connected users and Disconnect Button
   return (
-    <div className='absolute right-24 w-fit flex justify-between bg-slate-200  p-4 rounded-b-xl'>
+    <div className='absolute  flex w-fit justify-between bg-slate-100 right-20 z-40 p-4 rounded-b-xl drop-shadow-lg'>
       <Default text='Verlassen' onClick={disconnect} isDanger={true} />
     </div>
   );

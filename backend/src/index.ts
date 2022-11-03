@@ -15,6 +15,12 @@ app.get("/", (req: express.Request, res: express.Response) =>
 	res.send("Hello from Server" + port),
 );
 
+export type UserData = {
+	roomCode: string;
+	userName: string;
+	userId: string;
+};
+
 export type CursorData = {
 	x: number;
 	y: number;
@@ -37,6 +43,7 @@ export type SocketDragTile = {
 const state = {
 	cachedTiles: [] as SocketDragTile[],
 	users: [] as string[],
+	rooms: [] as string[],
 };
 
 app.get("/state", (req, res) => {
@@ -46,6 +53,22 @@ app.get("/state", (req, res) => {
 io.on("connection", (socket) => {
 	state.users.push(socket.id);
 	console.log(`a user connected ${socket.id}, users: ${state.users.length} `);
+	socket.on("room-create", (data: UserData) => {
+		state.rooms.push(data.roomCode);
+		socket.join(data.roomCode);
+		socket.emit("create-success", data);
+	});
+
+	socket.on("join-room", (data: UserData) => {
+		if (state.rooms.includes(data.roomCode)) {
+			socket.join(data.roomCode);
+			socket.emit("join-success", data);
+			socket.to(data.roomCode).emit("user-joined", data);
+		} else {
+			socket.emit("join-failure", data);
+		}
+	});
+
 	if (state.cachedTiles.length > 0) {
 		socket.emit("board-content", state.cachedTiles);
 	}
