@@ -1,24 +1,17 @@
 {
   "files": {
-    "main.css": "/Praxisprojekt_2022/static/css/main.7d303fc8.css",
-    "main.js": "/Praxisprojekt_2022/static/js/main.d63914c0.js",
+    "main.css": "/Praxisprojekt_2022/static/css/main.a63fd79b.css",
+    "main.js": "/Praxisprojekt_2022/static/js/main.6c0c0793.js",
     "static/js/496.02634aee.chunk.js": "/Praxisprojekt_2022/static/js/496.02634aee.chunk.js",
     "static/media/INTIA_Plattform_Logo_Horizontal_Kurz.png": "/Praxisprojekt_2022/static/media/INTIA_Plattform_Logo_Horizontal_Kurz.c018711ab053d8efcef0.png",
     "static/media/logo-short.png": "/Praxisprojekt_2022/static/media/logo-short.f84e8ab7049b3ca7a483.png",
-    "static/media/not.svg": "/Praxisprojekt_2022/static/media/not.5dc4fb33b1b6aa23da1a06afc0b47346.svg",
-    "static/media/when.svg": "/Praxisprojekt_2022/static/media/when.f6721fc065fc85855040a77e9c9c2b5b.svg",
     "index.html": "/Praxisprojekt_2022/index.html",
-    "static/media/end.svg": "/Praxisprojekt_2022/static/media/end.87590a31c32943244403f60c82db137b.svg",
-    "static/media/objects.svg": "/Praxisprojekt_2022/static/media/objects.214de8db56c3651432208d9556b2fe56.svg",
-    "static/media/conditions.svg": "/Praxisprojekt_2022/static/media/conditions.92d1c3d710db61585e264fc3a4d93f5d.svg",
-    "static/media/actions.svg": "/Praxisprojekt_2022/static/media/actions.df6a78064a4c0457bd3909d3e94bc10a.svg",
-    "static/media/and.svg": "/Praxisprojekt_2022/static/media/and.65c7a92ec7f1f2f22ac42e23092431aa.svg",
-    "main.7d303fc8.css.map": "/Praxisprojekt_2022/static/css/main.7d303fc8.css.map",
-    "main.d63914c0.js.map": "/Praxisprojekt_2022/static/js/main.d63914c0.js.map",
+    "main.a63fd79b.css.map": "/Praxisprojekt_2022/static/css/main.a63fd79b.css.map",
+    "main.6c0c0793.js.map": "/Praxisprojekt_2022/static/js/main.6c0c0793.js.map",
     "496.02634aee.chunk.js.map": "/Praxisprojekt_2022/static/js/496.02634aee.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7d303fc8.css",
-    "static/js/main.d63914c0.js"
+    "static/css/main.a63fd79b.css",
+    "static/js/main.6c0c0793.js"
   ]
 }
