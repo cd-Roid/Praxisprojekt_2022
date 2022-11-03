@@ -2,7 +2,6 @@ import Tab from './Tab';
 import Category from './Category';
 import data from '../../json/kacheln.json';
 import React, { useState, useEffect } from 'react';
-import NewTileButton from '../Buttons/NewTileButton';
 import { useBoardState } from '../../state/BoardState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -59,13 +58,12 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      <div className='absolute flex flex-col bg-slate-100 w-fit h-fit left-0 top-1/3 rounded-md'>
-        <NewTileButton />
+      <div className='absolute flex flex-col bg-slate-100 w-fit h-fit left-0 top-1/3 rounded-md drop-shadow-lg'>
         <div className='m-4 cursor-pointer'>{tabComponents}</div>
       </div>
       <div className='absolute flex flex-row w-fit h-fit left-[124px] top-1/3 rounded-md'>
         {categoriesOpen && (
-          <div className='bg-slate-100 flex-col justify-evenly'>
+          <div className='bg-slate-100 flex-col justify-evenly drop-shadow-lg'>
             <FontAwesomeIcon
               className='p-4 float-right text-dark'
               icon={faXmark}
