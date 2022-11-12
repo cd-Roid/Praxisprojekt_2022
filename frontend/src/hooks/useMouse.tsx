@@ -25,7 +25,7 @@ export const useMouse = () => {
   const handleMouseMove = () => {
     if (stageRef.current) {
       const stage = stageRef.current;
-      const pos = stage.getPointerPosition();
+      const pos = stage.getRelativePointerPosition();
       if (pos && socket) {
         const { x, y } = pos;
         const cursorPos = {

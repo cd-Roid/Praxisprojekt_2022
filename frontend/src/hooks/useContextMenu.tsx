@@ -24,7 +24,11 @@ export const useContextMenu = () => {
   };
 
   const handleClick = useCallback(() => {
-    socket && socket.emit('tile-delete', { id: contextMenuAnchorPoint.id, room });
+    const deleteData = {
+      id: contextMenuAnchorPoint.id,
+      roomId: room?.roomId,
+    };
+    socket && socket.emit('tile-delete', deleteData);
     contextMenu && setContextMenuOpen(false);
   }, []);
 

@@ -18,7 +18,7 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
   buttonText,
   titleColor,
 }) => {
-  const [roomCode, setRoomCode] = React.useState<string>('');
+  const [roomId, setroomId] = React.useState<string>('');
   const [userName, setUserName] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
   const addUser = useWebSocketState((state) => state.addUser);
@@ -28,7 +28,7 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
   const generateRoomId = () => {
     // create 6 digit uid
     const roomId = uuidv4().slice(0, 6);
-    setRoomCode(roomId);
+    setroomId(roomId);
   };
 
   const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,10 +37,11 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
 
   const createRoom = (event: React.MouseEvent) => {
     event.preventDefault();
+
     const roomData = {
-      roomCode: roomCode,
+      roomId: roomId,
       userName: userName,
-      userId: socket?.id,
+      userId: socket?.id as string,
       isHost: true,
     };
     socket?.emit('room-create', roomData);
@@ -54,12 +55,12 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
     if (socket !== null) {
       socket.on('create-success', (roomData: UserData) => {
         setRoom({
-          roomId: roomData.roomCode,
+          roomId: roomData.roomId,
           hostName: roomData.userName,
           hostId: roomData.userId,
         });
         addUser({ userId: roomData.userId, userName: roomData.userName });
-        navigate(`/Praxisprojekt_2022/room/${roomData.roomCode}`);
+        navigate(`/Praxisprojekt_2022/room/${roomData.roomId}`);
       });
     }
   }, [socket]);
@@ -74,7 +75,7 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
         <Input
           readOnly={true}
           withButton={true}
-          value={roomCode}
+          value={roomId}
           placeholder={'Room Code'}
           buttonText={buttonText}
           clickHandler={createRoom}

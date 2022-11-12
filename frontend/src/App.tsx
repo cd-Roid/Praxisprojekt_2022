@@ -19,7 +19,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path='Praxisprojekt_2022/' element={<LandingPage />} />
-        <Route path='/Praxisprojekt_2022/room/:roomCode' element={<CanvasPage />} />
+        <Route path='/Praxisprojekt_2022/room/:roomId' element={<CanvasPage />} />
         <Route path='*' element={<NoMatch />} />
       </Routes>
     </BrowserRouter>
