@@ -7,7 +7,6 @@ import { useWebSockets } from './hooks/useWebSockets';
 import { useEffect } from 'react';
 
 const App = () => {
-  // TODO: move the setting of the websocket to the LandingPage
   const { socketRef } = useWebSockets();
   const setSocket = useWebSocketState((state) => state.setSocket);
 
