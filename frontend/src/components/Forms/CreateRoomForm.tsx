@@ -56,8 +56,15 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
       socket.on('create-success', (roomData: UserData) => {
         setRoom({
           roomId: roomData.roomId,
-          hostName: roomData.userName,
-          hostId: roomData.userId,
+          users: [
+            {
+              roomId: roomData.roomId,
+              userId: roomData.userId,
+              userName: roomData.userName,
+              isHost: true,
+              cursorPos: { x: 0, y: 0 },
+            },
+          ],
         });
         addUser({ userId: roomData.userId, userName: roomData.userName });
         navigate(`/Praxisprojekt_2022/room/${roomData.roomId}`);

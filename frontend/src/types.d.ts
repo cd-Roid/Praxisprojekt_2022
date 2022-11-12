@@ -3,7 +3,7 @@ export type UserData = {
   userName: string;
   userId: string;
   isHost: boolean;
-  cursorPos?: {
+  cursorPos: {
     x: number;
     y: number;
   };
