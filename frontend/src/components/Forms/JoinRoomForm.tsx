@@ -21,6 +21,8 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
   const [roomCode, setRoomCode] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
   const addUser = useWebSocketState((state) => state.addUser);
+  const setRoom = useWebSocketState((state) => state.setRoom);
+
   const navigate = useNavigate();
 
   const handleUserInput = (
@@ -36,6 +38,7 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
       roomCode: roomCode,
       userName: userName,
       userId: socket?.id,
+      isHost: false,
     };
     socket?.emit('join-room', roomData);
   };
@@ -45,6 +48,7 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
       socket.on('join-success', (roomData: UserData) => {
         navigate(`/Praxisprojekt_2022/room/${roomData.roomCode}`);
         addUser({ userId: roomData.userId, userName: roomData.userName });
+        // setRoom({ hostId, hostName, roomId });
       });
       socket.on('join-failure', () => {
         console.log('Could not join room');
