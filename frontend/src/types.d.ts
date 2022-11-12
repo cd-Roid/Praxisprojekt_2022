@@ -25,8 +25,8 @@ export type CursorData = {
 };
 
 export type Tile = {
-  url: string;
-  uid: string;
+  src: string;
+  id: string;
   x: number;
   y: number;
   category: string;
@@ -54,4 +54,20 @@ export type SocketDragTile = {
   remoteUser: string;
   tile: NewNode;
   roomId: string;
+};
+
+export type TileData = {
+  tile: {
+    id: string;
+    category: string;
+    src: string;
+    x: number;
+    y: number;
+  };
+};
+
+export type RoomData = {
+  roomId: string;
+  users: UserData[];
+  tiles?: TileData[];
 };

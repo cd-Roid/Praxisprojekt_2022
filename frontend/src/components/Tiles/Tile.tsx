@@ -6,11 +6,11 @@ import { Group as GroupType } from 'konva/lib/Group';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import useImage from 'use-image';
 
-const Tile: React.FC<TileProps> = ({ url, x, y, category, uid }) => {
+const Tile: React.FC<TileProps> = ({ src, x, y, category, id }) => {
   const tileRef = React.useRef<GroupType>(null);
   const { handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
   const { handleContextMenu } = useContextMenu();
-  const [image] = useImage(url);
+  const [image] = useImage(src);
 
   return (
     <>
@@ -18,10 +18,10 @@ const Tile: React.FC<TileProps> = ({ url, x, y, category, uid }) => {
         onContextMenu={handleContextMenu}
         ref={tileRef}
         draggable
-        data-src={url}
+        data-src={src}
         x={x}
         y={y}
-        id={uid}
+        id={id}
         name={category}
         onDragMove={(event) => setActiveDragElement(tileRef, event)}
         onDragEnd={updateTilePosition}

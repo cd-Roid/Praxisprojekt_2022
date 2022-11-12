@@ -70,7 +70,7 @@ io.on("connection", (socket) => {
 		const room = state.find((room) => room.roomId === data.roomId);
 		if (room) {
 			room.tiles.push({
-				tiles: {
+				tile: {
 					id: data.tile.id,
 					category: data.tile.category,
 					src: data.tile.src,
@@ -97,10 +97,10 @@ io.on("connection", (socket) => {
 
 		const room = state.find((room) => room.roomId === data.roomId);
 		if (room) {
-			const tile = room.tiles.find((tile) => tile.tiles.id === data.tile.id);
+			const tile = room.tiles.find((tile) => tile.tile.id === data.tile.id);
 			if (tile) {
-				tile.tiles.x = data.tile.x;
-				tile.tiles.y = data.tile.y;
+				tile.tile.x = data.tile.x;
+				tile.tile.y = data.tile.y;
 				io.to(data.roomId).emit("room-data", room);
 			}
 		}
@@ -138,7 +138,7 @@ io.on("connection", (socket) => {
 
 		const room = state.find((room) => room.roomId === data.roomId);
 		if (room) {
-			room.tiles = room.tiles.filter((tile) => tile.tiles.id !== data.id);
+			room.tiles = room.tiles.filter((tile) => tile.tile.id !== data.id);
 			io.to(data.roomId).emit("room-data", room);
 		}
 	});

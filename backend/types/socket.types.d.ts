@@ -36,13 +36,7 @@ export type SocketCursorData = {
 
 //state object for each room
 export type TileData = {
-	tiles: {
-		id: string;
-		category: string;
-		src: string;
-		x: number;
-		y: number;
-	};
+	tile: NewNode;
 };
 
 export type RoomData = {
