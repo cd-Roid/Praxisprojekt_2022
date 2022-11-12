@@ -8,7 +8,7 @@ import { Layer as LayerType } from 'konva/lib/Layer';
 import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useWebSocketState } from '../../state/WebSocketState';
-import { SocketDragTile, UserData } from '../../types';
+import { SocketDragTile, UserData, RoomData } from '../../types';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -27,6 +27,8 @@ const Board = () => {
   const setStageReference = useBoardState((state) => state.setStageReference);
   const socket = useWebSocketState((state) => state.socket);
   const addUser = useWebSocketState((state) => state.addUser);
+  const setRoom = useWebSocketState((state) => state.setRoom);
+  const room = useWebSocketState((state) => state.room);
   setStageReference(stageRef);
 
   useEffect(() => {
@@ -47,10 +49,8 @@ const Board = () => {
         deleteTile(data);
       });
 
-      socket?.on('board-content', (data: SocketDragTile[]) => {
-        data.forEach((obj: SocketDragTile) => {
-          addTile(obj.tile);
-        });
+      socket?.on('room-data', (data: RoomData) => {
+        setRoom(data);
       });
     }
   }, [socket]);
@@ -69,18 +69,16 @@ const Board = () => {
         >
           <Layer ref={gridLayer}>
             {gridComponents}
-            {tilesOnBoard.map((tile) => {
-              return (
-                <Tile
-                  src={tile.src}
-                  id={tile.id}
-                  key={tile.id}
-                  category={tile.category}
-                  x={tile.x}
-                  y={tile.y}
-                />
-              );
-            })}
+            {room?.tiles?.map((tileObject) => (
+              <Tile
+                src={tileObject.tile.src}
+                id={tileObject.tile.id}
+                key={tileObject.tile.id}
+                category={tileObject.tile.category}
+                x={tileObject.tile.x}
+                y={tileObject.tile.y}
+              />
+            ))}
           </Layer>
         </Stage>
       </div>
