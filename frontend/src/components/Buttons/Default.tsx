@@ -13,7 +13,7 @@ const Default: React.FC<DefaultButtonProps> = ({ text, onClick, isDanger }) => {
     <div
       className={`${
         isDanger ? 'bg-red-500 hover:bg-red-800' : 'bg-main hover:bg-dark'
-      } px-4 py-2 rounded-full text-white cursor-pointer`}
+      } p-4 rounded-full text-white cursor-pointer text-center`}
       onClick={onClick}
     >
       {text}
