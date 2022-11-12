@@ -20,7 +20,6 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
   const [userName, setUserName] = React.useState<string>('');
   const [roomId, setroomId] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
-  const addUser = useWebSocketState((state) => state.addUser);
   const setRoom = useWebSocketState((state) => state.setRoom);
 
   const navigate = useNavigate();

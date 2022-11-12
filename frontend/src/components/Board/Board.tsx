@@ -20,7 +20,6 @@ const Board = () => {
   const { gridComponents } = useGrid({ stageRef, gridLayer });
   const { handleDragOver, handleDrop, handleWheel, handleMouseMove, toggleCategory } = useMouse();
 
-  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const addTile = useBoardState((state) => state.addTile);
   const updateTile = useBoardState((state) => state.updateTile);
   const deleteTile = useBoardState((state) => state.removeTile);
