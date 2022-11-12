@@ -13,10 +13,23 @@ const CanvasPage = () => {
   const { isOpen, toggleForm } = useToggle();
   const socket = useWebSocketState((state) => state.socket);
   const contextMenuOpen = useContextMenuState((state) => state.contextMenuOpen);
+  const room = useWebSocketState((state) => state.room);
+  const users = room?.users;
 
   return (
     <>
-      {socket && <Cursor />}
+      {users?.map((user) => (
+        <>
+          {user.userId !== socket?.id && (
+            <Cursor
+              key={user.userId}
+              userName={user.userName}
+              x={user.cursorPos?.x}
+              y={user.cursorPos?.y}
+            />
+          )}
+        </>
+      ))}
       {contextMenuOpen === true && <RightClickMenu />}
       {isOpen && (
         <div className=' absolute bg-stone-600 w-full h-full'>
