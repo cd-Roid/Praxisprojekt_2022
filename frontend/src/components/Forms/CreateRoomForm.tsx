@@ -41,6 +41,7 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
       roomCode: roomCode,
       userName: userName,
       userId: socket?.id,
+      isHost: true,
     };
     socket?.emit('room-create', roomData);
   };
