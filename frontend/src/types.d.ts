@@ -1,8 +1,14 @@
 export type UserData = {
-  roomCode: string;
+  roomId: string;
   userName: string;
   userId: string;
+  isHost: boolean;
+  cursorPos?: {
+    x: number;
+    y: number;
+  };
 };
+
 
 export type NewNode = {
   id: string;
