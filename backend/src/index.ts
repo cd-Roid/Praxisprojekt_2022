@@ -15,10 +15,17 @@ app.get("/", (req: express.Request, res: express.Response) =>
 	res.send("Hello from Server" + port),
 );
 
+
+
 export type UserData = {
-	roomCode: string;
+	roomId: string;
 	userName: string;
 	userId: string;
+	isHost: boolean;
+	cursorPos?: {
+		x: number;
+		y: number;
+	};
 };
 
 export type CursorData = {
@@ -30,7 +37,7 @@ export type CursorData = {
 export type NewNode = {
 	id: string;
 	category: string;
-	name: string;
+	src: string;
 	x: number;
 	y: number;
 };
@@ -38,76 +45,134 @@ export type NewNode = {
 export type SocketDragTile = {
 	remoteUser: string;
 	tile: NewNode;
+	roomId: string;
 };
 
-const state = {
-	cachedTiles: [] as SocketDragTile[],
-	users: [] as string[],
-	rooms: [] as string[],
+export type SocketCursorData = {
+	x: number;
+	y: number;
+	remoteUser: string;
+	roomId: string;
 };
+
+//state object for each room
+export type TileData = {
+	tiles: {
+		id: string;
+		category: string;
+		src: string;
+		x: number;
+		y: number;
+	};
+};
+
+export type RoomData = {
+	roomId: string;
+	users: UserData[];
+	tiles?: TileData[];
+};
+const state: RoomData[] = [];
 
 app.get("/state", (req, res) => {
-	res.send(JSON.stringify(state));
+	res.send(state);
 });
 
 io.on("connection", (socket) => {
-	state.users.push(socket.id);
-	console.log(`a user connected ${socket.id}, users: ${state.users.length} `);
 	socket.on("room-create", (data: UserData) => {
-		state.rooms.push(data.roomCode);
-		socket.join(data.roomCode);
+		/**
+		 * create a new room and set the user as a host
+		 * add the room to the state
+		 * emit the room code to the user
+		 */
+		state.push({
+			roomId: data.roomId,
+			users: [data],
+			tiles: [],
+		});
+		socket.join(data.roomId);
 		socket.emit("create-success", data);
 	});
 
 	socket.on("join-room", (data: UserData) => {
-		if (state.rooms.includes(data.roomCode)) {
-			socket.join(data.roomCode);
-			socket.emit("join-success", data);
-			socket.to(data.roomCode).emit("user-joined", data);
-		} else {
-			socket.emit("join-failure", data);
+		/**
+		 * check if the room exists
+		 * if it does, add the user to the room
+		 * update the room state
+		 * emit the room data to the every user in the room
+		 */
+		const room = state.find((room) => room.roomId === data.roomId);
+		if (room) {
+			room.users.push(data);
+			socket.join(data.roomId);
+			socket.emit("join-success", room);
+			io.to(data.roomId).emit("room-data", room);
 		}
-	});
-
-	if (state.cachedTiles.length > 0) {
-		socket.emit("board-content", state.cachedTiles);
-	}
-	socket.on("tab-focus", (data: boolean) => {
-		console.log("tab-focus", data);
 	});
 
 	socket.on("tile-drop", (data: SocketDragTile) => {
-		state.cachedTiles.push(data);
-		socket.broadcast.emit("tile-drop", data);
-	});
-	socket.on("tile-drag", (data: SocketDragTile) => {
-		socket.broadcast.emit("tile-drag", data);
-		state.cachedTiles.forEach((cachedTile) => {
-			if (cachedTile.tile.id === data.tile.id) {
-				cachedTile.tile.x = data.tile.x;
-				cachedTile.tile.y = data.tile.y;
-			}
-		});
-	});
-	socket.on("cursor", (data: CursorData) => {
-		socket.broadcast.emit("cursor", data);
+		console.log(data);
+		const room = state.find((room) => room.roomId === data.roomId);
+		console.log(room);
+		if (room) {
+			room.tiles.push({
+				tiles: {
+					id: data.tile.id,
+					category: data.tile.category,
+					src: data.tile.src,
+					x: data.tile.x,
+					y: data.tile.y,
+				},
+			});
+			io.to(data.roomId).emit("room-data", room);
+		}
 	});
 
-	socket.on("tile-delete", (data: string) => {
-		socket.broadcast.emit("tile-delete", data);
-		state.cachedTiles = state.cachedTiles.filter(
-			(tile) => tile.tile.id !== data,
-		);
-	});
+	// state.cachedTiles.push(data.socketDragTile);
+	// socket.to(data.roomId).emit("tile-drop", data.socketDragTile);
+
+	// socket.on("tab-focus", (data: boolean) => {
+	// 	console.log("tab-focus", data);
+	// });
+
+	// socket.on("tile-drag", (data: SocketDragTileData) => {
+	// 	socket.broadcast.emit("tile-drag", data.socketDragTile);
+	// 	state.cachedTiles.forEach((cachedTile) => {
+	// 		if (cachedTile.tile.id === data.socketDragTile.tile.id) {
+	// 			cachedTile.tile.x = data.socketDragTile.tile.x;
+	// 			cachedTile.tile.y = data.socketDragTile.tile.y;
+	// 		}
+	// 	});
+	// });
+	// socket.on("cursor", (data: SocketCursorData) => {
+	// 	socket.to(data.roomId).emit("cursor", data.cursorPos);
+	// });
+
+	// socket.on("tile-delete", (data: string) => {
+	// 	socket.broadcast.emit("tile-delete", data);
+	// 	state.cachedTiles = state.cachedTiles.filter(
+	// 		(tile) => tile.tile.id !== data,
+	// 	);
+	// });
 
 	socket.on("disconnect", () => {
-		state.users = state.users.filter((user) => user !== socket.id);
-		if (state.users.length === 0) {
-			console.log("cleared logs");
-			state.cachedTiles = [];
-			state.users = [];
-		}
-		console.log(`${socket.id} disconnected, users: ${state.users.length}`);
+		/**
+		 * before updating the state check if the user is the host
+		 * if the user is the host then delete the room
+		 * else just remove the user from the room
+		 * if the user is the only one in the room also just delete the room
+		 */
+
+		state.filter((room) => {
+			room.users.filter((user) => {
+				if (user.userId === socket.id) {
+					if (user.isHost || room.users.length === 1) {
+						state.splice(state.indexOf(room), 1);
+					} else {
+						room.users.splice(room.users.indexOf(user), 1);
+					}
+				}
+			});
+		});
 	});
 
 	socket.on("error", (err) => {

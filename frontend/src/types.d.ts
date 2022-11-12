@@ -47,4 +47,5 @@ export type InnerObject = {
 export type SocketDragTile = {
   remoteUser: string;
   tile: NewNode;
+  roomId: string;
 };
