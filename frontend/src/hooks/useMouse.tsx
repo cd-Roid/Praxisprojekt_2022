@@ -14,6 +14,7 @@ export const useMouse = () => {
   const socket = useWebSocketState((state) => state.socket);
   const categoriesOpen = useBoardState((state) => state.categoriesOpen);
   const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
+  const roomId = useWebSocketState((state) => state.room?.roomId);
 
   const toggleCategory = () => {
     if (categoriesOpen) {
@@ -31,6 +32,7 @@ export const useMouse = () => {
           x: x,
           y: y,
           remoteUser: socket.id,
+          roomId: roomId,
         };
         if (socket !== null) {
           socket?.emit('cursor', cursorPos);
@@ -55,13 +57,17 @@ export const useMouse = () => {
         y: event.target.y(),
         src: url,
       };
-      if (socket !== null) {
+      if (socket !== null && roomId) {
         const socketDragTile: SocketDragTile = {
           remoteUser: socket.id,
           tile: updatedTile,
+          roomId: roomId,
         };
         socket?.emit('tile-drag', socketDragTile);
-        socket?.emit('cursor', { x: event.evt.x, y: event.evt.y, remoteUser: socket.id });
+        socket?.emit('cursor', {
+          cursorPos: { x: event.evt.x, y: event.evt.y, remoteUser: socket.id },
+          roomId,
+        });
       }
     }
   };
@@ -108,7 +114,6 @@ export const useMouse = () => {
   const handleDrop = (event: React.DragEvent) => {
     // add Tile to stage
     event.preventDefault();
-
     const draggedData = event.dataTransfer.getData('dragStart/Tile');
     if (draggedData && stageRef.current != null) {
       stageRef.current.setPointersPositions(event);
@@ -124,10 +129,11 @@ export const useMouse = () => {
           y: y - (offsetY - clientHeight / 2),
         };
         setTiles(newTile);
-        if (socket !== null) {
+        if (socket !== null && roomId) {
           const socketDragTile: SocketDragTile = {
             remoteUser: socket.id,
             tile: newTile,
+            roomId: roomId,
           };
           socket?.emit('tile-drop', socketDragTile);
         }

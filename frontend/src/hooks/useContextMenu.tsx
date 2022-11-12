@@ -4,6 +4,7 @@ import { useWebSocketState } from '../state/WebSocketState';
 import { useContextMenuState } from '../state/ContextMenuState';
 
 export const useContextMenu = () => {
+  const room = useWebSocketState((state) => state.room);
   const socket = useWebSocketState((state) => state.socket);
   const contextMenu = useContextMenuState((state) => state.contextMenuOpen);
   const setContextMenuOpen = useContextMenuState((state) => state.setContextMenuOpen);
@@ -23,7 +24,7 @@ export const useContextMenu = () => {
   };
 
   const handleClick = useCallback(() => {
-    socket && socket.emit('tile-delete', contextMenuAnchorPoint.id);
+    socket && socket.emit('tile-delete', { id: contextMenuAnchorPoint.id, room });
     contextMenu && setContextMenuOpen(false);
   }, []);
 
