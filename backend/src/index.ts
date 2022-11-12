@@ -8,6 +8,7 @@ import {
 	SocketCursorData,
 	SocketDeleteData,
 	SocketDragTile,
+	TabFocusData,
 	UserData,
 } from "../types/socket.types";
 
@@ -82,9 +83,22 @@ io.on("connection", (socket) => {
 		}
 	});
 
-	// socket.on("tab-focus", (data: boolean) => {
-	// 	console.log("tab-focus", data);
-	// });
+	socket.on("tab-focus", (data: TabFocusData) => {
+		/**
+		 * check if the room exists
+		 * if it does, update the room state
+		 * emit the room data to the every user in the room
+		 */
+		const room = state.find((room) => room.roomId === data.roomId);
+		if (room) {
+			room.users.forEach((user) => {
+				if (user.userId === data.userId) {
+					user.hasFocus = data.hasFocus;
+				}
+			});
+			io.to(data.roomId).emit("room-data", room);
+		}
+	});
 
 	socket.on("tile-drag", (data: SocketDragTile) => {
 		/**

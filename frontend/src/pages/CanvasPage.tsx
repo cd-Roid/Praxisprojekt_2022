@@ -8,19 +8,20 @@ import { useWebSocketState } from '../state/WebSocketState';
 import RightClickMenu from '../components/ContextMenus/RightClickMenu';
 import { useContextMenuState } from '../state/ContextMenuState';
 import InfoComponent from '../components/Forms/InfoComponent';
+import { useWindowFocus } from '../hooks/useWindowFocus';
 
 const CanvasPage = () => {
   const { isOpen, toggleForm } = useToggle();
   const socket = useWebSocketState((state) => state.socket);
   const contextMenuOpen = useContextMenuState((state) => state.contextMenuOpen);
   const room = useWebSocketState((state) => state.room);
+  useWindowFocus();
   const users = room?.users;
-
   return (
     <>
       {users?.map((user) => (
         <>
-          {user.userId !== socket?.id && (
+          {user.userId !== socket?.id && user.hasFocus === true && (
             <Cursor
               key={user.userId}
               userName={user.userName}

@@ -3,6 +3,7 @@ export type UserData = {
   userName: string;
   userId: string;
   isHost: boolean;
+  hasFocus?: boolean;
   cursorPos: {
     x: number;
     y: number;
