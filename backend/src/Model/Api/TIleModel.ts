@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 
+
+//Schema for the Tile model
 const TileSchema = new Schema({
 	category: {
 		type: String,
