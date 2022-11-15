@@ -1,8 +1,13 @@
-import { Tile } from "../../Model/Api/TileModel";
-import { Request, Response } from "express";
 import fs from "fs";
+import { Request, Response } from "express";
+import { Tile } from "../../Model/Api/TileModel";
 
 export const getAllTiles = async (req: Request, res: Response) => {
+	/**
+	 * Get all tiles from database
+	 * if no error ,send response with all tiles
+	 * else send error
+	 */
 	try {
 		const tiles = await Tile.find();
 		res.status(200).json(tiles);
@@ -12,6 +17,13 @@ export const getAllTiles = async (req: Request, res: Response) => {
 };
 
 export const createTile = async (req: Request, res: Response) => {
+	/**
+	 * check if there is a file and body in the request
+	 * make a file path with the file name and server path
+	 * if there is a file and body, create a new tile
+	 * if no error, send response with the new tile
+	 * else send error
+	 */
 	try {
 		if (req.file && req.body) {
 			const formData = req.body;
@@ -32,6 +44,11 @@ export const createTile = async (req: Request, res: Response) => {
 };
 
 export const findTile = async (req: Request, res: Response) => {
+	/**
+	 * find a tile with the id
+	 * if no error, send response with the tile
+	 * else send error
+	 */
 	try {
 		const tile = await Tile.findByIdAndDelete(req.params.id);
 		if (tile) {
@@ -45,6 +62,13 @@ export const findTile = async (req: Request, res: Response) => {
 };
 
 export const updateTile = async (req: Request, res: Response) => {
+	/**
+	 * find a tile with the id
+	 * if no error, check if there is a file or body in the request
+	 * if theres a file or body, change the tile
+	 * if no error, send response with the updated tile
+	 * else send error
+	 */
 	try {
 		const tile = await Tile.findById(req.params.id);
 		if (tile) {
@@ -65,9 +89,14 @@ export const updateTile = async (req: Request, res: Response) => {
 };
 
 export const deleteTile = async (req: Request, res: Response) => {
+	/**
+	 * find a tile with the id and delete in from the database
+	 * if no error, delete the file from the server
+	 * if no error, send response with success message
+	 * else send error
+	 */
 	try {
 		const tile = await Tile.findByIdAndDelete(req.params.id);
-		// Delete the image from the server
 		if (tile) {
 			const url = tile.url.split("/");
 			const fileName = url[url.length - 1];

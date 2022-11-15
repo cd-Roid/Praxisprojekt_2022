@@ -7,6 +7,12 @@ import {
 	deleteTile,
 	updateTile,
 } from "../Controller/Api/TileController";
+
+/*
+* Api routes for the tiles
+* uses the upload middleware to upload files 
+*/ 
+
 const router = Router();
 
 router.get("/", getAllTiles);

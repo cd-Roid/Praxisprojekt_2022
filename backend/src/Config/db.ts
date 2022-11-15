@@ -7,11 +7,10 @@
  * @return {Object} - Config object
  **/
 
-export const setConfig = (url: string, db: string, imgBucket: string) => {
+export const setConfig = (url: string, db: string) => {
 	const config = {
 		url: url,
 		database: db,
-		imgBucket: imgBucket,
 	};
 	return config;
 };
