@@ -22,21 +22,35 @@ import express from "express";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { state } from "./Model/Sockets/SocketState";
+import { setConfig } from "./Config/db";
+import mongoose from "mongoose";
+import router from "./Routes/ApiRoutes";
+const path = require("path");
 
 config();
 const app = express();
-const server = createServer(app);
-app.use(cors({ origin: `localhost:${process.env.PORT}`, credentials: true }));
-const port = process.env.PORT || 9000;
-const io = new Server(server);
-
-app.get("/", (req: express.Request, res: express.Response) =>
-	res.send("Hello from Server" + port),
+const dbConfig = setConfig(
+	process.env.DB_URL,
+	process.env.DB_NAME,
+	process.env.DB_BUCKET,
 );
 
-app.get("/state", (req, res) => {
-	res.send(state);
-});
+const port = process.env.PORT || 9000;
+const server = createServer(app);
+const io = new Server(server);
+mongoose.connect(dbConfig.url + dbConfig.database);
+const db = mongoose.connection;
+
+db.on("error", (error) => console.error(error));
+db.on("open", () => console.log("Database connected"));
+
+app.use(router);
+app.use(express.json());
+app.use("/uploads", express.static("uploads"));
+app.use(cors({ origin: `localhost:${process.env.PORT}`, credentials: true }));
+app.use(express.urlencoded({ extended: true }));
+
+
 
 io.on("connection", (socket) => {
 	socket.on("room-create", (data: UserData) => createRoom(data, state, socket));
