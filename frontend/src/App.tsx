@@ -1,6 +1,6 @@
 import CanvasPage from './pages/CanvasPage';
 import LandingPage from './pages/LandingPage';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import NoMatch from './pages/NoMatch';
 import { useWebSocketState } from './state/WebSocketState';
 import { useWebSockets } from './hooks/useWebSockets';
@@ -15,13 +15,13 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path='Praxisprojekt_2022/' element={<LandingPage />} />
         <Route path='/Praxisprojekt_2022/room/:roomId' element={<CanvasPage />} />
         <Route path='*' element={<NoMatch />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 };
 

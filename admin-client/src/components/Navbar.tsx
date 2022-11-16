@@ -4,7 +4,7 @@ import LogoDesktop from '../assets/logos/INTIA_Plattform_Logo_Horizontal_Kurz.pn
 
 const Header = () => {
   return (
-    <nav className='flex justify-between items-center h-auto w-full'>
+    <nav className='flex bg-white justify-between items-center h-auto w-full sticky top-0 z-50'>
       <div className='item w-32'>
         <img className='w-40 h-auto p-4 hidden desktop:block' src={LogoDesktop} />
         <img className='w-12 h-auto p-2 desktop:hidden' src={LogoMobile} />

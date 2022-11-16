@@ -1,5 +1,6 @@
 export type Tile = {
+  id: string;
   category: string;
   name: string;
-  file: string;
+  url: string;
 };
