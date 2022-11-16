@@ -24,28 +24,6 @@ const Header = () => {
         </ul>
       </div>
     </nav>
-
-    // <nav className='w-full'>
-    //   <div className='flex flex-row justify-between'>
-    //     <div className='w-fit'>
-    //       <img className='w-40 h-auto p-4 hidden desktop:block' src={LogoDesktop} />
-    //       <img className='w-12 h-auto p-2 desktop:hidden' src={LogoMobile} />
-    //     </div>
-
-    //     <div className='hidden tablet:block desktop:block py-2 w-1/4'>
-    //       <ul className='flex justify-evenly'>
-    //         <li>
-    //           <a className='text-base' href='#'>
-    //             Alle Kacheln
-    //           </a>
-    //         </li>
-    //         <li>
-    //           <a className='text-base' href='#'>
-    //             Neue Kachel
-    //           </a>
-    //         </li>
-    //       </ul>
-    //     </div>
   );
 };
 

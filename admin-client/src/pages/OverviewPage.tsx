@@ -13,7 +13,7 @@ const OverviewPage = () => {
   return (
     <div>
       <Navbar />
-      <div className='flex flex-wrap'>
+      <div className='flex flex-wrap pt-12'>
         {tiles.map(({ name, category, url }, index) => (
           <Tile category={category} name={name} file={url} key={index} />
         ))}
