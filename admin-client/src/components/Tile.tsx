@@ -14,7 +14,7 @@ const Tile: React.FC<TileProps> = ({ category, name, file }) => {
           <div className='font-bold text-xl mb-2'>{name}</div>
           <p className='text-gray-700 text-base'>{category}</p>
         </div>
-        <div className='px-6 pt-4 pb-2 flex content-end'>
+        <div className='px-6 pt-4 pb-2 flex justify-end items-center h-full w-full'>
           <FontAwesomeIcon className='p-4' icon={faPen} />
           <FontAwesomeIcon className='p-4' icon={faTrash} />
         </div>
