@@ -1,0 +1,57 @@
+[
+  {
+    "category": "Start",
+    "name": "Wenn",
+    "url": "https://i.ibb.co/8M0jgv1/When.png"
+  },
+  {
+    "category": "End",
+    "name": "Ende",
+    "url": "https://i.ibb.co/v47Vmqq/end.png"
+  },
+  {
+    "category": "Objects",
+    "name": "Handy",
+    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+  },
+  {
+    "category": "Objects",
+    "name": "Licht",
+    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+  },
+  {
+    "category": "Objects",
+    "name": "Lampe",
+    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+  },
+  {
+    "category": "Actions",
+    "name": "an",
+    "url": "https://i.ibb.co/0996SHK/an.png"
+  },
+  {
+    "category": "Actions",
+    "name": "aus",
+    "url": "https://i.ibb.co/8MjkqL5/aus.png"
+  },
+  {
+    "category": "Conditions",
+    "name": "Solange",
+    "url": "https://i.ibb.co/gVgx6Cf/solange.png"
+  },
+  {
+    "category": "Conditions",
+    "name": "Sonst",
+    "url": "https://i.ibb.co/hLMHLr9/sonst.png"
+  },
+  {
+    "category": "Negation",
+    "name": "Nicht",
+    "url": "https://i.ibb.co/6Xd9LyJ/Not.png"
+  },
+  {
+    "category": "Union",
+    "name": "Und",
+    "url": "https://i.ibb.co/4j5Mznp/Und.png"
+  }
+]
