@@ -24,7 +24,7 @@ const DetailPage = () => {
       <Navbar />
       <div className='w-full h-auto mx-auto flex justify-center align-middle'>
         <div className='w-full mx-6 my-16 tablet:border border-black max-w-4xl '>
-          <div className='flex flex-row justify-around'>
+          <div className='tablet:w-full tablet:flex tablet:flex-row tablet:justify-around '>
             <div className='my-12 mx-6 flex flex-col justify-center align-middle'>
               {tile?.url !== undefined && <Upload backgroundUrl={tile.url} />}
               <div className='mt-3 flex flex-col'>
@@ -38,7 +38,7 @@ const DetailPage = () => {
               </div>
             </div>
           </div>
-          <div className='flex justify-end items-center tablet:mr-16 tablet:mt-0 tablet:mb-12'>
+          <div className='flex justify-end items-center tablet:mr-5 desktop:mr-16 tablet:mt-0 tablet:mb-12'>
             <Button buttonText='Update' />
           </div>
         </div>
