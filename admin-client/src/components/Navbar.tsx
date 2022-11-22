@@ -2,7 +2,7 @@ import React from 'react';
 import LogoMobile from '../assets/logos/logo-short.png';
 import LogoDesktop from '../assets/logos/INTIA_Plattform_Logo_Horizontal_Kurz.png';
 
-const Header = () => {
+const Navbar = () => {
   return (
     <nav className='flex bg-white justify-between items-center h-16 w-full sticky top-0 z-50 shadow-md'>
       <div className='item w-32'>
@@ -27,4 +27,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;
