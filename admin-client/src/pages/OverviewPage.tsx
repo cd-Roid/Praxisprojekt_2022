@@ -17,7 +17,7 @@ const OverviewPage = () => {
   return (
     <div>
       <Navbar />
-      <div className='flex flex-wrap pt-12'>
+      <div className='flex flex-wrap pt-12 px-2 tablet:px-0'>
         {tiles.map(({ id, category, name, url }) => (
           <Tile
             category={category}
