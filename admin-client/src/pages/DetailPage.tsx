@@ -23,16 +23,23 @@ const DetailPage = () => {
     <div>
       <Navbar />
       <div className='w-full h-auto mx-auto flex justify-center align-middle'>
-        <div className='w-full mx-6 my-16 tablet:border border-black max-w-4xl'>
-          <div className='my-12 mx-6 flex flex-col justify-center align-middle'>
-            {tile?.url !== undefined && <Upload backgroundUrl={tile.url} />}
-            <div className='mt-3 flex flex-col'>
-              {tile?.name !== undefined && <Input label='Name' placeHolder={tile.name} />}
-              {tile?.name !== undefined && <Input label='Category' placeHolder={tile.category} />}
-              <div className='flex justify-end items-center my-4'>
-                <Button buttonText='Update' />
+        <div className='w-full mx-6 my-16 tablet:border border-black max-w-4xl '>
+          <div className='flex flex-row justify-around'>
+            <div className='my-12 mx-6 flex flex-col justify-center align-middle'>
+              {tile?.url !== undefined && <Upload backgroundUrl={tile.url} />}
+              <div className='mt-3 flex flex-col'>
+                {tile?.name !== undefined && <Input label='Name' placeHolder={tile.name} />}
+                {tile?.name !== undefined && <Input label='Category' placeHolder={tile.category} />}
               </div>
             </div>
+            <div className='hidden tablet:block'>
+              <div className='border border-black min-w-fit h-fit flex justify-center align-middle max-w-sm my-12'>
+                <img className='p-8' src={tile?.url} />
+              </div>
+            </div>
+          </div>
+          <div className='flex justify-end items-center tablet:mr-16 tablet:mt-0 tablet:mb-12'>
+            <Button buttonText='Update' />
           </div>
         </div>
       </div>
