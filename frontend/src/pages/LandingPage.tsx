@@ -1,8 +1,8 @@
 import React from 'react';
 import CreateRoomForm from '../components/Forms/CreateRoomForm';
 import JoinRoomForm from '../components/Forms/JoinRoomForm';
-import LogoMobile from '../assets/logos/logo-short.png';
-import LogoDesktop from '../assets/logos/INTIA_Plattform_Logo_Horizontal_Kurz.png';
+import LogoMobile from '../assets/logos/logo-mobile.png';
+import LogoDesktop from '../assets/logos/logo-desktop.png';
 
 const LandingPage = () => {
   return (

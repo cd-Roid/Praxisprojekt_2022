@@ -80,7 +80,7 @@ const Board = () => {
             ))}
           </Layer>
         </Stage>
-      </div>
+      </div>                  
     </main>
   );
 };
