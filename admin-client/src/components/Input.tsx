@@ -8,7 +8,7 @@ type InputProps = {
 const Input: React.FC<InputProps> = ({ label, placeHolder }) => {
   return (
     <>
-      <label className='text-base font-bold mx-4' htmlFor='name'>
+      <label className='text-base font-bold mx-4 tablet:mx-0' htmlFor='name'>
         {label}
       </label>
       <input

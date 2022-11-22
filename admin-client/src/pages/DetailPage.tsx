@@ -38,7 +38,7 @@ const DetailPage = () => {
               </div>
             </div>
           </div>
-          <div className='flex justify-end items-center tablet:mr-5 desktop:mr-16 tablet:mt-0 tablet:mb-12'>
+          <div className='mx-10 flex flex-col justify-center align-middle tablet:justify-end tablet:mx-20 tablet:mb-6'>
             <Button buttonText='Update' />
           </div>
         </div>
