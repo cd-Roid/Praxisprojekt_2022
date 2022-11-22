@@ -20,16 +20,18 @@ const DetailPage = () => {
   }, []);
 
   return (
-    <div className='flex-col h-screen '>
+    <div>
       <Navbar />
-      <div className=' min-w-[272px] min-h-[410px] mx-6 my-16 border border-black'>
-        <div className='my-12 mx-6'>
-          {tile?.url !== undefined && <Upload backgroundUrl={tile.url} />}
-          <div className='mt-3 flex flex-col'>
-            {tile?.name !== undefined && <Input label='Name' placeHolder={tile.name} />}
-            {tile?.name !== undefined && <Input label='Category' placeHolder={tile.category} />}
-            <div className='flex justify-end items-center my-4'>
-              <Button buttonText='Update' />
+      <div className='w-full h-auto mx-auto flex justify-center align-middle'>
+        <div className='w-full mx-6 my-16 tablet:border border-black max-w-4xl'>
+          <div className='my-12 mx-6 flex flex-col justify-center align-middle'>
+            {tile?.url !== undefined && <Upload backgroundUrl={tile.url} />}
+            <div className='mt-3 flex flex-col'>
+              {tile?.name !== undefined && <Input label='Name' placeHolder={tile.name} />}
+              {tile?.name !== undefined && <Input label='Category' placeHolder={tile.category} />}
+              <div className='flex justify-end items-center my-4'>
+                <Button buttonText='Update' />
+              </div>
             </div>
           </div>
         </div>

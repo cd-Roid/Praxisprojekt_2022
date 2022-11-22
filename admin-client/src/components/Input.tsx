@@ -12,7 +12,7 @@ const Input: React.FC<InputProps> = ({ label, placeHolder }) => {
         {label}
       </label>
       <input
-        className='w-56 border-black border-0 border-b-2 outline-none  mt-2 mb-3'
+        className='min-w-56 max-w-xs border-black border-0 border-b-2 outline-none  mt-2 mb-3'
         type='text'
         name='name'
         id='input-name'

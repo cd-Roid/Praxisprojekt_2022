@@ -7,10 +7,13 @@ type UploadProps = {
 const Upload: React.FC<UploadProps> = ({ backgroundUrl }) => {
   return (
     <div
-      style={{
-        backgroundImage: `url(${backgroundUrl})`,
-      }}
-      className={'flex items-center justify-center w-56 bg-contain bg-no-repeat bg-center'}
+      // style={{
+      //   backgroundImage: `url(${backgroundUrl})`,
+      //  'flex items-center justify-center w-56 bg-contain bg-no-repeat bg-center bg-[image:url(https://i.ibb.co/8M0jgv1/When.png)]  '
+      // }}
+      className={
+        'flex items-center justify-center min-w-56 max-w-xs bg-contain bg-no-repeat bg-center tablet:bg-none'
+      }
     >
       <label className='flex flex-col w-full h-32 border-2 border-black border-dashed hover:bg-gray-100 hover:border-gray-300'>
         <div className='flex flex-col items-center justify-center pt-7'>
