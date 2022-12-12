@@ -1,5 +1,7 @@
 import React from 'react';
 import LogoMobile from '../assets/logos/logo-short.png';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LogoDesktop from '../assets/logos/INTIA_Plattform_Logo_Horizontal_Kurz.png';
 
 const Navbar = () => {
@@ -19,6 +21,18 @@ const Navbar = () => {
           <li>
             <a className='text-sm' href='#'>
               Neue Kachel
+            </a>
+          </li>
+        </ul>
+        <ul className='flex flex-row tablet:hidden justify-around '>
+          <li>
+            <a className='text-sm' href='#'>
+              <FontAwesomeIcon className='p-4 cursor-pointer text-black' icon={faTrash} />
+            </a>
+          </li>
+          <li>
+            <a className='text-sm' href='#'>
+              <FontAwesomeIcon className='p-4 cursor-pointer text-black' icon={faTrash} />
             </a>
           </li>
         </ul>
