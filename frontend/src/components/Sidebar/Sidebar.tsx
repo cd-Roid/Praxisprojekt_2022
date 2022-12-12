@@ -51,7 +51,10 @@ const Sidebar: React.FC = () => {
   const categoryField =
     tabs &&
     tabs.map((category: string, index: number) => (
-      <div key={index} className={toggleState === index ? 'content  active-content ' : 'hidden'}>
+      <div
+        key={index}
+        className={toggleState === index ? 'content  active-content  w-24 h-auto m-3' : 'hidden'}
+      >
         <Category category={category} />
       </div>
     ));

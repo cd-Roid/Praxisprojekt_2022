@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWebSocketState } from '../../state/WebSocketState';
 import Input from './Inputs/Input';
-import { UserData } from '../../types';
+import { RoomData } from '../../types';
 
 type LandingPageFormProps = {
   title: string;
@@ -18,9 +18,10 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
   titleColor,
 }) => {
   const [userName, setUserName] = React.useState<string>('');
-  const [roomCode, setRoomCode] = React.useState<string>('');
+  const [roomId, setroomId] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
-  const addUser = useWebSocketState((state) => state.addUser);
+  const setRoom = useWebSocketState((state) => state.setRoom);
+
   const navigate = useNavigate();
 
   const handleUserInput = (
@@ -33,20 +34,22 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
   const joinRoom = (event: React.MouseEvent) => {
     event.preventDefault();
     const roomData = {
-      roomCode: roomCode,
+      roomId: roomId,
       userName: userName,
       userId: socket?.id,
+      isHost: false,
     };
     socket?.emit('join-room', roomData);
   };
 
   useEffect(() => {
     if (socket !== null) {
-      socket.on('join-success', (roomData: UserData) => {
-        navigate(`/Praxisprojekt_2022/room/${roomData.roomCode}`);
-        addUser({ userId: roomData.userId, userName: roomData.userName });
+      socket.on('join-success', (roomData: RoomData) => {
+        navigate(`/Praxisprojekt_2022/room/${roomData.roomId}`);
+        setRoom(roomData);
       });
       socket.on('join-failure', () => {
+        // TODO: add notification box
         console.log('Could not join room');
       });
     }
@@ -65,9 +68,9 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
         />
         <Input
           withButton={true}
-          value={roomCode}
+          value={roomId}
           placeholder={'Room Code'}
-          changeHandler={(e) => handleUserInput(e, setRoomCode)}
+          changeHandler={(e) => handleUserInput(e, setroomId)}
           buttonText={buttonText}
           clickHandler={joinRoom}
         />

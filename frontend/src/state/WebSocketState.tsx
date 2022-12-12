@@ -1,9 +1,9 @@
 import create from 'zustand';
 import { Socket } from 'socket.io-client';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
+import { RoomData } from '../types';
 
-export type RoomData = { roomId: string; hostName: string; hostId: string };
-
+// TODO: split up rooom and user data
 export type WebSocketContextType = {
   socket: Socket | null;
   room: RoomData | null;

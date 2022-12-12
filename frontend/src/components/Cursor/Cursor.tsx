@@ -1,31 +1,22 @@
-import { CursorData } from '../../types';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { faArrowPointer } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useWebSocketState } from '../../state/WebSocketState';
 
-const Cursor: React.FC = () => {
-  const [cursorData, setCursorData] = useState<CursorData>({ x: 0, y: 0, remoteUser: '' });
-  const socket = useWebSocketState((state) => state.socket);
+type CursorProps = {
+  userName?: string;
+  x: number;
+  y: number;
+};
 
-  useEffect(() => {
-    if (socket) {
-      socket?.on('cursor', (data: CursorData) => setCursorData(data));
-    }
-  }, [socket]);
-
+const Cursor: React.FC<CursorProps> = ({ userName, x, y }) => {
   return (
-    <>
-      {socket && cursorData.remoteUser !== socket.id && (
-        <div
-          style={{ left: Math.floor(cursorData.x), top: Math.floor(cursorData.y) }}
-          className=' absolute z-50 top-0 left-0'
-        >
-          <FontAwesomeIcon className='w-4 h-4' icon={faArrowPointer} />
-          {cursorData.remoteUser}
-        </div>
-      )}
-    </>
+    <div
+      style={{ left: Math.floor(x), top: Math.floor(y) }}
+      className='absolute flex z-50 top-0 left-0'
+    >
+      <FontAwesomeIcon className='w-4 h-4 pb-6 text-dark' icon={faArrowPointer} />
+      <p className='font-medium'>{userName}</p>
+    </div>
   );
 };
 

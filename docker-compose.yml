@@ -1,0 +1,51 @@
+version: "1.0"
+
+services:
+  frontend:
+    depends_on:
+      - backend
+    build: ./frontend/
+    ports:
+        - "3000:3000"
+    volumes: 
+      - ./frontend:/app
+    networks:
+    - INTIA_APP
+  backend:
+    depends_on:
+      - db
+    build: ./backend/
+    ports: 
+      - "9000:9000"
+    volumes: 
+      - ./backend:/app
+    networks:
+    - INTIA_APP
+    environment:
+      - PORT=9000
+      - DB_URL=mongodb://db:27017/
+      - DB_NAME=TileDB
+  admin-client: 
+    build: ./admin-client/
+    ports: 
+        - "3001:3000"
+    volumes: 
+      - ./admin-client:/app
+    networks:
+    - INTIA_APP
+  db:
+   image: mongo
+   restart: always
+   ports:
+   - "27017:27017"
+   networks:
+    - INTIA_APP
+   volumes:
+    - db-data:/data/db
+networks:
+  INTIA_APP:
+    driver: bridge
+volumes:
+  db-data:
+    driver: local
+

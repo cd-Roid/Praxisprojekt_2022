@@ -1,0 +1,68 @@
+[
+  {
+    "id": "1",
+    "category": "Start",
+    "name": "Wenn",
+    "url": "https://i.ibb.co/8M0jgv1/When.png"
+  },
+  {
+    "id": "2",
+    "category": "End",
+    "name": "Ende",
+    "url": "https://i.ibb.co/v47Vmqq/end.png"
+  },
+  {
+    "id": "3",
+    "category": "Objects",
+    "name": "Handy",
+    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+  },
+  {
+    "id": "4",
+    "category": "Objects",
+    "name": "Licht",
+    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+  },
+  {
+    "id": "5",
+    "category": "Objects",
+    "name": "Lampe",
+    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+  },
+  {
+    "id": "6",
+    "category": "Actions",
+    "name": "an",
+    "url": "https://i.ibb.co/0996SHK/an.png"
+  },
+  {
+    "id": "7",
+    "category": "Actions",
+    "name": "aus",
+    "url": "https://i.ibb.co/8MjkqL5/aus.png"
+  },
+  {
+    "id": "8",
+    "category": "Conditions",
+    "name": "Solange",
+    "url": "https://i.ibb.co/gVgx6Cf/solange.png"
+  },
+  {
+    "id": "9",
+    "category": "Conditions",
+    "name": "Sonst",
+    "url": "https://i.ibb.co/hLMHLr9/sonst.png"
+  },
+  {
+    "id": "10",
+    "category": "Negation",
+    "name": "Nicht",
+    "url": "https://i.ibb.co/6Xd9LyJ/Not.png"
+  },
+  {
+    "id": "11",
+    "category": "Union",
+    "name": "Und",
+    "url": "https://i.ibb.co/4j5Mznp/Und.png"
+  }
+]
