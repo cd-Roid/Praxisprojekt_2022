@@ -10,7 +10,7 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
       <div className='w-full mx-6 my-16 tablet:border border-black max-w-4xl '>
         <div className='tablet:w-full tablet:flex tablet:flex-row tablet:justify-around '>
           <div className='my-12 mx-6 flex flex-col justify-center align-middle'>
-            {url !== undefined && <Upload backgroundUrl={url} />}
+            {url !== undefined && <Upload />}
             <div className='mt-3 flex flex-col'>
               {name !== undefined && <Input label='Name' placeHolder={name} />}
               {category !== undefined && <Input label='Category' placeHolder={category} />}

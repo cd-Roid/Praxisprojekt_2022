@@ -1,6 +1,10 @@
 import React from 'react';
 
-const UploadField: React.FC = () => {
+interface UploadProps {
+  backgroundUrl?: string;
+}
+
+const UploadField: React.FC<UploadProps> = ({ backgroundUrl }) => {
   return (
     <div
       className={
