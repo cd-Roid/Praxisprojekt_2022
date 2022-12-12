@@ -1,17 +1,15 @@
 {
   "files": {
-    "main.css": "/Praxisprojekt_2022/static/css/main.a63fd79b.css",
-    "main.js": "/Praxisprojekt_2022/static/js/main.6c0c0793.js",
-    "static/js/496.02634aee.chunk.js": "/Praxisprojekt_2022/static/js/496.02634aee.chunk.js",
-    "static/media/INTIA_Plattform_Logo_Horizontal_Kurz.png": "/Praxisprojekt_2022/static/media/INTIA_Plattform_Logo_Horizontal_Kurz.c018711ab053d8efcef0.png",
-    "static/media/logo-short.png": "/Praxisprojekt_2022/static/media/logo-short.f84e8ab7049b3ca7a483.png",
-    "index.html": "/Praxisprojekt_2022/index.html",
-    "main.a63fd79b.css.map": "/Praxisprojekt_2022/static/css/main.a63fd79b.css.map",
-    "main.6c0c0793.js.map": "/Praxisprojekt_2022/static/js/main.6c0c0793.js.map",
-    "496.02634aee.chunk.js.map": "/Praxisprojekt_2022/static/js/496.02634aee.chunk.js.map"
+    "main.css": "/static/css/main.cb85abb1.css",
+    "main.js": "/static/js/main.ad9e3c2f.js",
+    "static/media/logo-desktop.png": "/static/media/logo-desktop.c018711ab053d8efcef0.png",
+    "static/media/logo-mobile.png": "/static/media/logo-mobile.f84e8ab7049b3ca7a483.png",
+    "index.html": "/index.html",
+    "main.cb85abb1.css.map": "/static/css/main.cb85abb1.css.map",
+    "main.ad9e3c2f.js.map": "/static/js/main.ad9e3c2f.js.map"
   },
   "entrypoints": [
-    "static/css/main.a63fd79b.css",
-    "static/js/main.6c0c0793.js"
+    "static/css/main.cb85abb1.css",
+    "static/js/main.ad9e3c2f.js"
   ]
 }
