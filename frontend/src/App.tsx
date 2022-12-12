@@ -17,7 +17,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='Praxisprojekt_2022/' element={<LandingPage />} />
+        <Route path='/' element={<LandingPage />} />
         <Route path='/Praxisprojekt_2022/room/:roomId' element={<CanvasPage />} />
         <Route path='*' element={<NoMatch />} />
       </Routes>
