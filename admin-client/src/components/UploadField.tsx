@@ -2,9 +2,10 @@ import React from 'react';
 
 interface UploadProps {
   backgroundUrl?: string;
+  onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UploadField: React.FC<UploadProps> = ({ backgroundUrl }) => {
+const UploadField: React.FC<UploadProps> = ({ backgroundUrl, onImageChange }) => {
   return (
     <div
       className={
@@ -31,7 +32,7 @@ const UploadField: React.FC<UploadProps> = ({ backgroundUrl }) => {
             Attach a file
           </p>
         </div>
-        <input type='file' className='opacity-0' />
+        <input type='file' className='opacity-0' onChange={onImageChange} />
       </label>
     </div>
   );

@@ -3,14 +3,17 @@ import Upload from '../components/UploadField';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { Tile as TileType } from '../types/apiTypes';
+import { onImageChange } from '../hooks/useImageUpload';
 
 const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
+  const [img, setImg] = React.useState<File | undefined>(undefined);
+
   return (
     <div className='w-full h-auto mx-auto flex justify-center align-middle'>
       <div className='w-full mx-6 my-16 tablet:border border-black max-w-4xl '>
         <div className='tablet:w-full tablet:flex tablet:flex-row tablet:justify-around '>
           <div className='my-12 mx-6 flex flex-col justify-center align-middle'>
-            {url !== undefined && <Upload />}
+            {url !== undefined && <Upload onImageChange={(e) => onImageChange(e, setImg)} />}
             <div className='mt-3 flex flex-col'>
               {name !== undefined && <Input label='Name' placeHolder={name} />}
               {category !== undefined && <Input label='Category' placeHolder={category} />}
@@ -18,7 +21,14 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
           </div>
           <div className='hidden tablet:block'>
             <div className='border border-black min-w-fit h-fit flex justify-center align-middle max-w-sm my-12'>
-              <img className='p-8 object-contain' src={url} />
+              {img ? (
+                <img
+                  className='w-[200px] h-[268px]  object-contain'
+                  src={URL.createObjectURL(img)}
+                />
+              ) : (
+                <img className='w-[200px] h-[268px] object-contain' src={url} />
+              )}
             </div>
           </div>
         </div>

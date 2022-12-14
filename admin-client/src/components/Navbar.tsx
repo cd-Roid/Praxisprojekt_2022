@@ -31,7 +31,7 @@ const Navbar = () => {
           <li>
             <a className='text-lg'>
               <FontAwesomeIcon
-                className='p-4 cursor-pointer text-black'
+                className='p-4 cursor-pointer text-black hover:text-main leading-normal'
                 icon={faHome}
                 onClick={() => handleClick('', navigate)}
               />
@@ -40,7 +40,7 @@ const Navbar = () => {
           <li>
             <a className='text-lg'>
               <FontAwesomeIcon
-                className='p-4 font cursor-pointer text-black'
+                className='p-4 cursor-pointer text-black hover:text-main leading-normal'
                 icon={faTrash}
                 onClick={() => handleClick('newTile', navigate)}
               />
