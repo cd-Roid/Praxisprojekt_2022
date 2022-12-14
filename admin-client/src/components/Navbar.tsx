@@ -3,8 +3,11 @@ import LogoMobile from '../assets/logos/logo-short.png';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LogoDesktop from '../assets/logos/INTIA_Plattform_Logo_Horizontal_Kurz.png';
+import { useNavigate } from 'react-router';
+import { handleClick } from '../hooks/useNavigation';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <nav className='flex bg-white justify-between items-center h-16 w-full sticky top-0 z-50 shadow-md'>
       <div className='item w-32'>
@@ -14,25 +17,33 @@ const Navbar = () => {
       <div className='item w-fit tablet:w-1/4'>
         <ul className='hidden tablet:flex justify-around '>
           <li>
-            <a className='text-sm' href='#'>
+            <a className='text-sm cursor-pointer' onClick={() => handleClick('', navigate)}>
               Alle Kacheln
             </a>
           </li>
           <li>
-            <a className='text-sm' href='#'>
+            <p className='text-sm cursor-pointer' onClick={() => handleClick('newTile', navigate)}>
               Neue Kachel
-            </a>
+            </p>
           </li>
         </ul>
         <ul className='flex flex-row tablet:hidden justify-around '>
           <li>
-            <a className='text-sm' href='#'>
-              <FontAwesomeIcon className='p-4 cursor-pointer text-black' icon={faTrash} />
+            <a className='text-sm'>
+              <FontAwesomeIcon
+                className='p-4 cursor-pointer text-black'
+                icon={faTrash}
+                onClick={() => handleClick('', navigate)}
+              />
             </a>
           </li>
           <li>
-            <a className='text-sm' href='#'>
-              <FontAwesomeIcon className='p-4 cursor-pointer text-black' icon={faTrash} />
+            <a className='text-sm'>
+              <FontAwesomeIcon
+                className='p-4 cursor-pointer text-black'
+                icon={faTrash}
+                onClick={() => handleClick('newTile', navigate)}
+              />
             </a>
           </li>
         </ul>
