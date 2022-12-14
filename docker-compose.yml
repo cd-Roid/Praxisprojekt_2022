@@ -11,6 +11,9 @@ services:
       - ./frontend:/app
     networks:
     - INTIA_APP
+    environment:
+       WATCHPACK_POLLING: "true"
+       REACT_APP_BACKEND_URL: http://backend:9000
   backend:
     depends_on:
       - db
@@ -22,9 +25,10 @@ services:
     networks:
     - INTIA_APP
     environment:
-      - PORT=9000
-      - DB_URL=mongodb://db:27017/
-      - DB_NAME=TileDB
+      CHOKIDAR_USEPOLLING: "true"
+      PORT: 9000
+      DB_URL: mongodb://db:27017/
+      DB_NAME: TileDB
   admin-client: 
     build: ./admin-client/
     ports: 
@@ -33,6 +37,9 @@ services:
       - ./admin-client:/app
     networks:
     - INTIA_APP
+    environment:
+       WATCHPACK_POLLING: "true"
+       REACT_APP_BACKEND_URL: http://backend:9000
   db:
    image: mongo
    restart: always

@@ -1,6 +1,6 @@
 import React from 'react';
 import LogoMobile from '../assets/logos/logo-short.png';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LogoDesktop from '../assets/logos/INTIA_Plattform_Logo_Horizontal_Kurz.png';
 import { useNavigate } from 'react-router';
@@ -27,20 +27,20 @@ const Navbar = () => {
             </p>
           </li>
         </ul>
-        <ul className='flex flex-row tablet:hidden justify-around '>
+        <ul className='flex flex-row tablet:hidden justify-around'>
           <li>
-            <a className='text-sm'>
+            <a className='text-lg'>
               <FontAwesomeIcon
                 className='p-4 cursor-pointer text-black'
-                icon={faTrash}
+                icon={faHome}
                 onClick={() => handleClick('', navigate)}
               />
             </a>
           </li>
           <li>
-            <a className='text-sm'>
+            <a className='text-lg'>
               <FontAwesomeIcon
-                className='p-4 cursor-pointer text-black'
+                className='p-4 font cursor-pointer text-black'
                 icon={faTrash}
                 onClick={() => handleClick('newTile', navigate)}
               />
