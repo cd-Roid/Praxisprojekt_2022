@@ -18,7 +18,7 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
           </div>
           <div className='hidden tablet:block'>
             <div className='border border-black min-w-fit h-fit flex justify-center align-middle max-w-sm my-12'>
-              <img className='p-8' src={url} />
+              <img className='p-8 object-contain' src={url} />
             </div>
           </div>
         </div>
