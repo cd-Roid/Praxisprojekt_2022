@@ -11,7 +11,9 @@ const OverviewPage = () => {
   React.useEffect(() => {
     (async () => {
       try {
-        const response = await fetch('http://localhost:9000');
+        const response = await fetch('http://localhost:9001', {
+          method: 'GET',
+        });
         const data = await response.json();
         setTiles(data);
       } catch (error) {
