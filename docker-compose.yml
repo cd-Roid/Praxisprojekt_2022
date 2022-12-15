@@ -1,4 +1,4 @@
-version: "1.0"
+version: "3"
 
 services:
   frontend:
@@ -12,21 +12,22 @@ services:
     networks:
     - INTIA_APP
     environment:
+       CHOKIDAR_USEPOLLING: "true"
        WATCHPACK_POLLING: "true"
-       REACT_APP_BACKEND_URL: http://localhost:9000
+       REACT_APP_BACKEND_URL: http://localhost:9001
   backend:
     depends_on:
       - db
     build: ./backend/
     ports: 
-      - "9000:9000"
+      - "9001:9001"
     volumes: 
       - ./backend:/app
     networks:
     - INTIA_APP
     environment:
       CHOKIDAR_USEPOLLING: "true"
-      PORT: 9000
+      PORT: 9001
       DB_URL: mongodb://db:27017/
       DB_NAME: TileDB
   admin-client: 
@@ -38,8 +39,9 @@ services:
     networks:
     - INTIA_APP
     environment:
+       CHOKIDAR_USEPOLLING: "true"
        WATCHPACK_POLLING: "true"
-       REACT_APP_BACKEND_URL: http://backend:9000
+       REACT_APP_BACKEND_URL: http://backend:9001
   db:
    image: mongo
    restart: always
