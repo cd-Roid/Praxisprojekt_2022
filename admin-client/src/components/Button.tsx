@@ -10,7 +10,6 @@ const Button: React.FC<ButtonProps> = ({ buttonText, clickFunction }) => {
     <button
       onClick={clickFunction}
       className='w-full text-center  py-2 text-white bg-main hover:bg-dark tablet:w-fit tablet:px-6'
-      type='submit'
     >
       {buttonText}
     </button>

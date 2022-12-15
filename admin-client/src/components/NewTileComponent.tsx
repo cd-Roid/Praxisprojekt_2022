@@ -3,16 +3,16 @@ import Upload from '../components/UploadField';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { onImageChange, onChangeFunc } from '../hooks/useImageUpload';
+import { useNavigate } from 'react-router';
 
 const UploadComponent: React.FC = () => {
   const [img, setImg] = React.useState<File | undefined>(undefined);
   const [name, setName] = React.useState<string>('');
   const [category, setCategory] = React.useState<string>('');
 
-  const apiRoute = process.env.REACT_APP_BACKEND_URL;
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (!img) {
       console.log('Please upload a png file first');
       return;
@@ -28,13 +28,20 @@ const UploadComponent: React.FC = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('category', category);
-    formData.append('image', img as File);
-    const response = await fetch(`${apiRoute}`, {
-      method: 'POST',
-      body: formData,
-    });
-    const data = await response.json();
-    console.log(data);
+    formData.append('file', img as File);
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data: Response = await response.json();
+      if (data.status === 200) {
+        console.log('success');
+        navigate('/');
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   return (
@@ -74,12 +81,7 @@ const UploadComponent: React.FC = () => {
           </div>
         </div>
         <div className='mx-10 flex flex-col justify-center align-middle tablet:justify-end tablet:mx-20 tablet:mb-6'>
-          <Button
-            buttonText='Upload'
-            clickFunction={() =>
-              console.log(`about to send ${name}, ${category}, ${URL.createObjectURL(img as Blob)}`)
-            }
-          />
+          <Button buttonText='Upload' clickFunction={handleSubmit} />
         </div>
       </div>
     </div>

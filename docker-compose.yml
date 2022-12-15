@@ -13,7 +13,7 @@ services:
     - INTIA_APP
     environment:
        WATCHPACK_POLLING: "true"
-       REACT_APP_BACKEND_URL: http://backend:9000
+       REACT_APP_BACKEND_URL: http://localhost:9000
   backend:
     depends_on:
       - db

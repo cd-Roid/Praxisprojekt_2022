@@ -25,6 +25,7 @@ import { createServer } from "http";
 import { setConfig } from "./Config/db";
 import router from "./Routes/ApiRoutes";
 import { state } from "./Model/Sockets/SocketState";
+import whiteList from "./Config/originWhitelist";
 
 /**
  * Start of the application
@@ -46,10 +47,14 @@ const io = new Server(server);
 const db = mongoose.connection;
 mongoose.connect(dbConfig.url + dbConfig.database);
 
+const corsOptions = {
+	origin: whiteList,
+};
+
 app.use(router);
 app.use(express.json());
+app.use(cors());
 app.use("/uploads", express.static("uploads"));
-app.use(cors({ origin: `localhost:${process.env.PORT}`, credentials: true }));
 app.use(express.urlencoded({ extended: true }));
 
 io.on("connection", (socket) => {

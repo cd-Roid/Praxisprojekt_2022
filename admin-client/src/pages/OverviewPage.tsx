@@ -7,9 +7,18 @@ import { useNavigate } from 'react-router';
 
 const OverviewPage = () => {
   const navigate = useNavigate();
-  const [tiles, setTiles] = React.useState(json);
+  const [tiles, setTiles] = React.useState([]);
   React.useEffect(() => {
-    setTiles(json);
+    (async () => {
+      try {
+        const response = await fetch('http://localhost:9000');
+        const data = await response.json();
+        setTiles(data);
+      } catch (error) {
+        // TODO: Error handling
+        console.log('error', error);
+      }
+    })();
   }, []);
 
   return (
