@@ -41,7 +41,7 @@ services:
     environment:
        CHOKIDAR_USEPOLLING: "true"
        WATCHPACK_POLLING: "true"
-       REACT_APP_BACKEND_URL: http://backend:9001
+       REACT_APP_BACKEND_URL: http://localhost:9001
   db:
    image: mongo
    restart: always
