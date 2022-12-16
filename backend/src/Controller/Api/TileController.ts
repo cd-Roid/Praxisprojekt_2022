@@ -50,7 +50,7 @@ export const findTile = async (req: Request, res: Response) => {
 	 * else send error
 	 */
 	try {
-		const tile = await Tile.findByIdAndDelete(req.params.id);
+		const tile = await Tile.findById(req.params.id);
 		if (tile) {
 			res.status(200).json(tile);
 		} else {
