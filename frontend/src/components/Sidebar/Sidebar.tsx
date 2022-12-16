@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Sidebar: React.FC = () => {
+
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const allTiles = useBoardState((state) => state.allTiles);
   const setAllTiles = useBoardState((state) => state.setAllTiles);
   const categoriesOpen = useBoardState((state) => state.categoriesOpen);
@@ -21,7 +23,7 @@ const Sidebar: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch('http://localhost:9001', {
+        const response = await fetch(`${backendUrl}`, {
           method: 'GET',
         });
         const data = await response.json();
