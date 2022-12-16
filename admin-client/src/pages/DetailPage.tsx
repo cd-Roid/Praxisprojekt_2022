@@ -9,20 +9,25 @@ const DetailPage = () => {
   const [tile, setTile] = React.useState<TileType>();
 
   React.useEffect(() => {
-    const data = {
-      id: '1',
-      category: 'Objects',
-      name: 'Lampe',
-      url: 'https://i.ibb.co/8M0jgv1/When.png',
-    };
-    setTile(data);
+    (async () => {
+      try {
+        const response = await fetch(`http://localhost:9001/${id}`, {
+          method: 'GET',
+        });
+        const data = await response.json();
+        setTile(data);
+      } catch (error) {
+        // TODO: Error handling
+        console.log('error', error);
+      }
+    })();
   }, []);
 
   return (
     <div>
       <Navbar />
-      {tile && (
-        <UploadComponent name={tile.name} category={tile.category} url={tile.url} id={tile.id} />
+      {tile && id && (
+        <UploadComponent name={tile.name} category={tile.category} url={tile.url} id={id} />
       )}
     </div>
   );
