@@ -39,6 +39,8 @@ import { state } from "./Model/Sockets/SocketState";
 config();
 const app = express();
 const dbConfig = setConfig(process.env.DB_URL, process.env.DB_NAME);
+const adminClientUrl = process.env.ADMIN_CLIENT_URL;
+const frontendClientUrl = process.env.FRONTEND_CLIENT_URL;
 
 const port = process.env.PORT || 9000;
 const server = createServer(app);
@@ -47,7 +49,7 @@ const db = mongoose.connection;
 mongoose.connect(dbConfig.url + dbConfig.database);
 
 app.use((req, res, next) => {
-	const allowedOrigins = ["http://localhost:3001", "http://localhost:3000"];
+	const allowedOrigins = [adminClientUrl, frontendClientUrl];
 	const origin = req.headers.origin;
 	if (allowedOrigins.includes(origin)) {
 		res.setHeader("Access-Control-Allow-Origin", origin);
