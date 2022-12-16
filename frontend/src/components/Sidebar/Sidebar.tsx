@@ -1,6 +1,5 @@
 import Tab from './Tab';
 import Category from './Category';
-import data from '../../json/kacheln.json';
 import React, { useState, useEffect } from 'react';
 import { useBoardState } from '../../state/BoardState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +19,18 @@ const Sidebar: React.FC = () => {
   };
 
   useEffect(() => {
-    setAllTiles(data);
+    (async () => {
+      try {
+        const response = await fetch('http://localhost:9001', {
+          method: 'GET',
+        });
+        const data = await response.json();
+        setAllTiles(data);
+      } catch (error) {
+        // TODO: Error handling
+        console.log('error', error);
+      }
+    })();
   }, []);
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import json from '../json/kacheln.json';
 import Tile from '../components/Tile';
 import { handleClick } from '../hooks/useNavigation';
 import { useNavigate } from 'react-router';
