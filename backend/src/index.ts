@@ -25,7 +25,6 @@ import { createServer } from "http";
 import { setConfig } from "./Config/db";
 import router from "./Routes/ApiRoutes";
 import { state } from "./Model/Sockets/SocketState";
-import whiteList from "./Config/originWhitelist";
 
 /**
  * Start of the application
@@ -47,15 +46,14 @@ const io = new Server(server);
 const db = mongoose.connection;
 mongoose.connect(dbConfig.url + dbConfig.database);
 
-
 app.use((req, res, next) => {
 	const allowedOrigins = ["http://localhost:3001", "http://localhost:3000"];
 	const origin = req.headers.origin;
 	if (allowedOrigins.includes(origin)) {
 		res.setHeader("Access-Control-Allow-Origin", origin);
 	}
-	//res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
-	res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+
+	res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
 	res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 	res.header("Access-Control-Allow-Credentials", "true");
 	return next();
