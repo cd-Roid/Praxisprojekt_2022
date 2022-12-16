@@ -11,6 +11,8 @@
 # production
 /build
 
+#ignore uploads folder
+/uploads
 # misc
 .env
 .DS_Store
