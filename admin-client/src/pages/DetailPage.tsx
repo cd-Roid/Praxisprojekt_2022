@@ -7,21 +7,21 @@ import UploadComponent from '../components/UploadComponent';
 const DetailPage = () => {
   const { id } = useParams();
   const [tile, setTile] = React.useState<TileType>();
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(`http://localhost:9001/${id}`, {
-          method: 'GET',
-        });
-        const data = await response.json();
-        setTile(data);
-      } catch (error) {
-        // TODO: Error handling
-        console.log('error', error);
-      }
-    })();
-  }, []);
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+React.useEffect(() => {
+  (async () => {
+    try {
+      const response = await fetch(`${backendUrl}/${id}`, {
+        method: 'GET',
+      });
+      const data = await response.json();
+      setTile(data);
+    } catch (error) {
+      // TODO: Error handling
+      console.log('error', error);
+    }
+  })();
+}, []);
 
   return (
     <div>

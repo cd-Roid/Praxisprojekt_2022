@@ -10,6 +10,7 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
   const { id } = useParams();
   const [img, setImg] = React.useState<File | undefined>(undefined);
   const [newName, setNewName] = React.useState<string>('');
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [newCategory, setNewCategory] = React.useState<string>('');
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
     newCategory !== '' && formData.append('category', newCategory);
     img !== undefined && formData.append('file', img as File);
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${id}`, {
+      const response = await fetch(`${backendUrl}/${id}`, {
         method: 'PUT',
         body: formData,
       });

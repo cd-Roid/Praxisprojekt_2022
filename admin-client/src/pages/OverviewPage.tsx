@@ -7,10 +7,11 @@ import { useNavigate } from 'react-router';
 const OverviewPage = () => {
   const navigate = useNavigate();
   const [tiles, setTiles] = React.useState([]);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   React.useEffect(() => {
     (async () => {
       try {
-        const response = await fetch('http://localhost:9001', {
+        const response = await fetch(`${backendUrl}`, {
           method: 'GET',
         });
         const data = await response.json();
