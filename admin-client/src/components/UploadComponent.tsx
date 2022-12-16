@@ -3,10 +3,34 @@ import Upload from '../components/UploadField';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { Tile as TileType } from '../types/apiTypes';
-import { onImageChange } from '../hooks/useImageUpload';
+import { useNavigate, useParams } from 'react-router';
+import { onImageChange, onChangeFunc } from '../hooks/useImageUpload';
 
 const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
+  const { id } = useParams();
   const [img, setImg] = React.useState<File | undefined>(undefined);
+  const [newName, setNewName] = React.useState<string>('');
+  const [newCategory, setNewCategory] = React.useState<string>('');
+  const navigate = useNavigate();
+
+  const handleUpdate = async () => {
+    const formData = new FormData();
+    newName !== '' && formData.append('name', newName);
+    newCategory !== '' && formData.append('category', newCategory);
+    img !== undefined && formData.append('file', img as File);
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+      if (response.status === 200) {
+        console.log('success');
+        navigate('/');
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
   return (
     <div className='w-full h-auto mx-auto flex justify-center align-middle'>
@@ -15,8 +39,22 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
           <div className='my-12 mx-6 flex flex-col justify-center align-middle'>
             {url !== undefined && <Upload onImageChange={(e) => onImageChange(e, setImg)} />}
             <div className='mt-3 flex flex-col'>
-              {name !== undefined && <Input label='Name' placeHolder={name} />}
-              {category !== undefined && <Input label='Category' placeHolder={category} />}
+              {name !== undefined && (
+                <Input
+                  label='Name'
+                  value={newName}
+                  placeHolder={name}
+                  onChange={(e) => onChangeFunc(e, setNewName)}
+                />
+              )}
+              {category !== undefined && (
+                <Input
+                  label='Category'
+                  value={newCategory}
+                  placeHolder={category}
+                  onChange={(e) => onChangeFunc(e, setNewCategory)}
+                />
+              )}
             </div>
           </div>
           <div className='hidden tablet:block'>
@@ -33,7 +71,7 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
           </div>
         </div>
         <div className='mx-10 flex flex-col justify-center align-middle tablet:justify-end tablet:mx-20 tablet:mb-6'>
-          <Button buttonText='Update' />
+          <Button buttonText='Update' clickFunction={handleUpdate} />
         </div>
       </div>
     </div>
