@@ -33,6 +33,20 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`${backendUrl}/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.status === 200) {
+        console.log('success');
+        navigate('/');
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   return (
     <div className='w-full h-auto mx-auto flex justify-center align-middle'>
       <div className='w-full mx-6 my-16 tablet:border border-black max-w-4xl '>
@@ -71,8 +85,9 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
             </div>
           </div>
         </div>
-        <div className='mx-10 flex flex-col justify-center align-middle tablet:justify-end tablet:mx-20 tablet:mb-6'>
-          <Button buttonText='Update' clickFunction={handleUpdate} />
+        <div className='mx-10 flex  justify-center align-middle tablet:justify-start tablet:mx-20 tablet:mb-6'>
+          <Button buttonText='Update' className='mr-4 w-1/2' clickFunction={handleUpdate} />
+          <Button buttonText='Delete' className='w-1/2 tablet:w-fit' clickFunction={handleDelete} />
         </div>
       </div>
     </div>
