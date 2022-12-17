@@ -5,7 +5,7 @@ interface UploadProps {
   onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const UploadField: React.FC<UploadProps> = ({ backgroundUrl, onImageChange }) => {
+const UploadField: React.FC<UploadProps> = ({ onImageChange }) => {
   return (
     <div
       className={
