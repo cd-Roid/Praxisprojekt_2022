@@ -7,7 +7,7 @@ import {
 	SocketDragTile,
 	TabFocusData,
 	UserData,
-} from "../../../types/socket.types";
+} from "../../types/socket.types";
 
 export const errorHandling = (err: Error) =>
 	console.log("A Websocket Error happened", err);

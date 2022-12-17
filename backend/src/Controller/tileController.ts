@@ -1,6 +1,6 @@
 import fs from "fs";
 import { Request, Response } from "express";
-import { Tile } from "../../Model/Api/TileModel";
+import { Tile } from "../Model/tileModel";
 
 export const getAllTiles = async (req: Request, res: Response) => {
 	/**

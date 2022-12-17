@@ -15,7 +15,7 @@ import {
 	deleteTile,
 	disconnect,
 	errorHandling,
-} from "./Controller/Socket/SocketControllers";
+} from "./Controller/socketController";
 import cors from "cors";
 import express from "express";
 import { config } from "dotenv";
@@ -23,8 +23,8 @@ import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { setConfig } from "./Config/db";
-import router from "./Routes/ApiRoutes";
-import { state } from "./Model/Sockets/SocketState";
+import router from "./Routes/apiRoutes";
+import { state } from "./Model/socketModel";
 
 /**
  * Start of the application
@@ -65,6 +65,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
+
 
 
 
