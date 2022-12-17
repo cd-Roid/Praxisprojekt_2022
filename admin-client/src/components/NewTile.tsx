@@ -1,10 +1,7 @@
 import React from 'react';
 
-type UploadProps = {
-  backgroundUrl: string;
-};
 
-const Upload: React.FC<UploadProps> = ({ backgroundUrl }) => {
+const Upload: React.FC = () => {
   return (
     <div
       className={
