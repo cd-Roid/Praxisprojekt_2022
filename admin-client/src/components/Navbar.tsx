@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <nav className='flex bg-white justify-between items-center h-16 w-full sticky top-0 z-50 shadow-md'>
-      <div className='item w-32'>
+      <div className='item w-32 cursor-pointer' onClick={() => handleClick('', navigate)}>
         <img className='w-40 h-auto p-4 hidden desktop:block' src={LogoDesktop} />
         <img className='w-12 h-auto p-2 desktop:hidden' src={LogoMobile} />
       </div>
