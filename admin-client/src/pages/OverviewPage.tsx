@@ -3,9 +3,11 @@ import Navbar from '../components/Navbar';
 import Tile from '../components/Tile';
 import { handleClick } from '../hooks/useNavigation';
 import { useNavigate } from 'react-router';
+import { useToast } from '../hooks/useToast';
 
 const OverviewPage = () => {
   const navigate = useNavigate();
+  const { notify } = useToast();
   const [tiles, setTiles] = React.useState([]);
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   React.useEffect(() => {
@@ -17,8 +19,7 @@ const OverviewPage = () => {
         const data = await response.json();
         setTiles(data);
       } catch (error) {
-        // TODO: Error handling
-        console.log('error', error);
+        notify('error', 'An errror occured, please try again later');
       }
     })();
   }, []);

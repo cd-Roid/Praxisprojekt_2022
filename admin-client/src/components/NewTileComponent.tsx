@@ -2,15 +2,16 @@ import React from 'react';
 import Upload from '../components/UploadField';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import { onImageChange, onChangeFunc } from '../hooks/useImageUpload';
-import { useNavigate } from 'react-router';
+import useImageUpload from '../hooks/useImageUpload';
+import { useToast } from '../hooks/useToast';
 
 const UploadComponent: React.FC = () => {
   const [img, setImg] = React.useState<File | undefined>(undefined);
   const [name, setName] = React.useState<string>('');
   const [category, setCategory] = React.useState<string>('');
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
-  const navigate = useNavigate();
+  const { notify } = useToast();
+  const { onImageChange, onChangeFunc } = useImageUpload();
 
   const handleSubmit = async () => {
     if (!img) {
@@ -35,11 +36,10 @@ const UploadComponent: React.FC = () => {
         body: formData,
       });
       if (response.status === 200) {
-        console.log('success');
-        navigate('/');
+        notify('success', 'Tile successfully added');
       }
     } catch (error) {
-      console.log('error', error);
+      notify('error', 'Something went wrong');
     }
   };
 

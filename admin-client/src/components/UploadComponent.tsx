@@ -4,7 +4,8 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { Tile as TileType } from '../types/apiTypes';
 import { useNavigate, useParams } from 'react-router';
-import { onImageChange, onChangeFunc } from '../hooks/useImageUpload';
+import useImageUpload from '../hooks/useImageUpload';
+import { useToast } from '../hooks/useToast';
 
 const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
   const { id } = useParams();
@@ -12,7 +13,9 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
   const [newName, setNewName] = React.useState<string>('');
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [newCategory, setNewCategory] = React.useState<string>('');
+  const { onImageChange, onChangeFunc } = useImageUpload();
   const navigate = useNavigate();
+  const { notify } = useToast();
 
   const handleUpdate = async () => {
     const formData = new FormData();
@@ -39,11 +42,10 @@ const UploadComponent: React.FC<TileType> = ({ name, url, category }) => {
         method: 'DELETE',
       });
       if (response.status === 200) {
-        console.log('success');
-        navigate('/');
+        notify('success', 'Tile successfully deleted');
       }
     } catch (error) {
-      console.log('error', error);
+      notify('error', 'There was an error deleting the tile');
     }
   };
 
