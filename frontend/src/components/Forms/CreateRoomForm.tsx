@@ -67,7 +67,7 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
           ],
         });
         addUser({ userId: roomData.userId, userName: roomData.userName });
-        navigate(`/Praxisprojekt_2022/room/${roomData.roomId}`);
+        navigate(`/room/${roomData.roomId}`);
       });
     }
   }, [socket]);

@@ -15,7 +15,7 @@ const InfoComponent = () => {
   const disconnect = () => {
     socket?.close();
     socket?.connect();
-    navigate('/Praxisprojekt_2022/');
+    navigate('/');
   };
   // Component that displays the connected users and Disconnect Button
   return (

@@ -45,7 +45,7 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
   useEffect(() => {
     if (socket !== null) {
       socket.on('join-success', (roomData: RoomData) => {
-        navigate(`/Praxisprojekt_2022/room/${roomData.roomId}`);
+        navigate(`/room/${roomData.roomId}`);
         setRoom(roomData);
       });
       socket.on('join-failure', () => {

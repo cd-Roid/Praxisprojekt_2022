@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/Praxisprojekt_2022/room/:roomId' element={<CanvasPage />} />
+        <Route path='/room/:roomId' element={<CanvasPage />} />
         <Route path='*' element={<NoMatch />} />
       </Routes>
     </Router>
