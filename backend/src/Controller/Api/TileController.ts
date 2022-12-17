@@ -27,7 +27,7 @@ export const createTile = async (req: Request, res: Response) => {
 	try {
 		if (req.file && req.body) {
 			const formData = req.body;
-			const filePath = `localhost:${process.env.PORT}/${req.file.path}`;
+			const filePath = `http://localhost:${process.env.PORT}/${req.file.path}`;
 			const tile = new Tile({
 				category: formData.category,
 				name: formData.name,
@@ -76,7 +76,7 @@ export const updateTile = async (req: Request, res: Response) => {
 			tile.name = req.body.name ? req.body.name : tile.name;
 			tile.url =
 				req.file != undefined
-					? `localhost:${process.env.PORT}/${req.file.path}`
+					? `http://localhost:${process.env.PORT}/${req.file.path}`
 					: tile.url;
 			const updatedTile = await tile.save();
 			res.status(200).json(updatedTile);
