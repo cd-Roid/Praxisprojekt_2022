@@ -9,7 +9,7 @@ const UploadComponent: React.FC = () => {
   const [img, setImg] = React.useState<File | undefined>(undefined);
   const [name, setName] = React.useState<string>('');
   const [category, setCategory] = React.useState<string>('');
-
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -30,7 +30,7 @@ const UploadComponent: React.FC = () => {
     formData.append('category', category);
     formData.append('file', img as File);
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}`, {
+      const response = await fetch(`${backendUrl}`, {
         method: 'POST',
         body: formData,
       });
