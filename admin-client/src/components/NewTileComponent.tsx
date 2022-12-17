@@ -15,15 +15,15 @@ const UploadComponent: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!img) {
-      console.log('Please upload a png file first');
+      notify('error', 'Please upload a png file first', false);
       return;
     }
     if (!name) {
-      console.log('Please enter a name');
+      notify('error', 'Please enter a name', false);
       return;
     }
     if (!category) {
-      console.log('Please enter a category');
+      notify('error', 'Please enter a category', false);
       return;
     }
     const formData = new FormData();

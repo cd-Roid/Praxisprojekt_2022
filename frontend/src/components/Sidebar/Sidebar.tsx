@@ -1,12 +1,12 @@
 import Tab from './Tab';
 import Category from './Category';
+import { useToast } from '../../hooks/useToast';
 import React, { useState, useEffect } from 'react';
 import { useBoardState } from '../../state/BoardState';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Sidebar: React.FC = () => {
-
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const allTiles = useBoardState((state) => state.allTiles);
   const setAllTiles = useBoardState((state) => state.setAllTiles);
@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
   const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
   const [toggleState, setToggleState] = useState(0);
   const [tabs, setTabs] = useState<string[]>();
-
+  const { notify } = useToast();
   const toggleTab = (index: number) => {
     setCategoriesOpen(true);
     setToggleState(index);
@@ -29,8 +29,7 @@ const Sidebar: React.FC = () => {
         const data = await response.json();
         setAllTiles(data);
       } catch (error) {
-        // TODO: Error handling
-        console.log('error', error);
+        notify('error', 'There was an error fetching the tiles, please try again later', false);
       }
     })();
   }, []);
