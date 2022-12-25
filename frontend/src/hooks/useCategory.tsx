@@ -1,3 +1,5 @@
+// currently not used
+
 type TileTypeProps = {
   points: number[];
   textPosition: { x: number; y: number };

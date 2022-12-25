@@ -15,7 +15,7 @@ import {
 	deleteTile,
 	disconnect,
 	errorHandling,
-} from "./Controller/Socket/SocketControllers";
+} from "./Controller/socketController";
 import cors from "cors";
 import express from "express";
 import { config } from "dotenv";
@@ -23,8 +23,8 @@ import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { setConfig } from "./Config/db";
-import router from "./Routes/ApiRoutes";
-import { state } from "./Model/Sockets/SocketState";
+import router from "./Routes/apiRoutes";
+import { state } from "./Model/socketModel";
 
 /**
  * Start of the application
@@ -39,6 +39,8 @@ import { state } from "./Model/Sockets/SocketState";
 config();
 const app = express();
 const dbConfig = setConfig(process.env.DB_URL, process.env.DB_NAME);
+const adminClientUrl = process.env.ADMIN_CLIENT_URL;
+const frontendClientUrl = process.env.FRONTEND_CLIENT_URL;
 
 const port = process.env.PORT || 9000;
 const server = createServer(app);
@@ -46,11 +48,26 @@ const io = new Server(server);
 const db = mongoose.connection;
 mongoose.connect(dbConfig.url + dbConfig.database);
 
+app.use((req, res, next) => {
+	const allowedOrigins = [adminClientUrl, frontendClientUrl];
+	const origin = req.headers.origin;
+	if (allowedOrigins.includes(origin)) {
+		res.setHeader("Access-Control-Allow-Origin", origin);
+	}
+
+	res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+	res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+	res.header("Access-Control-Allow-Credentials", "true");
+	return next();
+});
 app.use(router);
 app.use(express.json());
+app.use(cors());
 app.use("/uploads", express.static("uploads"));
-app.use(cors({ origin: `localhost:${process.env.PORT}`, credentials: true }));
 app.use(express.urlencoded({ extended: true }));
+
+
+
 
 io.on("connection", (socket) => {
 	socket.on("room-create", (data: UserData) => createRoom(data, state, socket));

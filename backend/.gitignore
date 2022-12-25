@@ -4,13 +4,15 @@
 /node_modules
 /.pnp
 .pnp.js
-
+.env
 # testing
 /coverage
 
 # production
 /build
 
+#ignore uploads folder
+/uploads
 # misc
 .env
 .DS_Store

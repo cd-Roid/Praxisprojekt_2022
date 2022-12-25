@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useWebSocketState } from '../../state/WebSocketState';
 import Input from './Inputs/Input';
 import { RoomData } from '../../types';
+import { useToast } from '../../hooks/useToast';
 
 type LandingPageFormProps = {
   title: string;
@@ -21,8 +21,7 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
   const [roomId, setroomId] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
   const setRoom = useWebSocketState((state) => state.setRoom);
-
-  const navigate = useNavigate();
+  const { notify } = useToast();
 
   const handleUserInput = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -44,13 +43,16 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
 
   useEffect(() => {
     if (socket !== null) {
+      socket.on('new-user', (data: string) => {
+        notify('success', `${data} has joined the room!`, false);
+      });
+
       socket.on('join-success', (roomData: RoomData) => {
-        navigate(`/Praxisprojekt_2022/room/${roomData.roomId}`);
+        notify('success', `Welcome ${userName}!`, true, `/room/${roomData.roomId}`);
         setRoom(roomData);
       });
-      socket.on('join-failure', () => {
-        // TODO: add notification box
-        console.log('Could not join room');
+      socket.on('join-failure', (msg: string) => {
+        notify('error', msg, false);
       });
     }
   }, [socket]);

@@ -6,7 +6,7 @@ import {
 	createTile,
 	deleteTile,
 	updateTile,
-} from "../Controller/Api/TileController";
+} from "../Controller/tileController";
 
 /*
 * Api routes for the tiles
