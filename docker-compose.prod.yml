@@ -1,32 +1,16 @@
 version: "3.7"
 
 services:
-  prod-admin-client:
-    container_name: prod-admin-client
-    depends_on:
-      - prod-backend
+  web:
+    container_name: web
+    restart: unless-stopped
     build:
-      context: ./admin-client/
+      context: ./nginx/
       dockerfile: prod.Dockerfile
-    volumes: 
-      - ./admin-client:/app
     networks:
     - INTIA_APP
     environment:
-       REACT_APP_BACKEND_URL: http://localhost:9001  
-  prod-frontend:
-    container_name: prod-frontend
-    depends_on:
-      - prod-backend
-    build:
-      context: ./frontend/
-      dockerfile: prod.Dockerfile
-    volumes: 
-      - ./frontend:/app
-    networks:
-    - INTIA_APP
-    environment:
-       REACT_APP_BACKEND_URL: http://localhost:9001  
+      REACT_APP_BACKEND_URL: http://localhost:9001
   prod-backend:
     container_name: prod-backend
     restart: unless-stopped
@@ -55,18 +39,6 @@ services:
     - INTIA_APP
    volumes:
     - db-data:/data/db
-  # nginx:
-  #   image: nginx:latest
-  #   container_name: nginx
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   depends_on:
-  #     - prod-admin-client
-  #     - prod-frontend
-  #   networks:
-  #     - INTIA_APP
 networks:
   INTIA_APP:
     driver: bridge
