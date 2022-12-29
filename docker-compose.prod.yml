@@ -1,0 +1,75 @@
+version: "3.7"
+
+services:
+  prod-admin-client:
+    container_name: prod-admin-client
+    depends_on:
+      - prod-backend
+    build:
+      context: ./admin-client/
+      dockerfile: prod.Dockerfile
+    volumes: 
+      - ./admin-client:/app
+    networks:
+    - INTIA_APP
+    environment:
+       REACT_APP_BACKEND_URL: http://localhost:9001  
+  prod-frontend:
+    container_name: prod-frontend
+    depends_on:
+      - prod-backend
+    build:
+      context: ./frontend/
+      dockerfile: prod.Dockerfile
+    volumes: 
+      - ./frontend:/app
+    networks:
+    - INTIA_APP
+    environment:
+       REACT_APP_BACKEND_URL: http://localhost:9001  
+  prod-backend:
+    container_name: prod-backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    build:
+      context: ./backend/
+      dockerfile: prod.Dockerfile
+    ports: 
+      - "9001:9001"
+    volumes: 
+      - ./backend:/app
+    networks:
+    - INTIA_APP
+    environment:
+      NODE_ENV: production
+      PORT: 9001
+      DB_URL: mongodb://db:27017/
+      DB_NAME: TileDB
+  db:
+   image: mongo
+   restart: always
+   ports:
+   - "27017:27017"
+   networks:
+    - INTIA_APP
+   volumes:
+    - db-data:/data/db
+  # nginx:
+  #   image: nginx:latest
+  #   container_name: nginx
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   depends_on:
+  #     - prod-admin-client
+  #     - prod-frontend
+  #   networks:
+  #     - INTIA_APP
+networks:
+  INTIA_APP:
+    driver: bridge
+volumes:
+  db-data:
+    driver: local

@@ -1,13 +1,13 @@
-FROM node:18.0.0-alpine3.13
+# Build frontend
+FROM node:lts
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --ignore-scripts --production
+RUN npm install --ignore-scripts --omit=dev
 
 COPY . .
 
-EXPOSE 3000
-
 CMD [ "npm","run", "build" ]
+

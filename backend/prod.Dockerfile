@@ -1,17 +1,19 @@
 FROM node:lts
 
-WORKDIR /app
+ADD package.json /tmp/package.json
 
-COPY package*.json ./
+ADD package-lock.json /tmp/package-lock.json
 
-RUN npm install --ignore-scripts --production
+RUN rm -rf dist
 
-COPY . .
+RUN cd /tmp && npm install
 
-ENV PORT=9000
+ADD ./ /src
 
-EXPOSE ${PORT}
+RUN rm -rf src/node_modules && cp -a /tmp/node_modules /src/
+
+WORKDIR /src
 
 RUN npm run build
 
-CMD [ "npm","run", "start" ]
+CMD ["node", "/src/dist/index.js"]
