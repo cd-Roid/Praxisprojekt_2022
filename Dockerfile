@@ -1,3 +1,4 @@
+#Production Dockerfile
 # Build frontend files first
 FROM node:lts as frontend
 
@@ -7,7 +8,7 @@ COPY /frontend/package*.json ./
 
 RUN npm install --ignore-scripts --omit=dev
 
-COPY . ./
+COPY /frontend /frontend
 
 RUN npm run build
 
@@ -23,7 +24,7 @@ COPY /admin-client/package*.json ./
 
 RUN npm install --ignore-scripts --omit=dev
 
-COPY . ./
+COPY /admin-client /admin-client
 
 RUN npm run build
 
@@ -34,8 +35,8 @@ FROM nginx:alpine
 
 COPY --from=frontend /frontend/build/ /usr/share/nginx/html/frontend/
 COPY --from=admin-client /admin-client/build/ /usr/share/nginx/html/admin-client/
-
-COPY nginx.conf /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d
 
 WORKDIR /usr/share/nginx/html
 

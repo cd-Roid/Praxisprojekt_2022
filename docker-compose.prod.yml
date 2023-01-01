@@ -5,8 +5,7 @@ services:
     container_name: web
     restart: unless-stopped
     build:
-      context: ./nginx/
-      dockerfile: prod.Dockerfile
+      dockerfile: Dockerfile
     networks:
     - INTIA_APP
     environment:
