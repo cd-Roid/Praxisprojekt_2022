@@ -36,9 +36,9 @@ FROM nginx:alpine
 COPY --from=frontend /frontend/build/ /usr/share/nginx/html/frontend/
 COPY --from=admin-client /admin-client/build/ /usr/share/nginx/html/admin-client/
 RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d
+COPY nginx.conf /etc/nginx/nginx.conf
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /data/www
 
 EXPOSE 80
 EXPOSE 443
