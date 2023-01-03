@@ -1,0 +1,49 @@
+version: "3.7"
+
+services:
+  web:
+    container_name: web
+    restart: unless-stopped
+    build:
+      dockerfile: Dockerfile
+    networks:
+    - INTIA_APP
+    environment:
+      REACT_APP_BACKEND_URL: http://localhost:9001
+    ports:
+      - '80:80'
+      - '443:443'
+  prod-backend:
+    container_name: prod-backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    build:
+      context: ./backend/
+      dockerfile: prod.Dockerfile
+    ports: 
+      - "9001:9001"
+    volumes: 
+      - ./backend:/app
+    networks:
+    - INTIA_APP
+    environment:
+      NODE_ENV: production
+      PORT: 9001
+      DB_URL: mongodb://db:27017/
+      DB_NAME: TileDB
+  db:
+   image: mongo
+   restart: always
+   ports:
+   - "27017:27017"
+   networks:
+    - INTIA_APP
+   volumes:
+    - db-data:/data/db
+networks:
+  INTIA_APP:
+    driver: bridge
+volumes:
+  db-data:
+    driver: local
