@@ -30,6 +30,7 @@ services:
       PORT: 9001
       DB_URL: mongodb://db:27017/
       DB_NAME: TileDB
+      NODE_ENV: development
   admin-client: 
     build: ./admin-client/
     ports: 

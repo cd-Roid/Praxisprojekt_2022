@@ -41,6 +41,8 @@ const app = express();
 const dbConfig = setConfig(process.env.DB_URL, process.env.DB_NAME);
 const adminClientUrl = process.env.ADMIN_CLIENT_URL;
 const frontendClientUrl = process.env.FRONTEND_CLIENT_URL;
+const prodAdminClientUrl = process.env.PROD_ADMIN_CLIENT_URL;
+const prodFrontendClientUrl = process.env.PROD_FRONTEND_CLIENT_URL;
 
 const port = process.env.PORT || 9000;
 const server = createServer(app);
@@ -49,7 +51,10 @@ const db = mongoose.connection;
 mongoose.connect(dbConfig.url + dbConfig.database);
 
 app.use((req, res, next) => {
-	const allowedOrigins = [adminClientUrl, frontendClientUrl];
+	const allowedOrigins =
+		process.env.NODE_ENV === "production"
+			? [prodAdminClientUrl, prodFrontendClientUrl]
+			: [adminClientUrl, frontendClientUrl];
 	const origin = req.headers.origin;
 	if (allowedOrigins.includes(origin)) {
 		res.setHeader("Access-Control-Allow-Origin", origin);
