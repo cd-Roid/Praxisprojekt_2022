@@ -4,7 +4,9 @@ services:
   frontend:
     depends_on:
       - backend
-    build: ./frontend/
+    build:
+      context: ./admin-client/
+      dockerfile: dev.Dockerfile
     ports:
         - "3000:3000"
     volumes: 
@@ -18,7 +20,9 @@ services:
   backend:
     depends_on:
       - db
-    build: ./backend/
+    build:
+      context: ./backend/
+      dockerfile: dev.Dockerfile
     ports: 
       - "9001:9001"
     volumes: 
@@ -32,7 +36,9 @@ services:
       DB_NAME: TileDB
       NODE_ENV: development
   admin-client: 
-    build: ./admin-client/
+    build:
+      context: ./admin-client/
+      dockerfile: dev.Dockerfile
     ports: 
         - "3001:3000"
     volumes: 
