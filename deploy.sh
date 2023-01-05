@@ -4,4 +4,4 @@ echo "Deploying to production..."
 sudo git pull origin main
 
 echo "Building application..."
-sudo docker compose -f "docker-compose.prod.yml" up -d --build         
+sudo docker compose -f "docker-compose.prod.yml" up -d --build --remove-orphans
