@@ -3,7 +3,11 @@ import { Request, Response } from "express";
 import { Tile } from "../Model/tileModel";
 
 let backendUrl = process.env.PROD_BACKEND_URL;
-if (process.env.PROD_BACKEND_URL && process.env.NODE_ENV === "production") {
+if (
+	process.env.PROD_BACKEND_URL &&
+	process.env.BACKEND_URL &&
+	process.env.NODE_ENV === "production"
+) {
 	backendUrl = process.env.PROD_BACKEND_URL;
 } else {
 	backendUrl = process.env.BACKEND_URL;
