@@ -23,7 +23,7 @@ import mongoose from "mongoose";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { setConfig } from "./Config/db";
-import router from "./Routes/apiRoutes";
+import router from "./Routes/ApiRoutes";
 import { state } from "./Model/socketModel";
 
 /**
