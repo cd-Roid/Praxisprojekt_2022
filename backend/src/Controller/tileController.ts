@@ -2,16 +2,6 @@ import fs from "fs";
 import { Request, Response } from "express";
 import { Tile } from "../Model/tileModel";
 
-let backendUrl = process.env.PROD_BACKEND_URL;
-if (
-	process.env.PROD_BACKEND_URL &&
-	process.env.BACKEND_URL &&
-	process.env.NODE_ENV === "production"
-) {
-	backendUrl = process.env.PROD_BACKEND_URL;
-} else {
-	backendUrl = process.env.BACKEND_URL;
-}
 export const getAllTiles = async (req: Request, res: Response) => {
 	/**
 	 * Get all tiles from database
@@ -37,6 +27,10 @@ export const createTile = async (req: Request, res: Response) => {
 	try {
 		if (req.file && req.body) {
 			const formData = req.body;
+			let backendUrl = process.env.BACKEND_URL;
+			if (process.env.NODE_ENV === "production") {
+				backendUrl = process.env.PROD_BACKEND_URL;
+			}
 			const filePath = `${backendUrl}/${req.file.path}`;
 			const tile = new Tile({
 				category: formData.category,
@@ -82,6 +76,10 @@ export const updateTile = async (req: Request, res: Response) => {
 	try {
 		const tile = await Tile.findById(req.params.id);
 		if (tile) {
+			let backendUrl = process.env.BACKEND_URL;
+			if (process.env.NODE_ENV === "production") {
+				backendUrl = process.env.PROD_BACKEND_URL;
+			}
 			tile.category = req.body.category ? req.body.category : tile.category;
 			tile.name = req.body.name ? req.body.name : tile.name;
 			tile.url =
