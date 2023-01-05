@@ -6,7 +6,7 @@ WORKDIR /frontend
 
 COPY /frontend/package*.json ./
 
-RUN npm install --ignore-scripts --omit=dev
+RUN npm install --ignore-scripts
 
 COPY /frontend /frontend
 
@@ -22,7 +22,7 @@ WORKDIR /admin-client
 
 COPY /admin-client/package*.json ./
 
-RUN npm install --ignore-scripts --omit=dev
+RUN npm install --ignore-scripts
 
 COPY /admin-client /admin-client
 
