@@ -12,6 +12,7 @@ export const useWebSockets = () => {
   const socketRef = useRef<Socket | null>(null);
   const socket = io(connectionString, {
     transports: ['websocket'],
+    port: process.env.REACT_APP_BACKEND_PORT,
   });
 
   useEffect(() => {
