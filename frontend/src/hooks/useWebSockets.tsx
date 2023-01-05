@@ -5,8 +5,8 @@ export const useWebSockets = () => {
   let connectionString = '';
   if (process.env.REACT_APP_PROD_BACKEND_URL && process.env.NODE_ENV === 'production') {
     connectionString = process.env.REACT_APP_PROD_BACKEND_URL;
-  } else if (process.env.REACT_APP_PROD_BACKEND_URL && process.env.NODE_ENV !== 'production') {
-    connectionString = process.env.REACT_APP_PROD_BACKEND_URL;
+  } else if (process.env.REACT_APP_BACKEND_URL && process.env.NODE_ENV !== 'production') {
+    connectionString = process.env.REACT_APP_BACKEND_URL;
   }
 
   const socketRef = useRef<Socket | null>(null);

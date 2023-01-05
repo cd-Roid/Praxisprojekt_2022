@@ -2,6 +2,12 @@ import fs from "fs";
 import { Request, Response } from "express";
 import { Tile } from "../Model/tileModel";
 
+let backendUrl = process.env.PROD_BACKEND_URL;
+if (process.env.PROD_BACKEND_URL && process.env.NODE_ENV === "production") {
+	backendUrl = process.env.PROD_BACKEND_URL;
+} else {
+	backendUrl = process.env.BACKEND_URL;
+}
 export const getAllTiles = async (req: Request, res: Response) => {
 	/**
 	 * Get all tiles from database
@@ -27,7 +33,7 @@ export const createTile = async (req: Request, res: Response) => {
 	try {
 		if (req.file && req.body) {
 			const formData = req.body;
-			const filePath = `http://localhost:${process.env.PORT}/${req.file.path}`;
+			const filePath = `${backendUrl}/${req.file.path}`;
 			const tile = new Tile({
 				category: formData.category,
 				name: formData.name,
@@ -75,9 +81,7 @@ export const updateTile = async (req: Request, res: Response) => {
 			tile.category = req.body.category ? req.body.category : tile.category;
 			tile.name = req.body.name ? req.body.name : tile.name;
 			tile.url =
-				req.file != undefined
-					? `http://localhost:${process.env.PORT}/${req.file.path}`
-					: tile.url;
+				req.file != undefined ? `${backendUrl}/${req.file.path}` : tile.url;
 			const updatedTile = await tile.save();
 			res.status(200).json(updatedTile);
 		} else {
