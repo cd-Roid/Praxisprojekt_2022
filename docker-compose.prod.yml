@@ -9,7 +9,7 @@ services:
     networks:
     - INTIA_APP
     environment:
-      REACT_APP_BACKEND_URL: http://localhost:9001
+      NODE_ENV: production
     ports:
       - '80:80'
       - '443:443'
