@@ -49,26 +49,30 @@ export const useMouse = () => {
 
     if (stageRef.current) {
       const { 'data-src': url } = event.target.attrs;
-
-      const updatedTile: NewNode = {
-        id: event.target.attrs.id,
-        category: event.target.attrs.name,
-        x: event.target.x(),
-        y: event.target.y(),
-        src: url,
-      };
-      if (socket !== null && roomId) {
-        const socketDragTile: SocketDragTile = {
-          remoteUser: socket.id,
-          tile: updatedTile,
-          roomId: roomId,
-        };
-        socket?.emit('tile-drag', socketDragTile);
-        socket?.emit('cursor', {
-          cursorPos: { x: event.evt.x, y: event.evt.y, remoteUser: socket.id },
-          roomId,
-        });
-      }
+       const stage = stageRef.current;
+       const pos = stage.getRelativePointerPosition();
+       const updatedTile: NewNode = {
+         id: event.target.attrs.id,
+         category: event.target.attrs.name,
+         x: event.target.x(),
+         y: event.target.y(),
+         src: url,
+       };
+       if (socket !== null && roomId) {
+         const socketDragTile: SocketDragTile = {
+           remoteUser: socket.id,
+           tile: updatedTile,
+           roomId: roomId,
+         };
+         const cursorPos = {
+           x: pos?.x,
+           y: pos?.y,
+           remoteUser: socket.id,
+           roomId: roomId,
+         };
+         socket?.emit('tile-drag', socketDragTile);
+         socket?.emit('cursor', cursorPos);
+       }
     }
   };
 
