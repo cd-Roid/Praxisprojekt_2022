@@ -44,17 +44,23 @@ const frontendClientUrl = process.env.FRONTEND_CLIENT_URL;
 const prodAdminClientUrl = process.env.PROD_ADMIN_CLIENT_URL;
 const prodFrontendClientUrl = process.env.PROD_FRONTEND_CLIENT_URL;
 
+const allowedOrigins =
+	process.env.NODE_ENV === "production"
+		? [prodAdminClientUrl, prodFrontendClientUrl]
+		: [adminClientUrl, frontendClientUrl];
+
 const port = process.env.PORT || 9000;
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+	cors: {
+		origin: allowedOrigins,
+		methods: ["GET", "POST"],
+	},
+});
 const db = mongoose.connection;
 mongoose.connect(dbConfig.url + dbConfig.database);
 
 app.use((req, res, next) => {
-	const allowedOrigins =
-		process.env.NODE_ENV === "production"
-			? [prodAdminClientUrl, prodFrontendClientUrl]
-			: [adminClientUrl, frontendClientUrl];
 	const origin = req.headers.origin;
 	if (allowedOrigins.includes(origin)) {
 		res.setHeader("Access-Control-Allow-Origin", origin);
