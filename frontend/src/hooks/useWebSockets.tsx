@@ -11,7 +11,7 @@ export const useWebSockets = () => {
 
   const socketRef = useRef<Socket | null>(null);
   const socket = io(connectionString, {
-    transports: ['polling'],
+    transports: ['polling', 'websocket'],
     port: process.env.REACT_APP_BACKEND_PORT,
   });
 
