@@ -1,5 +1,5 @@
 import React from 'react';
-
+import useRandomColor from '../../hooks/useRandomColor';
 type Props = {
   userName: string;
 };
@@ -14,13 +14,19 @@ const UserDisplay: React.FC<Props> = ({ userName }) => {
 
     return initials;
   };
+  const { handleGenerate, color } = useRandomColor();
+
+  React.useEffect(() => {
+    handleGenerate();
+  }, []);
 
   return (
     <div className='mr-2'>
       <div
+        style={{ backgroundColor: color }}
         data-tooltip-target='tooltip-bottom'
         data-tooltip-placement='bottom'
-        className='h-8 w-8 font-semibold rounded-full bg-main flex items-center justify-center text-white'
+        className='h-8 w-8 font-semibold rounded-full flex items-center justify-center text-white'
       >
         {getInitials(userName)}
       </div>
