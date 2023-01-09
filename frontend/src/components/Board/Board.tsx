@@ -19,7 +19,6 @@ const Board = () => {
   const { height, width } = useWindowDimensions();
   const { gridComponents } = useGrid({ stageRef, gridLayer });
   const { handleDragOver, handleDrop, handleWheel, handleMouseMove, toggleCategory } = useMouse();
-
   const addTile = useBoardState((state) => state.addTile);
   const updateTile = useBoardState((state) => state.updateTile);
   const deleteTile = useBoardState((state) => state.removeTile);
@@ -27,6 +26,7 @@ const Board = () => {
   const socket = useWebSocketState((state) => state.socket);
   const setRoom = useWebSocketState((state) => state.setRoom);
   const room = useWebSocketState((state) => state.room);
+  const setRemoteDragColor = useBoardState((state) => state.setRemoteDragColor);
   setStageReference(stageRef);
 
   useEffect(() => {
@@ -45,6 +45,10 @@ const Board = () => {
 
       socket?.on('room-data', (data: RoomData) => {
         setRoom(data);
+      });
+
+      socket?.on('active-drag-user', (data: string | null) => {
+        setRemoteDragColor(data);
       });
     }
   }, [socket]);

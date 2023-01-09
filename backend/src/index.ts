@@ -84,8 +84,12 @@ io.on("connection", (socket) => {
 	socket.on("room-create", (data: UserData) => createRoom(data, state, socket));
 	socket.on("join-room", (data: UserData) => joinRoom(data, state, socket, io));
 	socket.on("tile-drop", (data: SocketDragTile) => tileDrop(state, data, io));
-	socket.on("tab-focus", (data: TabFocusData) => tabFocus(data, state, io));
-	socket.on("tile-drag", (data: SocketDragTile) => tileDrag(data, state, io));
+	socket.on("tab-focus", (data: TabFocusData) =>
+		tabFocus(data, state, socket, io),
+	);
+	socket.on("tile-drag", (data: SocketDragTile) =>
+		tileDrag(data, state, socket, io),
+	);
 	socket.on("cursor", (data: SocketCursorData) => cursorMove(data, state, io));
 	socket.on("tile-delete", (data: SocketDeleteData) =>
 		deleteTile(data, state, io),
