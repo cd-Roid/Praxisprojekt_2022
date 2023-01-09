@@ -19,12 +19,12 @@ const UserDisplay: React.FC<Props> = ({ userName }) => {
 
     return initials;
   };
-  console.log(userColor);
+
   return (
     <div className='mr-2'>
       <div
         style={{ backgroundColor: userColor }}
-        className='h-8 w-8 font-semibold rounded-full flex items-center justify-center text-white'
+        className='h-8 w-8 font-semibold rounded-full flex items-center justify-center text-black'
       >
         {getInitials(userName)}
       </div>

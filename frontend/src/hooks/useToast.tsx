@@ -14,7 +14,7 @@ export const useToast = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'colored',
+        theme: 'light',
       });
     } else if (type && type === 'success') {
       return toast.success(message, {
@@ -25,7 +25,7 @@ export const useToast = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'colored',
+        theme: 'light',
       });
     }
   };
