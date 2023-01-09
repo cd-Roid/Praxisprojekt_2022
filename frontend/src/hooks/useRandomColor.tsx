@@ -1,29 +1,14 @@
-import React from 'react';
-
 const useRandomColor = () => {
-  const [color, setColor] = React.useState('#000');
+  function generateLightColorHex() {
+    let color = '#';
+    for (let i = 0; i < 3; i++)
+      color += ('0' + Math.floor(((1 + Math.random()) * Math.pow(16, 2)) / 2).toString(16)).slice(
+        -2,
+      );
+    return color;
+  }
 
-  const getRgb = () => Math.floor(Math.random() * 256);
-
-  const rgbToHex = (r: number, g: number, b: number) =>
-    '#' +
-    [r, g, b]
-      .map((x) => {
-        const hex = x.toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-      })
-      .join('');
-
-  const handleGenerate = () => {
-    const color = {
-      r: getRgb(),
-      g: getRgb(),
-      b: getRgb(),
-    };
-
-    setColor(rgbToHex(color.r, color.g, color.b));
-  };
-  return { color, handleGenerate };
+  return { generateLightColorHex };
 };
 
 export default useRandomColor;

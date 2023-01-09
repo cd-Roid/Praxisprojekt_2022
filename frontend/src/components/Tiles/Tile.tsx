@@ -12,6 +12,8 @@ const Tile: React.FC<TileProps> = ({ src, x, y, category, id }) => {
   const { handleContextMenu } = useContextMenu();
   const [image] = useImage(src);
 
+  // add border to image if active
+
   return (
     <>
       <Group
@@ -32,6 +34,8 @@ const Tile: React.FC<TileProps> = ({ src, x, y, category, id }) => {
           image={image}
           offsetX={image ? image.width / 2 : 0}
           offsetY={image ? image.height / 2 : 0}
+          // stroke='red'
+          // strokeWidth={4}
         />
       </Group>
     </>
