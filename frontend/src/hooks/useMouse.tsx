@@ -15,6 +15,9 @@ export const useMouse = () => {
   const categoriesOpen = useBoardState((state) => state.categoriesOpen);
   const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
   const roomId = useWebSocketState((state) => state.room?.roomId);
+  const userColor = useWebSocketState(
+    (state) => state.room?.users.find((user) => user.userId === socket?.id)?.color,
+  );
 
   const toggleCategory = () => {
     if (categoriesOpen) {
@@ -49,30 +52,31 @@ export const useMouse = () => {
 
     if (stageRef.current) {
       const { 'data-src': url } = event.target.attrs;
-       const stage = stageRef.current;
-       const pos = stage.getRelativePointerPosition();
-       const updatedTile: NewNode = {
-         id: event.target.attrs.id,
-         category: event.target.attrs.name,
-         x: event.target.x(),
-         y: event.target.y(),
-         src: url,
-       };
-       if (socket !== null && roomId) {
-         const socketDragTile: SocketDragTile = {
-           remoteUser: socket.id,
-           tile: updatedTile,
-           roomId: roomId,
-         };
-         const cursorPos = {
-           x: pos?.x,
-           y: pos?.y,
-           remoteUser: socket.id,
-           roomId: roomId,
-         };
-         socket?.emit('tile-drag', socketDragTile);
-         socket?.emit('cursor', cursorPos);
-       }
+      const stage = stageRef.current;
+      const pos = stage.getRelativePointerPosition();
+      const updatedTile: NewNode = {
+        id: event.target.attrs.id,
+        category: event.target.attrs.name,
+        x: event.target.x(),
+        y: event.target.y(),
+        src: url,
+      };
+      if (socket !== null && roomId && userColor) {
+        const socketDragTile: SocketDragTile = {
+          remoteUser: socket.id,
+          tile: updatedTile,
+          roomId: roomId,
+          remoteUserColor: userColor,
+        };
+        const cursorPos = {
+          x: pos?.x,
+          y: pos?.y,
+          remoteUser: socket.id,
+          roomId: roomId,
+        };
+        socket?.emit('tile-drag', socketDragTile);
+        socket?.emit('cursor', cursorPos);
+      }
     }
   };
 
@@ -133,11 +137,12 @@ export const useMouse = () => {
           y: y - (offsetY - clientHeight / 2),
         };
         setTiles(newTile);
-        if (socket !== null && roomId) {
+        if (socket !== null && roomId && userColor) {
           const socketDragTile: SocketDragTile = {
             remoteUser: socket.id,
             tile: newTile,
             roomId: roomId,
+            remoteUserColor: userColor,
           };
           socket?.emit('tile-drop', socketDragTile);
         }

@@ -11,6 +11,7 @@ export type BoardContextType = {
   categoriesOpen: boolean;
   allTiles: InnerObject[];
   tilesOnBoard: NewNode[];
+  remoteDragColor: string | null;
   activeDragTile: React.RefObject<Group> | null;
   stageReference: React.RefObject<Stage>;
   clearActiveDragTile: () => void;
@@ -20,6 +21,7 @@ export type BoardContextType = {
   removeTile: (nodeToRemove: string) => void;
   setCategoriesOpen: (toggle: boolean) => void;
   setAllTiles: (tilesArray: InnerObject[]) => void;
+  setRemoteDragColor: (color: string | null) => void;
   setActiveDragTile: (newActiveTile: React.RefObject<Group>) => void;
   setStageReference: (stage: React.RefObject<Stage>) => void;
 };
@@ -30,6 +32,7 @@ export const useBoardState = create<BoardContextType>((set) => ({
   categoriesOpen: false,
   tilesOnBoard: [],
   activeDragTile: null,
+  remoteDragColor: '',
   stageReference: createRef<Stage>(),
 
   clearActiveDragTile: () => set(() => ({ activeDragTile: null })),
@@ -50,6 +53,7 @@ export const useBoardState = create<BoardContextType>((set) => ({
     set((state) => ({
       tilesOnBoard: state.tilesOnBoard.filter((tile) => tile.id !== tileToRemove),
     })),
+  setRemoteDragColor: (color: string | null) => set(() => ({ remoteDragColor: color })),
   setStageReference: (stageRef: React.RefObject<Stage>) =>
     set(() => ({ stageReference: stageRef })),
 }));

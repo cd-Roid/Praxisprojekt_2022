@@ -4,6 +4,7 @@ import { useWebSocketState } from '../../state/WebSocketState';
 import Input from './Inputs/Input';
 import { useNavigate } from 'react-router-dom';
 import { UserData } from '../../types';
+import { generateLightColorHex } from '../../utils/color';
 
 type LandingPageFormProps = {
   title: string;
@@ -20,11 +21,10 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
 }) => {
   const [roomId, setroomId] = React.useState<string>('');
   const [userName, setUserName] = React.useState<string>('');
+  const [userColor, setUserColor] = React.useState<string>('');
   const socket = useWebSocketState((state) => state.socket);
-  const addUser = useWebSocketState((state) => state.addUser);
   const setRoom = useWebSocketState((state) => state.setRoom);
   const navigate = useNavigate();
-
   const generateRoomId = () => {
     // create 6 digit uid
     const roomId = uuidv4().slice(0, 6);
@@ -42,6 +42,7 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
       roomId: roomId,
       userName: userName,
       userId: socket?.id as string,
+      color: userColor,
       isHost: true,
     };
     socket?.emit('room-create', roomData);
@@ -49,6 +50,8 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
 
   useEffect(() => {
     generateRoomId();
+    const color = generateLightColorHex();
+    setUserColor(color);
   }, []);
 
   useEffect(() => {
@@ -63,10 +66,10 @@ const LandingPageForm: React.FC<LandingPageFormProps> = ({
               userName: roomData.userName,
               isHost: true,
               cursorPos: { x: 0, y: 0 },
+              color: roomData.color,
             },
           ],
         });
-        addUser({ userId: roomData.userId, userName: roomData.userName });
         navigate(`/room/${roomData.roomId}`);
       });
     }

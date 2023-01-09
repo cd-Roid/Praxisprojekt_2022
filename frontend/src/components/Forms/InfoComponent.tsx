@@ -4,6 +4,7 @@ import { useWebSocketState } from '../../state/WebSocketState';
 import Default from '../Buttons/Default';
 import RoomCodeInput from './Inputs/RoomCodeInput';
 import UserDisplay from '../UserDisplay/UserDisplay';
+
 const InfoComponent = () => {
   const socket = useWebSocketState((state) => state.socket);
   const navigate = useNavigate();

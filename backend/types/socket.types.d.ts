@@ -4,6 +4,7 @@ export type UserData = {
 	userId: string;
 	isHost: boolean;
 	hasFocus: boolean;
+	color: string;
 	cursorPos?: {
 		x: number;
 		y: number;
@@ -32,6 +33,7 @@ export type SocketDragTile = {
 	remoteUser: string;
 	tile: NewNode;
 	roomId: string;
+	remoteUserColor: string;
 };
 
 export type SocketCursorData = {

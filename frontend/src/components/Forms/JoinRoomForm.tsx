@@ -3,6 +3,7 @@ import { useWebSocketState } from '../../state/WebSocketState';
 import Input from './Inputs/Input';
 import { RoomData } from '../../types';
 import { useToast } from '../../hooks/useToast';
+import { generateLightColorHex } from '../../utils/color';
 
 type LandingPageFormProps = {
   title: string;
@@ -36,6 +37,7 @@ const JoinRoomForm: React.FC<LandingPageFormProps> = ({
       roomId: roomId,
       userName: userName,
       userId: socket?.id,
+      color: generateLightColorHex(),
       isHost: false,
     };
     socket?.emit('join-room', roomData);

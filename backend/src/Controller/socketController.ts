@@ -49,10 +49,9 @@ export const joinRoom = (
 		socket.join(data.roomId);
 		socket.emit("join-success", room);
 		io.to(data.roomId).emit("room-data", room);
-		io.to(data.roomId).emit(
-			"new-user",
-			`${data.userName} has joined the room!`,
-		);
+		socket.broadcast
+			.to(data.roomId)
+			.emit("new-user", `${data.userName} has joined the room!`);
 	} else {
 		socket.emit("join-failure", "Room does not exist");
 	}
@@ -87,6 +86,7 @@ export const tileDrop = (
 export const tabFocus = (
 	data: TabFocusData,
 	state: RoomData[],
+	socket: Socket<DefaultEventsMap, any>,
 	io: Server<DefaultEventsMap, any>,
 ) => {
 	/**
@@ -102,12 +102,14 @@ export const tabFocus = (
 			}
 		});
 		io.to(data.roomId).emit("room-data", room);
+		socket.broadcast.to(data.roomId).emit("active-drag-user", null);
 	}
 };
 
 export const tileDrag = (
 	data: SocketDragTile,
 	state: RoomData[],
+	socket: Socket<DefaultEventsMap, any>,
 	io: Server<DefaultEventsMap, any>,
 ) => {
 	/**
@@ -125,6 +127,9 @@ export const tileDrag = (
 			tile.tile.x = data.tile.x;
 			tile.tile.y = data.tile.y;
 			io.to(data.roomId).emit("room-data", room);
+			socket.broadcast
+				.to(data.roomId)
+				.emit("active-drag-user", data.remoteUserColor);
 		}
 	}
 };
