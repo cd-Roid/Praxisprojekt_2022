@@ -49,10 +49,9 @@ export const joinRoom = (
 		socket.join(data.roomId);
 		socket.emit("join-success", room);
 		io.to(data.roomId).emit("room-data", room);
-		io.to(data.roomId).emit(
-			"new-user",
-			`${data.userName} has joined the room!`,
-		);
+		socket.broadcast
+			.to(data.roomId)
+			.emit("new-user", `${data.userName} has joined the room!`);
 	} else {
 		socket.emit("join-failure", "Room does not exist");
 	}
