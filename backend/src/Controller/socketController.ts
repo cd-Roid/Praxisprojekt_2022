@@ -73,10 +73,14 @@ export const tileDrop = (
 		room.tiles.push({
 			tile: {
 				id: data.tile.id,
+				name: data.tile.name,
 				category: data.tile.category,
 				src: data.tile.src,
 				x: data.tile.x,
 				y: data.tile.y,
+				points: data.tile.points,
+				color: data.tile.color,
+				textPosition: data.tile.textPosition,
 			},
 		});
 		io.to(data.roomId).emit("room-data", room);

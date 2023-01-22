@@ -35,7 +35,13 @@ export const createTile = async (req: Request, res: Response) => {
 			const tile = new Tile({
 				category: formData.category,
 				name: formData.name,
-				url: filePath,
+				src: filePath,
+				points: formData.points,
+				color: formData.color,
+				textPosition: {
+					x: formData.textPositionX,
+					y: formData.textPositionY,
+				},
 			});
 			const newTile = await tile.save();
 			res.status(200).json(newTile);
@@ -82,8 +88,13 @@ export const updateTile = async (req: Request, res: Response) => {
 			}
 			tile.category = req.body.category ? req.body.category : tile.category;
 			tile.name = req.body.name ? req.body.name : tile.name;
-			tile.url =
-				req.file != undefined ? `${backendUrl}/${req.file.path}` : tile.url;
+			tile.src =
+				req.file != undefined ? `${backendUrl}/${req.file.path}` : tile.src;
+			tile.points = req.body.points ? req.body.points : tile.points;
+			tile.color = req.body.color ? req.body.color : tile.color;
+			tile.textPosition = req.body.textPosition
+				? req.body.textPosition
+				: tile.textPosition;
 			const updatedTile = await tile.save();
 			res.status(200).json(updatedTile);
 		} else {
@@ -104,8 +115,8 @@ export const deleteTile = async (req: Request, res: Response) => {
 	try {
 		const tile = await Tile.findByIdAndDelete(req.params.id);
 		if (tile) {
-			const url = tile.url.split("/");
-			const fileName = url[url.length - 1];
+			const src = tile.src.split("/");
+			const fileName = src[src.length - 1];
 			fs.unlink(`./uploads/${fileName}`, (err) => {
 				if (err) {
 					console.log(err);

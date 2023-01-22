@@ -5,7 +5,7 @@
     "svgPath": "M1 186L89 237V117L194 57L97 1L1 186Z",
     "svgRotate": 45,
     "fill": "#f9b43d",
-    "url": "https://i.ibb.co/8M0jgv1/When.png"
+    "src": "https://i.ibb.co/8M0jgv1/When.png"
   },
   {
     "category": "End",
@@ -13,7 +13,7 @@
     "svgPath": "M193.5 1H2L105 66.5L2 131.5H193.5V1Z",
     "svgRotate": 0,
     "fill": "#f9b43d",
-    "url": "https://i.ibb.co/v47Vmqq/end.png"
+    "src": "https://i.ibb.co/v47Vmqq/end.png"
   },
   {
     "category": "Objects",
@@ -21,7 +21,7 @@
     "svgPath": "M104 0L207.923 60V180L104 240L0.0769501 180V60L104 0Z",
     "svgRotate": 0,
     "fill": "#eb555b",
-    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+    "src": "https://i.ibb.co/JrmGxY9/Lamp.png"
   },
   {
     "category": "Objects",
@@ -29,7 +29,7 @@
     "svgPath": "M104 0L207.923 60V180L104 240L0.0769501 180V60L104 0Z",
     "svgRotate": 0,
     "fill": "#eb555b",
-    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+    "src": "https://i.ibb.co/JrmGxY9/Lamp.png"
   },
   {
     "category": "Objects",
@@ -37,7 +37,7 @@
     "svgPath": "M104 0L207.923 60V180L104 240L0.0769501 180V60L104 0Z",
     "svgRotate": 0,
     "fill": "#eb555b",
-    "url": "https://i.ibb.co/JrmGxY9/Lamp.png"
+    "src": "https://i.ibb.co/JrmGxY9/Lamp.png"
   },
   {
     "category": "Actions",
@@ -45,7 +45,7 @@
     "svgPath": "M103 0L206 66.5L103 131L0 66.5L103 0Z",
     "svgRotate": 0,
     "fill": "#f4aece",
-    "url": "https://i.ibb.co/0996SHK/an.png"
+    "src": "https://i.ibb.co/0996SHK/an.png"
   },
   {
     "category": "Actions",
@@ -53,7 +53,7 @@
     "svgPath": "M103 0L206 66.5L103 131L0 66.5L103 0Z",
     "svgRotate": 0,
     "fill": "#f4aece",
-    "url": "https://i.ibb.co/8MjkqL5/aus.png"
+    "src": "https://i.ibb.co/8MjkqL5/aus.png"
   },
   {
     "category": "Conditions",
@@ -61,7 +61,7 @@
     "svgPath": "M105 0L208 60V149L105 85L0 149V60L105 0Z",
     "svgRotate": 0,
     "fill": "#bababa",
-    "url": "https://i.ibb.co/gVgx6Cf/solange.png"
+    "src": "https://i.ibb.co/gVgx6Cf/solange.png"
   },
   {
     "category": "Conditions",
@@ -69,7 +69,7 @@
     "svgPath": "M105 0L208 60V149L105 85L0 149V60L105 0Z",
     "svgRotate": 0,
     "fill": "#bababa",
-    "url": "https://i.ibb.co/hLMHLr9/sonst.png"
+    "src": "https://i.ibb.co/hLMHLr9/sonst.png"
   },
   {
     "category": "Negation",
@@ -77,7 +77,7 @@
     "svgPath": "M105 0L208 60V149L105 85L0 149V60L105 0Z",
     "svgRotate": 0,
     "fill": "#eb555b",
-    "url": "https://i.ibb.co/6Xd9LyJ/Not.png"
+    "src": "https://i.ibb.co/6Xd9LyJ/Not.png"
   },
   {
     "category": "Union",
@@ -85,6 +85,6 @@
     "svgPath": "M0 0L102.5 66.5V181L0 246.5V0Z",
     "svgRotate": 0,
     "fill": "#bababa",
-    "url": "https://i.ibb.co/4j5Mznp/Und.png"
+    "src": "https://i.ibb.co/4j5Mznp/Und.png"
   }
 ]
