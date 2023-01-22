@@ -15,16 +15,12 @@ export type SocketDeleteData = {
 	id: string;
 };
 
-export type NewTile = {
+export type NewNode = {
 	id: string;
 	category: string;
 	src: string;
 	x: number;
 	y: number;
-	name: string;
-	points: number[];
-	color: string;
-	textPosition: { x: number; y: number };
 };
 
 export type TabFocusData = {
@@ -35,7 +31,7 @@ export type TabFocusData = {
 
 export type SocketDragTile = {
 	remoteUser: string;
-	tile: NewTile;
+	tile: NewNode;
 	roomId: string;
 	remoteUserColor: string;
 };
@@ -49,7 +45,7 @@ export type SocketCursorData = {
 
 //state object for each room
 export type TileData = {
-	tile: NewTile;
+	tile: NewNode;
 };
 
 export type RoomData = {

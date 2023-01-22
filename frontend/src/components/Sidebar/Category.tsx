@@ -1,5 +1,5 @@
 import MenuTile from '../Tiles/MenuTile';
-import { Tile } from '../../types';
+import { InnerObject } from '../../types';
 import { useMouse } from '../../hooks/useMouse';
 import React, { useEffect, useState } from 'react';
 import { useBoardState } from '../../state/BoardState';
@@ -8,13 +8,14 @@ type CategoryProps = {
   category: string;
 };
 
+
 const Category: React.FC<CategoryProps> = ({ category }) => {
-  const [stateItems, setStateItems] = useState<Tile[]>([]);
+  const [stateItems, setStateItems] = useState<InnerObject[]>([]);
   const allTiles = useBoardState((state) => state.allTiles);
   const { handleDragStart } = useMouse();
 
   useEffect(() => {
-    const InnerObjectArray: Tile[] = [];
+    const InnerObjectArray: InnerObject[] = [];
     allTiles.forEach((object) => {
       object.category === category && InnerObjectArray.push(object);
     });

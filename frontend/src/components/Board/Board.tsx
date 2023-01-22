@@ -69,16 +69,12 @@ const Board = () => {
             {gridComponents}
             {room?.tiles?.map((tileObject) => (
               <Tile
+                src={tileObject.tile.src}
+                id={tileObject.tile.id}
                 key={tileObject.tile.id}
+                category={tileObject.tile.category}
                 x={tileObject.tile.x}
                 y={tileObject.tile.y}
-                id={tileObject.tile.id}
-                src={tileObject.tile.src}
-                name={tileObject.tile.name}
-                color={tileObject.tile.color}
-                points={tileObject.tile.points}
-                category={tileObject.tile.category}
-                textPosition={tileObject.tile.textPosition}
               />
             ))}
           </Layer>

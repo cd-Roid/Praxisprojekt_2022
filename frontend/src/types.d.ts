@@ -12,13 +12,12 @@ export type UserData = {
 };
 
 
-export type NewTile = {
+export type NewNode = {
+  id: string;
   category: string;
+  x: number;
+  y: number;
   src: string;
-  name: string;
-  points: number[];
-  color: string;
-  textPosition: { x: number; y: number };
 };
 
 export type CursorData = {
@@ -28,15 +27,20 @@ export type CursorData = {
 };
 
 export type Tile = {
+  src: string;
+  id: string;
   x: number;
   y: number;
-  id: string;
-  src: string;
-  name: string;
-  color: string;
-  points: number[];
   category: string;
-  textPosition: { x: number; y: number };
+};
+
+export type MenuTileProps = {
+  name: string;
+  category: string;
+  svgPath: string;
+  fill: string;
+  svgRotate: number;
+  url: string;
 };
 
 export type InnerObject = {
@@ -45,18 +49,24 @@ export type InnerObject = {
   svgPath: string;
   fill: string;
   svgRotate: number;
-  src: string;
+  url: string;
 };
 
 export type SocketDragTile = {
   remoteUser: string;
-  tile: Tile;
+  tile: NewNode;
   roomId: string;
   remoteUserColor: string;
 };
 
 export type TileData = {
-  tile: Tile;
+  tile: {
+    id: string;
+    category: string;
+    src: string;
+    x: number;
+    y: number;
+  };
 };
 
 export type RoomData = {
