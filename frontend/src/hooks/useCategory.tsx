@@ -12,7 +12,7 @@ export const getTileType = (categoryName: string): TileTypeProps => {
   switch (categoryName) {
     case 'Start':
       return {
-        points: [0, -100, 100, -50, 0, 0, 0, 100, -90, 50],
+        points: [0, -200, 200, -200, 100, -50, 200, 100, 0, 100],
         textPosition: { x: -60, y: 30 },
         fill: '#f9b43d',
         rotation: -60,
@@ -20,7 +20,7 @@ export const getTileType = (categoryName: string): TileTypeProps => {
       };
     case 'End':
       return {
-        points: [-200, -50, 0, -50, 0, 50, -200, 50, -100, 0],
+        points: [-200, -250, 0, -250, 0, 50, -200, 50, -100, -100],
         textPosition: { x: -125, y: -5 },
         fill: '#f9b43d',
         rotation: 0,
@@ -29,7 +29,7 @@ export const getTileType = (categoryName: string): TileTypeProps => {
     case 'Objects':
       return {
         // points for a top pointed hexagon
-        points: [0, -100, 100, -50, 100, 50, 0, 100, -100, 50, -100, -50],
+        points: [0, -100, 200, -100, 300, 50, 200, 200, 0, 200, -100, 50],
         textPosition: { x: -60, y: 0 },
         fill: '#eb555b',
         rotation: 0,
@@ -37,7 +37,7 @@ export const getTileType = (categoryName: string): TileTypeProps => {
       };
     case 'Actions':
       return {
-        points: [0, -50, -100, 0, 0, 50, 100, 0],
+        points: [-200, -250, 0, -250, 100, -100, 0, 50, -200, 50, -100, -100],
         textPosition: { x: -60, y: -5 },
         fill: '#f4aece',
         rotation: 0,
@@ -61,7 +61,7 @@ export const getTileType = (categoryName: string): TileTypeProps => {
       };
     case 'Union':
       return {
-        points: [-50, -100, -50, 100, 50, 50, 50, -50],
+        points: [-100, -50, 0, -200, 100, -200, 200, -50, 200, 50, 100, 200, 0, 200, -100, 50],
         textPosition: { x: -55, y: 0 },
         fill: '#bababa',
         rotation: 0,
