@@ -1,6 +1,7 @@
 import Tile from '../Tiles/Tile';
 import React, { useEffect } from 'react';
 import { Stage, Layer } from 'react-konva';
+import TileBorder from '../Tiles/TileBorder';
 import { useGrid } from '../../hooks/useGrid';
 import { useMouse } from '../../hooks/useMouse';
 import { Stage as StageType } from 'konva/lib/Stage';
@@ -27,6 +28,7 @@ const Board = () => {
   const setRoom = useWebSocketState((state) => state.setRoom);
   const room = useWebSocketState((state) => state.room);
   const setRemoteDragColor = useBoardState((state) => state.setRemoteDragColor);
+  const selectedTile = useBoardState((state) => state.selectedTile);
   setStageReference(stageRef);
 
   useEffect(() => {
@@ -67,6 +69,16 @@ const Board = () => {
         >
           <Layer ref={gridLayer}>
             {gridComponents}
+            {selectedTile != null && (
+              <TileBorder
+                key={selectedTile.id}
+                tilePosition={{
+                  x: selectedTile.x,
+                  y: selectedTile.y,
+                }}
+                id={selectedTile.id}
+              />
+            )}
             {room?.tiles?.map((tileObject) => (
               <Tile
                 key={tileObject.tile.id}

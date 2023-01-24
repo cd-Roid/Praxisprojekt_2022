@@ -8,6 +8,7 @@ import { useWebSocketState } from '../state/WebSocketState';
 
 export const useMouse = () => {
   const allTiles = useBoardState((state) => state.allTiles);
+  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const setTiles = useBoardState((state) => state.addTile);
   const updateTile = useBoardState((state) => state.updateTile);
   const stageRef = useBoardState((state) => state.stageReference);
@@ -19,9 +20,11 @@ export const useMouse = () => {
   const userColor = useWebSocketState(
     (state) => state.room?.users.find((user) => user.userId === socket?.id)?.color,
   );
+  const setSelectedTile = useBoardState((state) => state.setSelectedTile);
 
   const toggleCategory = () => {
     if (categoriesOpen) {
+      setSelectedTile(null);
       setCategoriesOpen(false);
     }
   };
@@ -98,18 +101,21 @@ export const useMouse = () => {
     const tile = allTiles.find(
       (tile) => tile.name === event.currentTarget.getAttribute('data-name'),
     );
+    console.log(tile?.id);
     if (tile) {
+      const { _id: id, name, src, color, points, textPosition } = tile;
       const dragPayload = JSON.stringify({
         nodeClass: event.currentTarget.getAttribute('data-class'),
         offsetX: event.nativeEvent.offsetX,
         offsetY: event.nativeEvent.offsetY,
         clientWidth: event.currentTarget.clientWidth,
         clientHeight: event.currentTarget.clientHeight,
-        src: tile.src,
-        name: tile.name,
-        color: tile.color,
-        points: tile.points,
-        textPosition: tile.textPosition,
+        id: id,
+        src: src,
+        name: name,
+        color: color,
+        points: points,
+        textPosition: textPosition,
       });
       event.dataTransfer.setData('dragStart/Tile', dragPayload);
     }
@@ -145,6 +151,7 @@ export const useMouse = () => {
       stageRef.current.setPointersPositions(event);
       const { x, y } = stageRef.current.getRelativePointerPosition();
       const {
+        id,
         src,
         color,
         textPosition,
@@ -158,7 +165,7 @@ export const useMouse = () => {
       } = JSON.parse(draggedData);
       if (x && y) {
         const newTile: Tile = {
-          id: uuidv4(),
+          id: id,
           src: src,
           category: nodeClass,
           x: x - (offsetX - clientWidth / 2),
@@ -210,6 +217,16 @@ export const useMouse = () => {
     }
   };
 
+  const setClickedTile = (event: KonvaEventObject<MouseEvent>) => {
+    // set the actively clicked TIle
+    const clickedTile = tilesOnBoard.find((tile) => tile.id === event.target.attrs.id);
+    if (clickedTile) {
+      setSelectedTile(clickedTile);
+    } else {
+      setSelectedTile(null);
+    }
+  };
+
   return {
     handleMouseMove,
     handleDragOver,
@@ -218,6 +235,7 @@ export const useMouse = () => {
     handleWheel,
     toggleCategory,
     handleMouseEnL,
+    setClickedTile,
     updateTilePosition,
     setActiveDragElement,
   };

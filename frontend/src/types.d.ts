@@ -30,6 +30,7 @@ export type CursorData = {
 export type Tile = {
   x: number;
   y: number;
+  _id?: string;
   id: string;
   src: string;
   name: string;

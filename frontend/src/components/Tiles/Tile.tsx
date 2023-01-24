@@ -8,28 +8,17 @@ import { useWebSocketState } from '../../state/WebSocketState';
 // import useImage from 'use-image';
 // import { useBoardState } from '../../state/BoardState';
 
-const Tile: React.FC<TileProps> = ({
-  x,
-  y,
-  id,
-  src,
-  name,
-  color,
-  points,
-  category,
-  textPosition,
-}) => {
+const Tile: React.FC<TileProps> = ({ x, y, id, src, name, color, points, category, textPosition }) => {
   const tileRef = React.useRef<GroupType>(null);
   const userColor = useWebSocketState(
     (state) => state.room?.users?.find((user) => user.userId === state.socket?.id)?.color,
   );
-  const { handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
+  const { setClickedTile, handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
   const { handleContextMenu } = useContextMenu();
   // const [image] = useImage(src);
   // const remoteDragColor = useBoardState((state) => state.remoteDragColor);
 
   // add border to image if active
-
   return (
     <>
       {userColor && (
@@ -42,6 +31,7 @@ const Tile: React.FC<TileProps> = ({
           y={y}
           id={id}
           name={category}
+          onClick={(e) => setClickedTile(e)}
           onDragMove={(event) => setActiveDragElement(tileRef, event)}
           onDragEnd={updateTilePosition}
           onMouseOver={(e) => handleMouseEnL(e, 4)}
@@ -55,12 +45,12 @@ const Tile: React.FC<TileProps> = ({
             strokeWidth={4}
           /> */}
 
-          <Line fill={color} stroke={color} closed={true} strokeWidth={0} points={points} />
+          <Line fill={color} stroke={'black'} closed={true} strokeWidth={0} points={points} />
           <Text text={name} fontSize={18} strokeWidth={12} x={textPosition.x} y={textPosition.y} />
         </Group>
       )}
     </>
   );
-};
+};;
 
 export default Tile;
