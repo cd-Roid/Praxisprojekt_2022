@@ -65,3 +65,8 @@ export type RoomData = {
   users: UserData[];
   tiles?: TileData[];
 };
+
+export type Coordinates = {
+  x: number;
+  y: number;
+};

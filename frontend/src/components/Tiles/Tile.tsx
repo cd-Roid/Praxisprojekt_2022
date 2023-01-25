@@ -1,56 +1,175 @@
 import React from 'react';
-import { Tile as TileProps } from '../../types';
-import { Group, Image, Text, Line } from 'react-konva';
+import TileBorder from './TileBorder';
+import { Tile as TileProps, Coordinates } from '../../types';
 import { useMouse } from '../../hooks/useMouse';
+import TileBorderAnchors from './TileBorderAnchors';
 import { Group as GroupType } from 'konva/lib/Group';
+import { Group, Text, Line } from 'react-konva';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
-// import useImage from 'use-image';
-// import { useBoardState } from '../../state/BoardState';
+import { KonvaEventObject } from 'konva/lib/Node';
+import useAnchor from '../../hooks/useAnchor';
+import { useBoardState } from '../../state/BoardState';
 
-const Tile: React.FC<TileProps> = ({ x, y, id, src, name, color, points, category, textPosition }) => {
+const Tile: React.FC<TileProps> = ({
+  x,
+  y,
+  id,
+  src,
+  name,
+  color,
+  points,
+  category,
+  textPosition,
+}) => {
+  const { getAnchorPoints } = useAnchor();
+  const [showBorder, setShowBoarder] = React.useState<boolean>(false);
   const tileRef = React.useRef<GroupType>(null);
+  const { handleContextMenu } = useContextMenu();
+  const { handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
+  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
+  const [connectionPreview, setConnectionPreview] = React.useState<JSX.Element | null>(null);
+  const [connections, setConnections] = React.useState<{ source: string; destination: string }[]>(
+    [],
+  );
   const userColor = useWebSocketState(
     (state) => state.room?.users?.find((user) => user.userId === state.socket?.id)?.color,
   );
-  const { setClickedTile, handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
-  const { handleContextMenu } = useContextMenu();
-  // const [image] = useImage(src);
-  // const remoteDragColor = useBoardState((state) => state.remoteDragColor);
+  const [groupSize, setGroupSize] = React.useState<{ width: number; height: number }>({
+    width: 0,
+    height: 0,
+  });
 
-  // add border to image if active
+  const createConnectionPoints = (
+    source: { x: number; y: number },
+    destination: { x: number; y: number },
+  ) => {
+    return [source.x, source.y, destination.x, destination.y];
+  };
+
+  const hasInterSection = (position: Coordinates, tilePosition: Coordinates) => {
+    return !(tilePosition.x > position.x || tilePosition.y > position.y);
+  };
+
+  const detectConnection = (position: Coordinates) => {
+    const intersectingStep: TileProps | undefined = tilesOnBoard.find((tile) => {
+      const tilePosition = { x: tile.x, y: tile.y };
+      return hasInterSection(position, tilePosition);
+    });
+    if (intersectingStep) {
+      return intersectingStep;
+    }
+    return null;
+  };
+
+  const handleAnchorDragStart = (e: KonvaEventObject<DragEvent>) => {
+    const position = e.target.position();
+    setConnectionPreview(
+      <Line
+        x={position.x}
+        y={position.y}
+        points={createConnectionPoints(position, position)}
+        stroke='green'
+        strokeWidth={4}
+      />,
+    );
+  };
+
+  const handleAnchorDragMove = (e: KonvaEventObject<DragEvent>) => {
+    const position = e.target.position();
+    const stage = e.target.getStage();
+    const pointerPosition = stage?.getPointerPosition();
+    if (pointerPosition) {
+      const mousePos = {
+        x: pointerPosition.x - position.x,
+        y: pointerPosition.y - position.y,
+      };
+      setConnectionPreview(
+        <Line
+          x={position.x}
+          y={position.y}
+          points={createConnectionPoints({ x: 0, y: 0 }, mousePos)}
+          stroke='green'
+          strokeWidth={4}
+        />,
+      );
+    }
+  };
+
+  const handleAnchorDragEnd = (e: KonvaEventObject<DragEvent>, id: string) => {
+    setConnectionPreview(null);
+  };
+
+  const handleClick = (event: KonvaEventObject<MouseEvent>) => {
+    setShowBoarder(!showBorder);
+    if (tileRef.current) {
+      setGroupSize({
+        width: event.currentTarget.getClientRect({
+          skipTransform: true,
+        }).width,
+        height: event.currentTarget.getClientRect({
+          skipTransform: true,
+        }).height,
+      });
+    }
+  };
+
   return (
     <>
       {userColor && (
-        <Group
-          onContextMenu={handleContextMenu}
-          ref={tileRef}
-          draggable
-          data-src={src}
-          x={x}
-          y={y}
-          id={id}
-          name={category}
-          onClick={(e) => setClickedTile(e)}
-          onDragMove={(event) => setActiveDragElement(tileRef, event)}
-          onDragEnd={updateTilePosition}
-          onMouseOver={(e) => handleMouseEnL(e, 4)}
-          onMouseLeave={(e) => handleMouseEnL(e, 0)}
-        >
-          {/* <Image
-            image={image}
-            offsetX={image ? image.width / 2 : 0}
-            offsetY={image ? image.height / 2 : 0}
-            stroke={remoteDragColor ? remoteDragColor : userColor}
-            strokeWidth={4}
-          /> */}
-
-          <Line fill={color} stroke={'black'} closed={true} strokeWidth={0} points={points} />
-          <Text text={name} fontSize={18} strokeWidth={12} x={textPosition.x} y={textPosition.y} />
-        </Group>
+        <>
+          {showBorder && (
+            <>
+              <TileBorder x={x} y={y} id={id} points={points} />
+              {getAnchorPoints(x, y, category, name, groupSize)?.map((point, index) => (
+                <TileBorderAnchors
+                  dragStart={handleAnchorDragStart}
+                  dragMove={handleAnchorDragMove}
+                  dragEnd={handleAnchorDragEnd}
+                  x={point.x}
+                  y={point.y}
+                  id={id}
+                  key={index}
+                />
+              ))}
+            </>
+          )}
+          <Group
+            onContextMenu={handleContextMenu}
+            ref={tileRef}
+            draggable
+            data-src={src}
+            x={x}
+            y={y}
+            id={id}
+            name={category}
+            onClick={(event) => handleClick(event)}
+            onDragMove={(event) => setActiveDragElement(tileRef, event)}
+            onDragEnd={updateTilePosition}
+            onMouseOver={(event) => handleMouseEnL(event, showBorder, 4)}
+            onMouseLeave={(event) => handleMouseEnL(event, showBorder, 0)}
+          >
+            <Line
+              id={id}
+              fill={color}
+              stroke={'black'}
+              closed={true}
+              strokeWidth={0}
+              points={points}
+            />
+            <Text
+              text={name}
+              fontSize={18}
+              strokeWidth={12}
+              x={textPosition.x}
+              y={textPosition.y}
+            />
+          </Group>
+        </>
       )}
+      {connectionPreview}
     </>
   );
-};;
+};
 
 export default Tile;

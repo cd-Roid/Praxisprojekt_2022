@@ -69,16 +69,6 @@ const Board = () => {
         >
           <Layer ref={gridLayer}>
             {gridComponents}
-            {selectedTile != null && (
-              <TileBorder
-                key={selectedTile.id}
-                tilePosition={{
-                  x: selectedTile.x,
-                  y: selectedTile.y,
-                }}
-                id={selectedTile.id}
-              />
-            )}
             {room?.tiles?.map((tileObject) => (
               <Tile
                 key={tileObject.tile.id}

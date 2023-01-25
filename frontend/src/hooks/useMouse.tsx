@@ -1,6 +1,5 @@
 import React from 'react';
 import { SocketDragTile, Tile } from '../types';
-import { v4 as uuidv4 } from 'uuid';
 import { Group } from 'konva/lib/Group';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
@@ -14,7 +13,6 @@ export const useMouse = () => {
   const stageRef = useBoardState((state) => state.stageReference);
   const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
   const socket = useWebSocketState((state) => state.socket);
-  const categoriesOpen = useBoardState((state) => state.categoriesOpen);
   const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
   const roomId = useWebSocketState((state) => state.room?.roomId);
   const userColor = useWebSocketState(
@@ -23,10 +21,8 @@ export const useMouse = () => {
   const setSelectedTile = useBoardState((state) => state.setSelectedTile);
 
   const toggleCategory = () => {
-    if (categoriesOpen) {
-      setSelectedTile(null);
-      setCategoriesOpen(false);
-    }
+    setSelectedTile(null);
+    setCategoriesOpen(false);
   };
 
   const handleMouseMove = () => {
@@ -88,10 +84,18 @@ export const useMouse = () => {
     }
   };
 
-  const handleMouseEnL = (event: KonvaEventObject<MouseEvent>, strokeWidth: number) => {
+  const handleMouseEnL = (
+    event: KonvaEventObject<MouseEvent>,
+    isClicked: boolean,
+    strokeWidth: number,
+  ) => {
     // for mouse Enter and Leave
     // function to set the stroke width when user hovers over a Tile
-    event.target.setAttr('strokeWidth', strokeWidth);
+    if (isClicked === true) {
+      event.target.setAttr('strokeWidth', 0);
+    } else {
+      event.target.setAttr('strokeWidth', strokeWidth);
+    }
   };
 
   const handleDragOver = (event: React.DragEvent) => event.preventDefault();
@@ -101,7 +105,7 @@ export const useMouse = () => {
     const tile = allTiles.find(
       (tile) => tile.name === event.currentTarget.getAttribute('data-name'),
     );
-    console.log(tile?.id);
+
     if (tile) {
       const { _id: id, name, src, color, points, textPosition } = tile;
       const dragPayload = JSON.stringify({
