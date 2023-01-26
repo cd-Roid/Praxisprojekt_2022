@@ -16,14 +16,16 @@ export type SocketDeleteData = {
 };
 
 export type NewTile = {
-	id: string;
-	category: string;
-	src: string;
 	x: number;
 	y: number;
+	id: string;
+	src: string;
 	name: string;
-	points: number[];
+	width: number;
 	color: string;
+	height: number;
+	category: string;
+	points: number[];
 	textPosition: { x: number; y: number };
 };
 

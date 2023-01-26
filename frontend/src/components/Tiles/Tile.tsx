@@ -15,6 +15,7 @@ const Tile: React.FC<TileProps> = ({
   x,
   y,
   id,
+  _id,
   src,
   name,
   color,
@@ -29,9 +30,9 @@ const Tile: React.FC<TileProps> = ({
   const { handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const [connectionPreview, setConnectionPreview] = React.useState<JSX.Element | null>(null);
-  const [connections, setConnections] = React.useState<{ source: string; destination: string }[]>(
-    [],
-  );
+  const [connections, setConnections] = React.useState<
+    { source: string; destination: Coordinates }[]
+  >([]);
   const userColor = useWebSocketState(
     (state) => state.room?.users?.find((user) => user.userId === state.socket?.id)?.color,
   );
@@ -52,13 +53,15 @@ const Tile: React.FC<TileProps> = ({
   };
 
   const detectConnection = (position: Coordinates) => {
-    const intersectingStep: TileProps | undefined = tilesOnBoard.find((tile) => {
+    const intersectingTile: TileProps | undefined = tilesOnBoard.find((tile) => {
       const tilePosition = { x: tile.x, y: tile.y };
       return hasInterSection(position, tilePosition);
     });
-    if (intersectingStep) {
-      return intersectingStep;
+    if (intersectingTile) {
+      console.log('intersectingTile: ', intersectingTile);
+      return intersectingTile;
     }
+    console.log('no interesction');
     return null;
   };
 
@@ -98,18 +101,28 @@ const Tile: React.FC<TileProps> = ({
 
   const handleAnchorDragEnd = (e: KonvaEventObject<DragEvent>, id: string) => {
     setConnectionPreview(null);
+    const stage = e.target.getStage();
+    const pointerPosition = stage?.getPointerPosition();
+    if (pointerPosition) {
+      const intersectingTile = detectConnection(pointerPosition);
+      if (intersectingTile !== null) {
+        setConnections((prev) => [
+          ...prev,
+          { source: id, destination: { x: intersectingTile.x, y: intersectingTile.y } },
+        ]);
+      }
+    }
   };
 
   const handleClick = (event: KonvaEventObject<MouseEvent>) => {
     setShowBoarder(!showBorder);
     if (tileRef.current) {
+      const rect = event.currentTarget.getClientRect({
+        skipTransform: true,
+      });
       setGroupSize({
-        width: event.currentTarget.getClientRect({
-          skipTransform: true,
-        }).width,
-        height: event.currentTarget.getClientRect({
-          skipTransform: true,
-        }).height,
+        width: rect.width,
+        height: rect.height,
       });
     }
   };
@@ -118,18 +131,18 @@ const Tile: React.FC<TileProps> = ({
     <>
       {userColor && (
         <>
-          {showBorder && (
+          {showBorder && id && (
             <>
               <TileBorder x={x} y={y} id={id} points={points} />
               {getAnchorPoints(x, y, category, name, groupSize)?.map((point, index) => (
                 <TileBorderAnchors
+                  id={id}
+                  x={point.x}
+                  y={point.y}
+                  key={index}
                   dragStart={handleAnchorDragStart}
                   dragMove={handleAnchorDragMove}
                   dragEnd={handleAnchorDragEnd}
-                  x={point.x}
-                  y={point.y}
-                  id={id}
-                  key={index}
                 />
               ))}
             </>
@@ -138,14 +151,18 @@ const Tile: React.FC<TileProps> = ({
             onContextMenu={handleContextMenu}
             ref={tileRef}
             draggable
-            data-src={src}
             x={x}
             y={y}
             id={id}
+            data-id={_id}
+            data-src={src}
             name={category}
-            onClick={(event) => handleClick(event)}
-            onDragMove={(event) => setActiveDragElement(tileRef, event)}
+            data-fill={color}
             onDragEnd={updateTilePosition}
+            data-points={JSON.stringify(points)}
+            onClick={(event) => handleClick(event)}
+            data-textPosition={JSON.stringify(textPosition)}
+            onDragMove={(event) => setActiveDragElement(tileRef, event)}
             onMouseOver={(event) => handleMouseEnL(event, showBorder, 4)}
             onMouseLeave={(event) => handleMouseEnL(event, showBorder, 0)}
           >
@@ -171,5 +188,6 @@ const Tile: React.FC<TileProps> = ({
     </>
   );
 };
+
 
 export default Tile;

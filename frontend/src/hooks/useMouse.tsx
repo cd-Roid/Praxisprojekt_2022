@@ -7,19 +7,19 @@ import { useBoardState } from '../state/BoardState';
 import { useWebSocketState } from '../state/WebSocketState';
 
 export const useMouse = () => {
-  const allTiles = useBoardState((state) => state.allTiles);
-  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const setTiles = useBoardState((state) => state.addTile);
+  const socket = useWebSocketState((state) => state.socket);
+  const allTiles = useBoardState((state) => state.allTiles);
   const updateTile = useBoardState((state) => state.updateTile);
   const stageRef = useBoardState((state) => state.stageReference);
-  const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
-  const socket = useWebSocketState((state) => state.socket);
-  const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
   const roomId = useWebSocketState((state) => state.room?.roomId);
+  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
+  const setSelectedTile = useBoardState((state) => state.setSelectedTile);
+  const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
+  const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
   const userColor = useWebSocketState(
     (state) => state.room?.users.find((user) => user.userId === socket?.id)?.color,
   );
-  const setSelectedTile = useBoardState((state) => state.setSelectedTile);
 
   const toggleCategory = () => {
     setSelectedTile(null);
@@ -45,48 +45,7 @@ export const useMouse = () => {
     }
   };
 
-  const setActiveDragElement = (
-    activeTileReference: React.RefObject<Group>,
-    event: KonvaEventObject<DragEvent>,
-  ) => {
-    setActiveDragTile(activeTileReference);
 
-    if (stageRef.current) {
-      // TODO: fix missing attribute
-      const { 'data-src': src } = event.target.attrs;
-      const stage = stageRef.current;
-      const pos = stage.getRelativePointerPosition();
-      const updatedTile: Tile = {
-        src: src,
-        x: event.target.x(),
-        y: event.target.y(),
-        id: event.target.attrs.id,
-        name: event.target.attrs.name,
-        width: event.target.width(),
-        height: event.target.height(),
-        color: event.target.attrs.color,
-        points: event.target.attrs.points,
-        category: event.target.attrs.name,
-        textPosition: event.target.attrs.textPosition,
-      };
-      if (socket !== null && roomId && userColor) {
-        const socketDragTile: SocketDragTile = {
-          remoteUser: socket.id,
-          tile: updatedTile,
-          roomId: roomId,
-          remoteUserColor: userColor,
-        };
-        const cursorPos = {
-          x: pos?.x,
-          y: pos?.y,
-          remoteUser: socket.id,
-          roomId: roomId,
-        };
-        socket?.emit('tile-drag', socketDragTile);
-        socket?.emit('cursor', cursorPos);
-      }
-    }
-  };
 
   const handleMouseEnL = (
     event: KonvaEventObject<MouseEvent>,
@@ -186,21 +145,29 @@ export const useMouse = () => {
      * updates the Tile position in the state
      * also clears the active Drag Element
      */
-    const { 'data-src': src } = event.target.attrs;
+
+    const {
+      'data-src': src,
+      'data-fill': color,
+      'data-id': _id,
+      'data-points': points,
+      'data-textPosition': textPosition,
+    } = event.target.attrs;
     if (stageRef.current) {
       const rect = event.currentTarget.getClientRect();
       const updatedTile: Tile = {
+        _id: _id,
         src: src,
+        color: color,
+        points: points,
+        width: rect.width,
         x: event.target.x(),
         y: event.target.y(),
-        width: rect.width,
         height: rect.height,
         id: event.target.attrs.id,
+        textPosition: textPosition,
         name: event.target.attrs.name,
-        color: event.target.attrs.fill,
         category: event.target.attrs.name,
-        points: event.target.attrs.points,
-        textPosition: event.target.attrs.textPosition,
       };
       updateTile(updatedTile);
     }
@@ -234,16 +201,57 @@ export const useMouse = () => {
     }
   };
 
-  const setClickedTile = (event: KonvaEventObject<MouseEvent>) => {
-    // set the actively clicked TIle
-    const clickedTile = tilesOnBoard.find((tile) => tile.id === event.target.attrs.id);
-    if (clickedTile) {
-      setSelectedTile(clickedTile);
-    } else {
-      setSelectedTile(null);
+  const setActiveDragElement = (
+    activeTileReference: React.RefObject<Group>,
+    event: KonvaEventObject<DragEvent>,
+  ) => {
+    setActiveDragTile(activeTileReference);
+
+    if (stageRef.current) {
+      // TODO: fix missing attribute
+      const {
+        'data-src': src,
+        'data-fill': color,
+        'data-id': _id,
+        'data-points': points,
+        'data-textPosition': textPosition,
+      } = event.target.attrs;
+      const rect = event.currentTarget.getClientRect();
+      const stage = stageRef.current;
+      const pos = stage.getRelativePointerPosition();
+      const updatedTile: Tile = {
+        _id: _id,
+        src: src,
+        color: color,
+        points: Array.from(points),
+        width: rect.width,
+        x: event.target.x(),
+        y: event.target.y(),
+        height: rect.height,
+        id: event.target.attrs.id,
+        textPosition: JSON.parse(textPosition),
+        name: event.target.attrs.name,
+        category: event.target.attrs.name,
+      };
+      if (socket !== null && roomId && userColor) {
+        const socketDragTile: SocketDragTile = {
+          remoteUser: socket.id,
+          tile: updatedTile,
+          roomId: roomId,
+          remoteUserColor: userColor,
+        };
+        const cursorPos = {
+          x: pos?.x,
+          y: pos?.y,
+          remoteUser: socket.id,
+          roomId: roomId,
+        };
+        socket?.emit('tile-drag', socketDragTile);
+        socket?.emit('cursor', cursorPos);
+      }
     }
   };
-
+  
   return {
     handleMouseMove,
     handleDragOver,
@@ -252,7 +260,6 @@ export const useMouse = () => {
     handleWheel,
     toggleCategory,
     handleMouseEnL,
-    setClickedTile,
     updateTilePosition,
     setActiveDragElement,
   };

@@ -78,6 +78,8 @@ export const tileDrop = (
 				src: data.tile.src,
 				x: data.tile.x,
 				y: data.tile.y,
+				width: data.tile.width,
+				height: data.tile.height,
 				points: data.tile.points,
 				color: data.tile.color,
 				textPosition: data.tile.textPosition,
