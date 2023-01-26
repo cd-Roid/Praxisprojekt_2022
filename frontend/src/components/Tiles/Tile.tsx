@@ -4,7 +4,7 @@ import { Tile as TileProps, Coordinates } from '../../types';
 import { useMouse } from '../../hooks/useMouse';
 import TileBorderAnchors from './TileBorderAnchors';
 import { Group as GroupType } from 'konva/lib/Group';
-import { Group, Text, Line } from 'react-konva';
+import { Group, Text, Line, Rect } from 'react-konva';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
 import { KonvaEventObject } from 'konva/lib/Node';
@@ -31,7 +31,7 @@ const Tile: React.FC<TileProps> = ({
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const [connectionPreview, setConnectionPreview] = React.useState<JSX.Element | null>(null);
   const [connections, setConnections] = React.useState<
-    { source: string; destination: Coordinates }[]
+    { source: string; destination: TileProps }[]
   >([]);
   const userColor = useWebSocketState(
     (state) => state.room?.users?.find((user) => user.userId === state.socket?.id)?.color,
@@ -49,13 +49,20 @@ const Tile: React.FC<TileProps> = ({
   };
 
   const hasInterSection = (position: Coordinates, tilePosition: Coordinates) => {
-    return !(tilePosition.x > position.x || tilePosition.y > position.y);
+    return !(
+      (
+        tilePosition.x > position.x ||
+        // tilePosition.x + groupSize.width > position.x ||
+        tilePosition.y > position.y
+      )
+      // ||tilePosition.y + groupSize.height > position.y
+    );
   };
 
   const detectConnection = (position: Coordinates) => {
     const intersectingTile: TileProps | undefined = tilesOnBoard.find((tile) => {
       const tilePosition = { x: tile.x, y: tile.y };
-      return hasInterSection(position, tilePosition);
+      return id !== tile.id && hasInterSection(position, tilePosition);
     });
     if (intersectingTile) {
       console.log('intersectingTile: ', intersectingTile);
@@ -92,7 +99,7 @@ const Tile: React.FC<TileProps> = ({
           x={position.x}
           y={position.y}
           points={createConnectionPoints({ x: 0, y: 0 }, mousePos)}
-          stroke='green'
+          stroke='#1E7D73'
           strokeWidth={4}
         />,
       );
@@ -106,13 +113,32 @@ const Tile: React.FC<TileProps> = ({
     if (pointerPosition) {
       const intersectingTile = detectConnection(pointerPosition);
       if (intersectingTile !== null) {
-        setConnections((prev) => [
-          ...prev,
-          { source: id, destination: { x: intersectingTile.x, y: intersectingTile.y } },
-        ]);
+        setConnections([...connections, { source: id, destination: intersectingTile }]);
       }
     }
   };
+
+  const connectionObjs = connections.map((connection) => {
+    const fromTile = tilesOnBoard.find((tile) => tile.id === connection.source);
+    const toTile = tilesOnBoard.find((tile) => tile.id === connection.destination.id);
+    if (fromTile && toTile) {
+      const lineEnd = {
+        x: toTile.x - fromTile.x,
+        y: toTile.y - fromTile.y,
+      };
+      const points = createConnectionPoints({ x: 0, y: 0 }, lineEnd);
+      return (
+        <Line
+          key={`from-${id}-to-${toTile.id}`}
+          x={fromTile.x}
+          y={fromTile.y}
+          points={points}
+          stroke='#1E7D73'
+          strokeWidth={5}
+        />
+      );
+    }
+  });
 
   const handleClick = (event: KonvaEventObject<MouseEvent>) => {
     setShowBoarder(!showBorder);
@@ -185,6 +211,7 @@ const Tile: React.FC<TileProps> = ({
         </>
       )}
       {connectionPreview}
+      {connectionObjs}
     </>
   );
 };

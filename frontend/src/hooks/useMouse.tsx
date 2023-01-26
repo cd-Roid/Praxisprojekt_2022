@@ -93,7 +93,6 @@ export const useMouse = () => {
     // add Tile to stage
     event.preventDefault();
     const draggedData = event.dataTransfer.getData('dragStart/Tile');
-    console.log(draggedData);
     if (draggedData && stageRef.current != null) {
       stageRef.current.setPointersPositions(event);
       const { x, y } = stageRef.current.getRelativePointerPosition();

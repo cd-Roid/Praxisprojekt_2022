@@ -4,7 +4,7 @@
     "category": "Start",
     "name": "Wenn",
     "src": "http://localhost:9001/uploads/1674421410153.png",
-    "points": [0, -200, 200, -200, 100, -50, 200, 100, 0, 100],
+    "points": [0, 0, 200, 0, 100, 150, 200, 300, 0, 300],
     "color": "#f9b43d",
     "textPosition": {
       "x": 50,
@@ -18,7 +18,7 @@
     "category": "Ende",
     "name": " ",
     "src": "http://localhost:9001/uploads/1674422062486.png",
-    "points": [-200, -250, 0, -250, 0, 50, -200, 50, -100, -100],
+    "points": [0, 0, 200, 0, 200, 300, 0, 300, 100, 150],
     "color": "#f9b43d",
     "textPosition": {
       "x": 50,
@@ -32,7 +32,7 @@
     "category": "Objekte",
     "name": "Smarte Lampe",
     "src": "http://localhost:9001/uploads/1674425498259.png",
-    "points": [0, -100, 200, -100, 300, 50, 200, 200, 0, 200, -100, 50],
+    "points": [200, 300, 0, 300, -100, 150, 0, 0, 200, 0, 300, 150],
     "color": "#EB555B",
     "textPosition": {
       "x": 50,
@@ -46,7 +46,7 @@
     "category": "Zustand",
     "name": "an",
     "src": "http://localhost:9001/uploads/1674423645286.png",
-    "points": [-200, -250, 0, -250, 100, -100, 0, 50, -200, 50, -100, -100],
+    "points": [0, 0, 200, 0, 300, 150, 200, 300, 0, 300, 100, 150],
     "color": "#F4AECE",
     "textPosition": {
       "x": 50,
@@ -60,7 +60,7 @@
     "category": "Konditionen",
     "name": "Dann",
     "src": "http://localhost:9001/uploads/1674424309409.png",
-    "points": [-100, -100, -200, 50, 200, 50, 100, -100],
+    "points": [0, 0, 200, 0, 300, 150, -100, 150],
     "color": "#F9B43D",
     "textPosition": {
       "x": -50,
@@ -74,7 +74,7 @@
     "category": "Konditionen",
     "name": "Und",
     "src": "http://localhost:9001/uploads/1674425020844.png",
-    "points": [-100, -50, 0, -200, 100, -200, 200, -50, 200, 50, 100, 200, 0, 200, -100, 50],
+    "points": [0, 0, 150, 0, 250, 150, 250, 250, 150, 400, 0, 400, -100, 250, -100, 150],
     "color": "#E2E7DF",
     "textPosition": {
       "x": -50,
