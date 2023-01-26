@@ -30,11 +30,13 @@ export type CursorData = {
 export type Tile = {
   x: number;
   y: number;
-  _id?: string;
   id: string;
+  _id?: string;
   src: string;
   name: string;
   color: string;
+  width: number;
+  height: number;
   points: number[];
   category: string;
   textPosition: { x: number; y: number };
