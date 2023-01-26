@@ -1,5 +1,6 @@
 import React from 'react';
 import { SocketDragTile, Tile } from '../types';
+import { v4 as uuidv4 } from 'uuid';
 import { Group } from 'konva/lib/Group';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
@@ -51,6 +52,7 @@ export const useMouse = () => {
     setActiveDragTile(activeTileReference);
 
     if (stageRef.current) {
+      // TODO: fix missing attribute
       const { 'data-src': src } = event.target.attrs;
       const stage = stageRef.current;
       const pos = stage.getRelativePointerPosition();
@@ -60,6 +62,8 @@ export const useMouse = () => {
         y: event.target.y(),
         id: event.target.attrs.id,
         name: event.target.attrs.name,
+        width: event.target.width(),
+        height: event.target.height(),
         color: event.target.attrs.color,
         points: event.target.attrs.points,
         category: event.target.attrs.name,
@@ -107,14 +111,15 @@ export const useMouse = () => {
     );
 
     if (tile) {
-      const { _id: id, name, src, color, points, textPosition } = tile;
+      const { _id, name, src, color, points, textPosition } = tile;
       const dragPayload = JSON.stringify({
         nodeClass: event.currentTarget.getAttribute('data-class'),
         offsetX: event.nativeEvent.offsetX,
         offsetY: event.nativeEvent.offsetY,
         clientWidth: event.currentTarget.clientWidth,
         clientHeight: event.currentTarget.clientHeight,
-        id: id,
+        id: uuidv4(),
+        _id: _id,
         src: src,
         name: name,
         color: color,
@@ -125,37 +130,17 @@ export const useMouse = () => {
     }
   };
 
-  const updateTilePosition = (event: KonvaEventObject<DragEvent>) => {
-    /**
-     * updates the Tile position in the state
-     * also clears the active Drag Element
-     */
-    const { 'data-src': src } = event.target.attrs;
-    if (stageRef.current) {
-      const updatedTile: Tile = {
-        src: src,
-        x: event.target.x(),
-        y: event.target.y(),
-        id: event.target.attrs.id,
-        name: event.target.attrs.name,
-        color: event.target.attrs.fill,
-        category: event.target.attrs.name,
-        points: event.target.attrs.points,
-        textPosition: event.target.attrs.textPosition,
-      };
-      updateTile(updatedTile);
-    }
-  };
-
   const handleDrop = (event: React.DragEvent) => {
     // add Tile to stage
     event.preventDefault();
     const draggedData = event.dataTransfer.getData('dragStart/Tile');
+    console.log(draggedData);
     if (draggedData && stageRef.current != null) {
       stageRef.current.setPointersPositions(event);
       const { x, y } = stageRef.current.getRelativePointerPosition();
       const {
         id,
+        _id,
         src,
         color,
         textPosition,
@@ -170,13 +155,16 @@ export const useMouse = () => {
       if (x && y) {
         const newTile: Tile = {
           id: id,
+          _id: _id,
           src: src,
           category: nodeClass,
           x: x - (offsetX - clientWidth / 2),
           y: y - (offsetY - clientHeight / 2),
-          color: color,
           name: name,
+          color: color,
           points: points,
+          width: clientWidth,
+          height: clientHeight,
           textPosition: textPosition,
         };
         setTiles(newTile);
@@ -190,6 +178,31 @@ export const useMouse = () => {
           socket?.emit('tile-drop', socketDragTile);
         }
       }
+    }
+  };
+
+  const updateTilePosition = (event: KonvaEventObject<DragEvent>) => {
+    /**
+     * updates the Tile position in the state
+     * also clears the active Drag Element
+     */
+    const { 'data-src': src } = event.target.attrs;
+    if (stageRef.current) {
+      const rect = event.currentTarget.getClientRect();
+      const updatedTile: Tile = {
+        src: src,
+        x: event.target.x(),
+        y: event.target.y(),
+        width: rect.width,
+        height: rect.height,
+        id: event.target.attrs.id,
+        name: event.target.attrs.name,
+        color: event.target.attrs.fill,
+        category: event.target.attrs.name,
+        points: event.target.attrs.points,
+        textPosition: event.target.attrs.textPosition,
+      };
+      updateTile(updatedTile);
     }
   };
 
