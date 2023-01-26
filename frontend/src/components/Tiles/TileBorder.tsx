@@ -9,8 +9,7 @@ type Props = {
 };
 
 const TileBorder: React.FC<Props> = ({ x, y, id, points }) => {
-  const SIZE = 50;
-  const defaultPoints = [0, 0, SIZE, 0, SIZE, SIZE, 0, SIZE, 0, 0];
+  const defaultPoints = [0, 0, 100, 0, 100, 100, 0, 100, 0, 0];
 
   return (
     <Line
@@ -18,7 +17,7 @@ const TileBorder: React.FC<Props> = ({ x, y, id, points }) => {
       x={x}
       y={y}
       points={points || defaultPoints}
-      stroke='green'
+      stroke='black'
       strokeWidth={12}
       perfectDrawEnabled={false}
       closed

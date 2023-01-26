@@ -1,15 +1,16 @@
 import React from 'react';
 import TileBorder from './TileBorder';
-import { Tile as TileProps, Coordinates } from '../../types';
+import useAnchor from '../../hooks/useAnchor';
+import { useLine } from '../../hooks/useLine';
+import { Tile as TileProps } from '../../types';
 import { useMouse } from '../../hooks/useMouse';
+import { Group, Text, Line } from 'react-konva';
+import { KonvaEventObject } from 'konva/lib/Node';
 import TileBorderAnchors from './TileBorderAnchors';
 import { Group as GroupType } from 'konva/lib/Group';
-import { Group, Text, Line, Rect } from 'react-konva';
+import { useBoardState } from '../../state/BoardState';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
-import { KonvaEventObject } from 'konva/lib/Node';
-import useAnchor from '../../hooks/useAnchor';
-import { useBoardState } from '../../state/BoardState';
 
 const Tile: React.FC<TileProps> = ({
   x,
@@ -24,6 +25,7 @@ const Tile: React.FC<TileProps> = ({
   textPosition,
 }) => {
   const { getAnchorPoints } = useAnchor();
+
   const [showBorder, setShowBoarder] = React.useState<boolean>(false);
   const tileRef = React.useRef<GroupType>(null);
   const { handleContextMenu } = useContextMenu();
@@ -48,75 +50,7 @@ const Tile: React.FC<TileProps> = ({
     return [source.x, source.y, destination.x, destination.y];
   };
 
-  const hasInterSection = (position: Coordinates, tilePosition: Coordinates) => {
-    return !(
-      (
-        tilePosition.x > position.x ||
-        // tilePosition.x + groupSize.width > position.x ||
-        tilePosition.y > position.y
-      )
-      // ||tilePosition.y + groupSize.height > position.y
-    );
-  };
-
-  const detectConnection = (position: Coordinates) => {
-    const intersectingTile: TileProps | undefined = tilesOnBoard.find((tile) => {
-      const tilePosition = { x: tile.x, y: tile.y };
-      return id !== tile.id && hasInterSection(position, tilePosition);
-    });
-    if (intersectingTile) {
-      console.log('intersectingTile: ', intersectingTile);
-      return intersectingTile;
-    }
-    console.log('no interesction');
-    return null;
-  };
-
-  const handleAnchorDragStart = (e: KonvaEventObject<DragEvent>) => {
-    const position = e.target.position();
-    setConnectionPreview(
-      <Line
-        x={position.x}
-        y={position.y}
-        points={createConnectionPoints(position, position)}
-        stroke='green'
-        strokeWidth={4}
-      />,
-    );
-  };
-
-  const handleAnchorDragMove = (e: KonvaEventObject<DragEvent>) => {
-    const position = e.target.position();
-    const stage = e.target.getStage();
-    const pointerPosition = stage?.getPointerPosition();
-    if (pointerPosition) {
-      const mousePos = {
-        x: pointerPosition.x - position.x,
-        y: pointerPosition.y - position.y,
-      };
-      setConnectionPreview(
-        <Line
-          x={position.x}
-          y={position.y}
-          points={createConnectionPoints({ x: 0, y: 0 }, mousePos)}
-          stroke='#1E7D73'
-          strokeWidth={4}
-        />,
-      );
-    }
-  };
-
-  const handleAnchorDragEnd = (e: KonvaEventObject<DragEvent>, id: string) => {
-    setConnectionPreview(null);
-    const stage = e.target.getStage();
-    const pointerPosition = stage?.getPointerPosition();
-    if (pointerPosition) {
-      const intersectingTile = detectConnection(pointerPosition);
-      if (intersectingTile !== null) {
-        setConnections([...connections, { source: id, destination: intersectingTile }]);
-      }
-    }
-  };
+  const { handleAnchorDragStart, handleAnchorDragMove, handleAnchorDragEnd } = useLine();
 
   const connectionObjs = connections.map((connection) => {
     const fromTile = tilesOnBoard.find((tile) => tile.id === connection.source);
@@ -166,9 +100,15 @@ const Tile: React.FC<TileProps> = ({
                   x={point.x}
                   y={point.y}
                   key={index}
-                  dragStart={handleAnchorDragStart}
-                  dragMove={handleAnchorDragMove}
-                  dragEnd={handleAnchorDragEnd}
+                  dragStart={(e) =>
+                    handleAnchorDragStart(e, createConnectionPoints, setConnectionPreview)
+                  }
+                  dragMove={(e) =>
+                    handleAnchorDragMove(e, createConnectionPoints, setConnectionPreview)
+                  }
+                  dragEnd={(e) =>
+                    handleAnchorDragEnd(e, id, connections, setConnections, setConnectionPreview)
+                  }
                 />
               ))}
             </>

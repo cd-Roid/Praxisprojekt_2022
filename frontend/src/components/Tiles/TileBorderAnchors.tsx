@@ -1,5 +1,5 @@
 import React from 'react';
-import { Circle, Line } from 'react-konva';
+import { Circle } from 'react-konva';
 import { Circle as CircleObject } from 'konva/lib/shapes/Circle';
 import { KonvaEventObject } from 'konva/lib/Node';
 
@@ -31,7 +31,7 @@ const TileBorderAnchors: React.FC<Props> = ({ x, y, id, dragStart, dragMove, dra
         y={y}
         id={id}
         radius={10}
-        fill='green'
+        fill='black'
         draggable
         onDragStart={dragStart}
         onDragMove={dragMove}
