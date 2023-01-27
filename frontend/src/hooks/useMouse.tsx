@@ -5,6 +5,7 @@ import { Group } from 'konva/lib/Group';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
 import { useWebSocketState } from '../state/WebSocketState';
+import { useContextMenuState } from '../state/ContextMenuState';
 
 export const useMouse = () => {
   const setTiles = useBoardState((state) => state.addTile);
@@ -13,8 +14,8 @@ export const useMouse = () => {
   const updateTile = useBoardState((state) => state.updateTile);
   const stageRef = useBoardState((state) => state.stageReference);
   const roomId = useWebSocketState((state) => state.room?.roomId);
-  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
-  const setSelectedTile = useBoardState((state) => state.setSelectedTile);
+  const contextMenuOpen = useContextMenuState((state) => state.contextMenuOpen);
+  const setContextMenuOpen = useContextMenuState((state) => state.setContextMenuOpen);
   const setActiveDragTile = useBoardState((state) => state.setActiveDragTile);
   const setCategoriesOpen = useBoardState((state) => state.setCategoriesOpen);
   const userColor = useWebSocketState(
@@ -22,7 +23,6 @@ export const useMouse = () => {
   );
 
   const toggleCategory = () => {
-    setSelectedTile(null);
     setCategoriesOpen(false);
   };
 
@@ -44,8 +44,6 @@ export const useMouse = () => {
       }
     }
   };
-
-
 
   const handleMouseEnL = (
     event: KonvaEventObject<MouseEvent>,
@@ -250,8 +248,15 @@ export const useMouse = () => {
       }
     }
   };
-  
+
+  const handleBoardDrag = () => {
+    if (contextMenuOpen === true) {
+      setContextMenuOpen(false);
+    }
+  };
+
   return {
+    handleBoardDrag,
     handleMouseMove,
     handleDragOver,
     handleDragStart,

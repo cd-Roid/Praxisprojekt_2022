@@ -18,7 +18,7 @@ const InfoComponent = () => {
   };
   // Component that displays the connected users and Disconnect Button
   return (
-    <div className='absolute  flex w-fit justify-between bg-slate-100 right-20 z-40 p-4 rounded-b-xl drop-shadow-lg'>
+    <div className='absolute  flex w-fit justify-between bg-slate-100 right-20 z-10 p-4 rounded-b-xl drop-shadow-lg'>
       <div className='p-4 flex justify-between'>
         {users?.map((user) => (
           <UserDisplay key={user.userId} userName={user.userName} />

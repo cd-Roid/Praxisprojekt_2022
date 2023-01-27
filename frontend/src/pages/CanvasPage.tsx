@@ -5,6 +5,7 @@ import RightClickMenu from '../components/ContextMenus/RightClickMenu';
 import { useContextMenuState } from '../state/ContextMenuState';
 import InfoComponent from '../components/Forms/InfoComponent';
 import { useWindowFocus } from '../hooks/useWindowFocus';
+import SelectLampForm from '../components/Forms/SelectLampForm';
 
 const CanvasPage = () => {
   // Add Cursor here. const socket = useWebSocketState((state) => state.socket);
@@ -17,6 +18,7 @@ const CanvasPage = () => {
       <InfoComponent />
       <Board />
       <Sidebar />
+      <SelectLampForm />
     </>
   );
 };

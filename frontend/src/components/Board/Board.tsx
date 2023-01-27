@@ -11,6 +11,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useWebSocketState } from '../../state/WebSocketState';
 import { SocketDragTile, RoomData } from '../../types';
 
+
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
 const Board = () => {
@@ -19,7 +20,14 @@ const Board = () => {
 
   const { height, width } = useWindowDimensions();
   const { gridComponents } = useGrid({ stageRef, gridLayer });
-  const { handleDragOver, handleDrop, handleWheel, handleMouseMove, toggleCategory } = useMouse();
+  const {
+    handleDragOver,
+    handleDrop,
+    handleWheel,
+    handleMouseMove,
+    toggleCategory,
+    handleBoardDrag,
+  } = useMouse();
   const addTile = useBoardState((state) => state.addTile);
   const updateTile = useBoardState((state) => state.updateTile);
   const deleteTile = useBoardState((state) => state.removeTile);
@@ -28,7 +36,7 @@ const Board = () => {
   const setRoom = useWebSocketState((state) => state.setRoom);
   const room = useWebSocketState((state) => state.room);
   const setRemoteDragColor = useBoardState((state) => state.setRemoteDragColor);
-  const selectedTile = useBoardState((state) => state.selectedTile);
+
   setStageReference(stageRef);
 
   useEffect(() => {
@@ -65,6 +73,7 @@ const Board = () => {
           height={height}
           ref={stageRef}
           draggable
+          onDragStart={handleBoardDrag}
           onWheel={(e) => handleWheel(e)}
         >
           <Layer ref={gridLayer}>

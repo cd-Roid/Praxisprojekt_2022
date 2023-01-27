@@ -1,12 +1,17 @@
 import React from 'react';
+import SetLamp from './MenuOptions/SetLamp';
+import RemoveTile from './MenuOptions/RemoveTile';
 import { useBoardState } from '../../state/BoardState';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useContextMenu } from '../../hooks/useContextMenu';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContextMenuState } from '../../state/ContextMenuState';
 
 const RightClickMenu = () => {
-  const { contextMenuAnchorPoint, handleClick } = useContextMenu();
   const removeTile = useBoardState((state) => state.removeTile);
+  const { contextMenuAnchorPoint, handleClick } = useContextMenu();
+  const setPanelOpen = useContextMenuState((state) => state.setPanelOpen);
+  const setContextMenuOpen = useContextMenuState((state) => state.setContextMenuOpen);
 
   const handleRemoveTile = () => {
     removeTile(contextMenuAnchorPoint.id);
@@ -15,19 +20,23 @@ const RightClickMenu = () => {
 
   return (
     <div
-      onClick={handleRemoveTile}
-      className='w-40 h-auto bg-slate-50 z-50 rounded'
+      className='w-[256px] h-auto bg-slate-50 z-50 rounded drop-shadow'
       style={{
         position: 'absolute',
         left: `${contextMenuAnchorPoint.x}px`,
         top: `${contextMenuAnchorPoint.y}px`,
       }}
     >
-      <ul className='w-auto h-full rounded'>
-        <li className='rounded p-4 border-grey border-b-2 flex justify-evenly hover:bg-slate-200 hover:cursor-pointer'>
-          <p className='text-black'>Remove Tile</p>
-          <FontAwesomeIcon className='p-1 text-black' icon={faTrashCan} />
-        </li>
+      <div className='flex items-end justify-end w-full'>
+        <FontAwesomeIcon
+          className='p-2 text-black'
+          onClick={() => setContextMenuOpen(false)}
+          icon={faXmark}
+        />
+      </div>
+      <ul className='w-[228px] h-full rounded my-4 mx-2'>
+        <RemoveTile onclick={handleRemoveTile} />
+        <SetLamp onclick={() => setPanelOpen(true)} />
       </ul>
     </div>
   );
