@@ -27,7 +27,7 @@ const SelectLampForm = () => {
             onClick={closePanel}
             icon={faXmark}
           />
-          <form className='flex flex-col w-full  bg-gray-100 justify-end'>
+          <form className='flex flex-col w-full  bg-gray-100 justify-end' onSubmit={handleSubmit}>
             <div className='p-4'>
               <h2 className='text-h4 py-2 text-bold '>Wähle eine Lampe aus</h2>
               <div className='relative inline-block w-full text-gray-700 py-2'>
@@ -54,7 +54,10 @@ const SelectLampForm = () => {
                 </div>
               </div>
               <div className='py-4'>
-                <button className='h-10 px-5 m-2 text-indigo-100 transition-colors duration-150 bg-main rounded-lg focus:shadow-outline hover:bg-dark'>
+                <button
+                  className='h-10 px-5 m-2 text-indigo-100 transition-colors duration-150 bg-main rounded-lg focus:shadow-outline hover:bg-dark'
+                  type='submit'
+                >
                   Auswählen
                 </button>
               </div>

@@ -18,6 +18,11 @@ const RightClickMenu = () => {
     handleClick();
   };
 
+  const handleSelectLamp = () => {
+    setPanelOpen(true);
+    setContextMenuOpen(false);
+  };
+
   return (
     <div
       className='w-[256px] h-auto bg-slate-50 z-50 rounded drop-shadow'
@@ -36,7 +41,7 @@ const RightClickMenu = () => {
       </div>
       <ul className='w-[228px] h-full rounded my-4 mx-2'>
         <RemoveTile onclick={handleRemoveTile} />
-        <SetLamp onclick={() => setPanelOpen(true)} />
+        <SetLamp onclick={handleSelectLamp} />
       </ul>
     </div>
   );
