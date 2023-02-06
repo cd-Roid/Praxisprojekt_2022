@@ -10,7 +10,7 @@ import { useBoardState } from '../../state/BoardState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useWebSocketState } from '../../state/WebSocketState';
 import { SocketDragTile, RoomData } from '../../types';
-
+import { useConnectedTilesContext } from '../../state/SyntaxTreeState';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -28,14 +28,15 @@ const Board = () => {
     toggleCategory,
     handleBoardDrag,
   } = useMouse();
+  const room = useWebSocketState((state) => state.room);
   const addTile = useBoardState((state) => state.addTile);
-  const updateTile = useBoardState((state) => state.updateTile);
-  const deleteTile = useBoardState((state) => state.removeTile);
-  const setStageReference = useBoardState((state) => state.setStageReference);
   const socket = useWebSocketState((state) => state.socket);
   const setRoom = useWebSocketState((state) => state.setRoom);
-  const room = useWebSocketState((state) => state.room);
+  const deleteTile = useBoardState((state) => state.removeTile);
+  const updateTile = useBoardState((state) => state.updateTile);
+  const setStageReference = useBoardState((state) => state.setStageReference);
   const setRemoteDragColor = useBoardState((state) => state.setRemoteDragColor);
+  const connectionPreview = useConnectedTilesContext((state) => state.connectionPreview);
 
   setStageReference(stageRef);
 
@@ -78,6 +79,7 @@ const Board = () => {
         >
           <Layer ref={gridLayer}>
             {gridComponents}
+            {connectionPreview}
             {room?.tiles?.map((tileObject) => (
               <Tile
                 key={tileObject.tile.id}

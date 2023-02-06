@@ -2,9 +2,11 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import React from 'react';
 import { Line } from 'react-konva';
 import { useBoardState } from '../state/BoardState';
+import { useConnectedTilesContext } from '../state/SyntaxTreeState';
 import { Coordinates, Tile as TileProps } from '../types';
 
 export const useLine = () => {
+  const setConnectionPreview = useConnectedTilesContext((state) => state.setConnectionPreview);
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const hasInterSection = (position: Coordinates, tilePosition: Coordinates) => {
     return !(tilePosition.x > position.x || tilePosition.y > position.y);
@@ -35,7 +37,6 @@ export const useLine = () => {
         y: number;
       },
     ) => number[],
-    setConnectionPreview: React.Dispatch<React.SetStateAction<JSX.Element | null>>,
   ) => {
     const position = e.target.position();
     setConnectionPreview(
@@ -61,7 +62,6 @@ export const useLine = () => {
         y: number;
       },
     ) => number[],
-    setConnectionPreview: React.Dispatch<React.SetStateAction<JSX.Element | null>>,
   ) => {
     const position = e.target.position();
     const stage = e.target.getStage();
@@ -98,7 +98,6 @@ export const useLine = () => {
         }[]
       >
     >,
-    setConnectionPreview: React.Dispatch<React.SetStateAction<JSX.Element | null>>,
   ) => {
     setConnectionPreview(null);
     const stage = e.target.getStage();

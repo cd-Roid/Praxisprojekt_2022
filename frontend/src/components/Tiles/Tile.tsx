@@ -5,7 +5,6 @@ import { useLine } from '../../hooks/useLine';
 import { Tile as TileProps } from '../../types';
 import { useMouse } from '../../hooks/useMouse';
 import { Group, Text, Line } from 'react-konva';
-import { KonvaEventObject } from 'konva/lib/Node';
 import TileBorderAnchors from './TileBorderAnchors';
 import { Group as GroupType } from 'konva/lib/Group';
 import { useBoardState } from '../../state/BoardState';
@@ -25,11 +24,9 @@ const Tile: React.FC<TileProps> = ({
   textPosition,
 }) => {
   const { getAnchorPoints } = useAnchor();
-
-  const [showBorder, setShowBoarder] = React.useState<boolean>(false);
   const tileRef = React.useRef<GroupType>(null);
   const { handleContextMenu } = useContextMenu();
-  const { handleMouseEnL, updateTilePosition, setActiveDragElement } = useMouse();
+  const { updateTilePosition, setActiveDragElement } = useMouse();
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
   const [connectionPreview, setConnectionPreview] = React.useState<JSX.Element | null>(null);
   const [connections, setConnections] = React.useState<
@@ -74,10 +71,9 @@ const Tile: React.FC<TileProps> = ({
     }
   });
 
-  const handleClick = (event: KonvaEventObject<MouseEvent>) => {
-    setShowBoarder(!showBorder);
+  React.useEffect(() => {
     if (tileRef.current) {
-      const rect = event.currentTarget.getClientRect({
+      const rect = tileRef.current.getClientRect({
         skipTransform: true,
       });
       setGroupSize({
@@ -85,13 +81,13 @@ const Tile: React.FC<TileProps> = ({
         height: rect.height,
       });
     }
-  };
+  }, []);
 
   return (
     <>
       {userColor && (
         <>
-          {showBorder && id && (
+          {id && (
             <>
               <TileBorder x={x} y={y} id={id} points={points} />
               {getAnchorPoints(x, y, category, name, groupSize)?.map((point, index) => (
@@ -100,15 +96,9 @@ const Tile: React.FC<TileProps> = ({
                   x={point.x}
                   y={point.y}
                   key={index}
-                  dragStart={(e) =>
-                    handleAnchorDragStart(e, createConnectionPoints, setConnectionPreview)
-                  }
-                  dragMove={(e) =>
-                    handleAnchorDragMove(e, createConnectionPoints, setConnectionPreview)
-                  }
-                  dragEnd={(e) =>
-                    handleAnchorDragEnd(e, id, connections, setConnections, setConnectionPreview)
-                  }
+                  dragStart={(e) => handleAnchorDragStart(e, createConnectionPoints)}
+                  dragMove={(e) => handleAnchorDragMove(e, createConnectionPoints)}
+                  dragEnd={(e) => handleAnchorDragEnd(e, id, connections, setConnections)}
                 />
               ))}
             </>
@@ -126,11 +116,8 @@ const Tile: React.FC<TileProps> = ({
             data-fill={color}
             onDragEnd={updateTilePosition}
             data-points={JSON.stringify(points)}
-            onClick={(event) => handleClick(event)}
             data-textPosition={JSON.stringify(textPosition)}
             onDragMove={(event) => setActiveDragElement(tileRef, event)}
-            onMouseOver={(event) => handleMouseEnL(event, showBorder, 4)}
-            onMouseLeave={(event) => handleMouseEnL(event, showBorder, 0)}
           >
             <Line
               id={id}
@@ -150,7 +137,7 @@ const Tile: React.FC<TileProps> = ({
           </Group>
         </>
       )}
-      {connectionPreview}
+
       {connectionObjs}
     </>
   );
