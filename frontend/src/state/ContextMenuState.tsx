@@ -20,4 +20,7 @@ export const useContextMenuState = create<ContextMenuStateType>((set) => ({
     set(() => ({ contextMenuAnchorPoint: value })),
 }));
 
-mountStoreDevtool('ContextMenuState', useContextMenuState);
+
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('ContextMenuState', useContextMenuState);
+}

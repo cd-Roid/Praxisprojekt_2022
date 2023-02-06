@@ -61,5 +61,8 @@ export const useBoardState = create<BoardContextType>((set) => ({
     set(() => ({ stageReference: stageRef })),
 }));
 
-// :TODO: Remove this before production
-mountStoreDevtool('BoardStore', useBoardState);
+
+
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('BoardStore', useBoardState);
+}

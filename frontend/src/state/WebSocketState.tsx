@@ -20,4 +20,8 @@ export const useWebSocketState = create<WebSocketContextType>((set) => ({
   clearRoom: () => set(() => ({ room: null })),
 }));
 
-mountStoreDevtool('WebSocketState', useWebSocketState);
+
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('WebSocketState', useWebSocketState);
+}
+
