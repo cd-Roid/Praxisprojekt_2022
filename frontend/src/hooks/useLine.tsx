@@ -8,20 +8,23 @@ import { Coordinates, Tile as TileProps } from '../types';
 export const useLine = () => {
   const setConnectionPreview = useConnectedTilesContext((state) => state.setConnectionPreview);
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
-  const hasInterSection = (position: Coordinates, tilePosition: Coordinates) => {
-    return !(tilePosition.x > position.x || tilePosition.y > position.y);
+  const hasInterSection = (linePosition: Coordinates, tilePosition: Coordinates) => {
+    return tilePosition.x - linePosition.x < 50 && tilePosition.y - linePosition.y < 50;
   };
 
-  const detectConnection = (position: Coordinates, id: string) => {
+  const detectConnection = (linePosition: Coordinates, id: string) => {
     const intersectingTile: TileProps | undefined = tilesOnBoard.find((tile) => {
-      const tilePosition = { x: tile.x, y: tile.y };
-      return id !== tile.id && hasInterSection(position, tilePosition);
+      if (tile.anchors) {
+        const found = tile.anchors?.find((anchor) => {
+          const tilePosition = { x: Math.floor(anchor.x), y: Math.floor(anchor.y) };
+          return id !== tile.id && hasInterSection(linePosition, tilePosition) === true && tile;
+        });
+        if (found !== undefined) return tile;
+      }
     });
-    if (intersectingTile) {
-      console.log('intersectingTile: ', intersectingTile);
+    if (intersectingTile !== undefined) {
       return intersectingTile;
     }
-    console.log('no interesction');
     return null;
   };
 
@@ -103,7 +106,11 @@ export const useLine = () => {
     const stage = e.target.getStage();
     const pointerPosition = stage?.getPointerPosition();
     if (pointerPosition) {
-      const intersectingTile = detectConnection(pointerPosition, id);
+      const pos = {
+        x: Math.floor(pointerPosition.x),
+        y: Math.floor(pointerPosition.y),
+      };
+      const intersectingTile = detectConnection(pos, id);
       if (intersectingTile !== null) {
         setConnections([...connections, { source: id, destination: intersectingTile }]);
       }

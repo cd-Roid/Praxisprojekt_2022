@@ -39,6 +39,7 @@ export type Tile = {
   height: number;
   points: number[];
   category: string;
+  anchors?: { x: number; y: number }[];
   textPosition: { x: number; y: number };
 };
 

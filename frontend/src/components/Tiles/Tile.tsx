@@ -1,6 +1,5 @@
 import React from 'react';
 import TileBorder from './TileBorder';
-import useAnchor from '../../hooks/useAnchor';
 import { useLine } from '../../hooks/useLine';
 import { Tile as TileProps } from '../../types';
 import { useMouse } from '../../hooks/useMouse';
@@ -10,6 +9,7 @@ import { Group as GroupType } from 'konva/lib/Group';
 import { useBoardState } from '../../state/BoardState';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
+import useAnchor from '../../hooks/useAnchor';
 
 const Tile: React.FC<TileProps> = ({
   x,
@@ -26,9 +26,9 @@ const Tile: React.FC<TileProps> = ({
   const { getAnchorPoints } = useAnchor();
   const tileRef = React.useRef<GroupType>(null);
   const { handleContextMenu } = useContextMenu();
+  const updateTile = useBoardState((state) => state.updateTile);
   const { updateTilePosition, setActiveDragElement } = useMouse();
   const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
-  const [connectionPreview, setConnectionPreview] = React.useState<JSX.Element | null>(null);
   const [connections, setConnections] = React.useState<
     { source: string; destination: TileProps }[]
   >([]);
@@ -80,6 +80,15 @@ const Tile: React.FC<TileProps> = ({
         width: rect.width,
         height: rect.height,
       });
+
+      const tile = tilesOnBoard.find((tile) => tile.id === id);
+      tile &&
+        updateTile({
+          ...tile,
+          anchors: getAnchorPoints(x, y, category, name, groupSize),
+          width: rect.width,
+          height: rect.height,
+        });
     }
   }, []);
 
