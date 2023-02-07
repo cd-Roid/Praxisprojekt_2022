@@ -13,17 +13,21 @@ export const useLine = () => {
   };
 
   const detectConnection = (linePosition: Coordinates, id: string) => {
+    let foundAnchor = '';
     const intersectingTile: TileProps | undefined = tilesOnBoard.find((tile) => {
       if (tile.anchors) {
         const found = tile.anchors?.find((anchor) => {
-          const tilePosition = { x: Math.floor(anchor.x), y: Math.floor(anchor.y) };
+          const tilePosition = { x: anchor.x, y: anchor.y };
           return id !== tile.id && hasInterSection(linePosition, tilePosition) === true && tile;
         });
-        if (found !== undefined) return tile;
+        if (found !== undefined) {
+          foundAnchor = found.type;
+          return tile;
+        }
       }
     });
     if (intersectingTile !== undefined) {
-      return intersectingTile;
+      return { intersectingTile, foundAnchor };
     }
     return null;
   };
@@ -92,12 +96,14 @@ export const useLine = () => {
     connections: {
       source: string;
       destination: TileProps;
+      destinationAnchorType: string;
     }[],
     setConnections: React.Dispatch<
       React.SetStateAction<
         {
           source: string;
           destination: TileProps;
+          destinationAnchorType: string;
         }[]
       >
     >,
@@ -107,12 +113,19 @@ export const useLine = () => {
     const pointerPosition = stage?.getPointerPosition();
     if (pointerPosition) {
       const pos = {
-        x: Math.floor(pointerPosition.x),
-        y: Math.floor(pointerPosition.y),
+        x: pointerPosition.x,
+        y: pointerPosition.y,
       };
       const intersectingTile = detectConnection(pos, id);
       if (intersectingTile !== null) {
-        setConnections([...connections, { source: id, destination: intersectingTile }]);
+        setConnections([
+          ...connections,
+          {
+            source: id,
+            destination: intersectingTile.intersectingTile,
+            destinationAnchorType: intersectingTile.foundAnchor,
+          },
+        ]);
       }
     }
   };

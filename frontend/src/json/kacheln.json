@@ -6,6 +6,15 @@
     "src": "http://localhost:9001/uploads/1674421410153.png",
     "points": [0, 0, 200, 0, 100, 150, 200, 300, 0, 300],
     "color": "#f9b43d",
+    "width": 200,
+    "height": 300,
+    "anchors": [
+      {
+        "type": "L",
+        "x": 150,
+        "y": 150
+      }
+    ],
     "textPosition": {
       "x": 50,
       "y": 50,
@@ -20,6 +29,15 @@
     "src": "http://localhost:9001/uploads/1674422062486.png",
     "points": [0, 0, 200, 0, 200, 300, 0, 300, 100, 150],
     "color": "#f9b43d",
+    "width": 200,
+    "height": 300,
+    "anchors": [
+      {
+        "type": "R",
+        "x": -115,
+        "y": 150
+      }
+    ],
     "textPosition": {
       "x": 50,
       "y": 50,
@@ -34,6 +52,20 @@
     "src": "http://localhost:9001/uploads/1674425498259.png",
     "points": [200, 300, 0, 300, -100, 150, 0, 0, 200, 0, 300, 150],
     "color": "#EB555B",
+    "width": 400,
+    "height": 300,
+    "anchors": [
+      {
+        "type": "L",
+        "x": -70,
+        "y": 450
+      },
+      {
+        "type": "R",
+        "x": 170,
+        "y": 450
+      }
+    ],
     "textPosition": {
       "x": 50,
       "y": 50,
@@ -48,6 +80,20 @@
     "src": "http://localhost:9001/uploads/1674423645286.png",
     "points": [0, 0, 200, 0, 300, 150, 200, 300, 0, 300, 100, 150],
     "color": "#F4AECE",
+    "width": 300,
+    "height": 300,
+    "anchors": [
+      {
+        "type": "L",
+        "x": -70,
+        "y": 250
+      },
+      {
+        "type": "R",
+        "x": 170,
+        "y": 250
+      }
+    ],
     "textPosition": {
       "x": 50,
       "y": 50,
@@ -62,6 +108,20 @@
     "src": "http://localhost:9001/uploads/1674424309409.png",
     "points": [0, 0, 200, 0, 300, 150, -100, 150],
     "color": "#F9B43D",
+    "width": 400,
+    "height": 200,
+    "anchors": [
+      {
+        "type": "L",
+        "x": -300,
+        "y": 250
+      },
+      {
+        "type": "R",
+        "x": 300,
+        "y": 250
+      }
+    ],
     "textPosition": {
       "x": -50,
       "y": -50,
@@ -76,6 +136,30 @@
     "src": "http://localhost:9001/uploads/1674425020844.png",
     "points": [0, 0, 150, 0, 250, 150, 250, 250, 150, 400, 0, 400, -100, 250, -100, 150],
     "color": "#E2E7DF",
+    "width": 350,
+    "height": 450,
+    "anchors": [
+      {
+        "type": "TL",
+        "x": -90,
+        "y": 500
+      },
+      {
+        "type": "TR",
+        "x": 225,
+        "y": 500
+      },
+      {
+        "type": "BL",
+        "x": 215,
+        "y": 800
+      },
+      {
+        "type": "BR",
+        "x": -90,
+        "y": 800
+      }
+    ],
     "textPosition": {
       "x": -50,
       "y": -50,

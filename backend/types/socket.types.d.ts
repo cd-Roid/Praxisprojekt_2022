@@ -27,6 +27,7 @@ export type NewTile = {
 	category: string;
 	points: number[];
 	textPosition: { x: number; y: number };
+	anchors: { type: string; x: number; y: number }[];
 };
 
 export type TabFocusData = {

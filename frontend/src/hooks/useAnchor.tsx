@@ -17,35 +17,35 @@ const useAnchor = () => {
   ) => {
     switch (category) {
       case 'Start':
-        return [{ x: x + groupSize.width / 2 + 50, y: y + 150 }];
+        return [{ type: 'L', x: x + groupSize.width / 2 + 50, y: y + 150 }];
         break;
       case 'Ende':
-        return [{ x: x - groupSize.width / 6 + 80, y: y + 150 }];
+        return [{ type: 'R', x: x - groupSize.width / 6 + 80, y: y + 150 }];
         break;
       case 'Objekte':
         return [
-          { x: x - groupSize.width / 5 + 10, y: y + 50 },
-          { x: x + groupSize.width - 130, y: y + 50 },
+          { type: 'L', x: x - groupSize.width / 5 + 10, y: y + 50 },
+          { type: 'R', x: x + groupSize.width - 130, y: y + 50 },
         ];
         break;
       case 'Zustand':
         return [
-          { x: x - groupSize.width / 6 + 80, y: y + 150 },
-          { x: x + groupSize.width + 50, y: y + 150 },
+          { type: 'L', x: x - groupSize.width / 6 + 80, y: y + 150 },
+          { type: 'R', x: x + groupSize.width + 50, y: y + 150 },
         ];
       case 'Konditionen':
         if (tileName === 'Dann') {
           return [
-            { x: x - groupSize.width / 2 + 100, y: y + 50 },
-            { x: x + groupSize.width / 2 + 100, y: y + 50 },
+            { type: 'L', x: x - groupSize.width / 2 + 100, y: y + 50 },
+            { type: 'R', x: x + groupSize.width / 2 + 100, y: y + 50 },
           ];
         } else {
           if (tileName === 'Und') {
             return [
-              { x: x + groupSize.width - 440, y: y + 50 },
-              { x: x + groupSize.width / 2 + 50, y: y + 50 },
-              { x: x + groupSize.width / 2 + 40, y: y + 350 },
-              { x: x + groupSize.width - 440, y: y + 350 },
+              { type: 'TL', x: x + groupSize.width - 440, y: y + 50 },
+              { type: 'TR', x: x + groupSize.width / 2 + 50, y: y + 50 },
+              { type: 'BL', x: x + groupSize.width / 2 + 40, y: y + 350 },
+              { type: 'BR', x: x + groupSize.width - 440, y: y + 350 },
             ];
           }
         }

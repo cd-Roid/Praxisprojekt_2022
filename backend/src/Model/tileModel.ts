@@ -32,6 +32,24 @@ const TileSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	anchors: {
+		type: [
+			{
+				type: String,
+				x: Number,
+				y: Number,
+			},
+		],
+		required: true,
+	},
+	width: {
+		type: Number,
+		required: true,
+	},
+	height: {
+		type: Number,
+		required: true,
+	},
 	textPosition: textPositionSchema,
 });
 

@@ -89,6 +89,7 @@ const Board = () => {
                 id={tileObject.tile.id}
                 src={tileObject.tile.src}
                 name={tileObject.tile.name}
+                anchors={tileObject.tile.anchors}
                 color={tileObject.tile.color}
                 width={tileObject.tile.width}
                 height={tileObject.tile.height}

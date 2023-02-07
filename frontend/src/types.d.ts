@@ -39,8 +39,8 @@ export type Tile = {
   height: number;
   points: number[];
   category: string;
-  anchors?: { x: number; y: number }[];
   textPosition: { x: number; y: number };
+  anchors: { type: string; x: number; y: number }[];
 };
 
 export type InnerObject = {

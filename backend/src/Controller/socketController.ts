@@ -72,16 +72,17 @@ export const tileDrop = (
 	if (room) {
 		room.tiles.push({
 			tile: {
-				id: data.tile.id,
-				name: data.tile.name,
-				category: data.tile.category,
-				src: data.tile.src,
 				x: data.tile.x,
 				y: data.tile.y,
+				id: data.tile.id,
+				src: data.tile.src,
+				name: data.tile.name,
 				width: data.tile.width,
+				color: data.tile.color,
 				height: data.tile.height,
 				points: data.tile.points,
-				color: data.tile.color,
+				anchors: data.tile.anchors,
+				category: data.tile.category,
 				textPosition: data.tile.textPosition,
 			},
 		});

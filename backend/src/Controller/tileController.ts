@@ -86,15 +86,15 @@ export const updateTile = async (req: Request, res: Response) => {
 			if (process.env.NODE_ENV === "production") {
 				backendUrl = process.env.PROD_BACKEND_URL;
 			}
-			tile.category = req.body.category ? req.body.category : tile.category;
-			tile.name = req.body.name ? req.body.name : tile.name;
-			tile.src =
-				req.file != undefined ? `${backendUrl}/${req.file.path}` : tile.src;
-			tile.points = req.body.points ? req.body.points : tile.points;
-			tile.color = req.body.color ? req.body.color : tile.color;
 			tile.textPosition = req.body.textPosition
 				? req.body.textPosition
 				: tile.textPosition;
+			tile.color = req.body.color ? req.body.color : tile.color;
+			tile.points = req.body.points ? req.body.points : tile.points;
+			tile.src = tile.name = req.body.name ? req.body.name : tile.name;
+			tile.anchors = req.body.anchors ? req.body.anchors : tile.anchors;
+			req.file != undefined ? `${backendUrl}/${req.file.path}` : tile.src;
+			tile.category = req.body.category ? req.body.category : tile.category;
 			const updatedTile = await tile.save();
 			res.status(200).json(updatedTile);
 		} else {
