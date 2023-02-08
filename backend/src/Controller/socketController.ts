@@ -1,3 +1,5 @@
+import { TileConnection } from "./../../types/socket.types.d";
+import { state } from "./../Model/socketModel";
 import { Socket, Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import {
@@ -208,4 +210,20 @@ export const disconnect = (
 			}
 		});
 	});
+};
+
+export const tileConnect = (
+	data: TileConnection,
+	state: RoomData[],
+	io: Server<DefaultEventsMap, any>,
+) => {
+	const room = state.find((room) => room.roomId === data.roomId);
+	if (room) {
+		if (room.tileConnections?.length > 0) {
+			room.tileConnections?.push(data);
+		} else {
+			room.tileConnections = [data];
+		}
+	}
+	io.to(data.roomId).emit("room-data", room);
 };

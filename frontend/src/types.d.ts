@@ -63,10 +63,17 @@ export type TileData = {
   tile: Tile;
 };
 
+export type TileConnection = {
+  to: string;
+  from: string;
+  roomId: string;
+};
+
 export type RoomData = {
   roomId: string;
   users: UserData[];
   tiles?: TileData[];
+  tileConnections?: TileConnection[];
 };
 
 export type Coordinates = {

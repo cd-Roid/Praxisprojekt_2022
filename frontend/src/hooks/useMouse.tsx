@@ -6,6 +6,7 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { useBoardState } from '../state/BoardState';
 import { useWebSocketState } from '../state/WebSocketState';
 import { useContextMenuState } from '../state/ContextMenuState';
+import { useConnectedTilesState } from '../state/SyntaxTreeState';
 
 export const useMouse = () => {
   const setTiles = useBoardState((state) => state.addTile);
@@ -21,7 +22,9 @@ export const useMouse = () => {
     (state) => state.room?.users.find((user) => user.userId === socket?.id)?.color,
   );
   const setContextMenuOpen = useContextMenuState((state) => state.setContextMenuOpen);
-
+  const { fromShapeId, setFromShapeId, connections, setConnections } = useConnectedTilesState(
+    (state) => state,
+  );
   const toggleCategory = () => {
     setCategoriesOpen(false);
   };
@@ -264,8 +267,37 @@ export const useMouse = () => {
     }
   };
 
+  const handleClick = (event: KonvaEventObject<MouseEvent>) => {
+    const { id, 'data-type': type } = event.target.attrs;
+    console.log('clicked', id, type);
+    if (fromShapeId === `${id}_${type}`) {
+      setFromShapeId(null);
+    }
+    if (fromShapeId === null) {
+      setFromShapeId(`${id}_${type}`);
+    } else {
+      if (fromShapeId !== `${id}_${type}`) {
+        const newConnection = {
+          from: `${fromShapeId}`,
+          to: `${id}_${type}`,
+        };
+        setConnections([...connections, newConnection]);
+        setFromShapeId(null);
+
+        if (socket && roomId) {
+          const tileConnection = {
+            from: `${fromShapeId}`,
+            to: `${id}_${type}`,
+            roomId: roomId,
+          };
+          socket.emit('tile-connection', tileConnection);
+        }
+      }
+    }
+  };
   return {
     handleDrop,
+    handleClick,
     handleWheel,
     toggleCategory,
     handleMouseEnL,

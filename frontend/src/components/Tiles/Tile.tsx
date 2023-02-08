@@ -6,7 +6,6 @@ import TileBorderAnchor from './TileBorderAnchor';
 import { Group as GroupType } from 'konva/lib/Group';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
-import { KonvaEventObject } from 'konva/lib/Node';
 import { useConnectedTilesState } from '../../state/SyntaxTreeState';
 
 const Tile: React.FC<TileProps> = ({
@@ -26,30 +25,11 @@ const Tile: React.FC<TileProps> = ({
 }) => {
   const tileRef = React.useRef<GroupType>(null);
   const { handleContextMenu } = useContextMenu();
-  const { updateTilePosition, setActiveDragElement } = useMouse();
-  const { fromShapeId, setFromShapeId, connections, setConnections } = useConnectedTilesState(
-    (state) => state,
-  );
+  const { updateTilePosition, setActiveDragElement, handleClick } = useMouse();
+  const { fromShapeId } = useConnectedTilesState((state) => state);
   const userColor = useWebSocketState(
     (state) => state.room?.users?.find((user) => user.userId === state.socket?.id)?.color,
   );
-
-  const handleClick = (event: KonvaEventObject<MouseEvent>) => {
-    const { id, 'data-type': type } = event.target.attrs;
-    console.log('clicked', id);
-    if (fromShapeId === null) {
-      setFromShapeId(id);
-    } else {
-      if (fromShapeId !== id) {
-        const newConnection = {
-          from: `${fromShapeId}_${type}`,
-          to: `${id}_${type}`,
-        };
-        setConnections([...connections, newConnection]);
-        setFromShapeId(null);
-      }
-    }
-  };
 
   return (
     <>
@@ -63,7 +43,7 @@ const Tile: React.FC<TileProps> = ({
               y={y + point.y}
               type={point.type}
               onClick={handleClick}
-              fill={fromShapeId === id ? 'green' : 'black'}
+              fill={fromShapeId === `${id}_${point.type}` ? 'green' : 'black'}
             />
           ))}
 

@@ -55,8 +55,15 @@ export type TileData = {
 	tile: NewTile;
 };
 
+export type TileConnection = {
+	to: string;
+	from: string;
+	roomId: string;
+};
+
 export type RoomData = {
 	roomId: string;
 	users: UserData[];
 	tiles?: TileData[];
+	tileConnections?: TileConnection[];
 };

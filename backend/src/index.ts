@@ -4,16 +4,18 @@ import {
 	SocketCursorData,
 	SocketDeleteData,
 	TabFocusData,
+	TileConnection,
 } from "./../types/socket.types.d";
 import {
-	createRoom,
-	cursorMove,
 	joinRoom,
 	tabFocus,
 	tileDrag,
 	tileDrop,
+	createRoom,
 	deleteTile,
 	disconnect,
+	cursorMove,
+	tileConnect,
 	errorHandling,
 } from "./Controller/socketController";
 import cors from "cors";
@@ -96,6 +98,9 @@ io.on("connection", (socket) => {
 	);
 	socket.on("disconnect", () => disconnect(state, socket));
 	socket.on("error", (err: Error) => errorHandling(err));
+	socket.on("tile-connection", (data: TileConnection) =>
+		tileConnect(data, state, io),
+	);
 });
 
 db.on("error", (error) => console.error(error));

@@ -39,7 +39,7 @@ const Board = () => {
   const connectionPreview = useConnectedTilesState((state) => state.connectionPreview);
   setStageReference(stageRef);
 
-  const connectionLines = connections.map((connection) => {
+  const connectionLines = room?.tileConnections?.map((connection) => {
     const [toId, toAnchorType] = connection.to.split('_');
     const [fromId, fromAnchorType] = connection.from.split('_');
     const toTile = room?.tiles?.find((tile) => tile.tile.id === toId);
@@ -50,7 +50,7 @@ const Board = () => {
     if (fromTile && toTile && fromAnchor && toAnchor) {
       return (
         <Line
-          key={`${fromTile.tile._id}_${toTile.tile._id}`}
+          key={`${fromId}_${toId}_${fromAnchorType}_${toAnchorType}`}
           points={[
             fromTile.tile.x + fromAnchor.x,
             fromTile.tile.y + fromAnchor.y,
