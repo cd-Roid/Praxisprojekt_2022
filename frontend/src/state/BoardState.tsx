@@ -7,22 +7,22 @@ import { Tile } from '../types';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type BoardContextType = {
-  modalOpen: boolean;
-  categoriesOpen: boolean;
   allTiles: Tile[];
+  modalOpen: boolean;
   tilesOnBoard: Tile[];
+  categoriesOpen: boolean;
   selectedTile: Tile | null;
   remoteDragColor: string | null;
   stageReference: React.RefObject<Stage>;
   activeDragTile: React.RefObject<Group> | null;
   clearActiveDragTile: () => void;
   addTile: (newTile: Tile) => void;
-  setSelectedTile: (tile: Tile | null) => void;
   toggleModal: (toggle: boolean) => void;
   updateTile: (updatedNode: Tile) => void;
   setAllTiles: (tilesArray: Tile[]) => void;
   removeTile: (nodeToRemove: string) => void;
   setCategoriesOpen: (toggle: boolean) => void;
+  setSelectedTile: (tile: Tile | null) => void;
   setRemoteDragColor: (color: string | null) => void;
   setStageReference: (stage: React.RefObject<Stage>) => void;
   setActiveDragTile: (newActiveTile: React.RefObject<Group>) => void;
@@ -30,35 +30,35 @@ export type BoardContextType = {
 
 export const useBoardState = create<BoardContextType>((set) => ({
   allTiles: [],
-  modalOpen: false,
-  categoriesOpen: false,
   tilesOnBoard: [],
+  modalOpen: false,
   selectedTile: null,
-  activeDragTile: null,
   remoteDragColor: '',
+  activeDragTile: null,
+  categoriesOpen: false,
   stageReference: createRef<Stage>(),
 
-  clearActiveDragTile: () => set(() => ({ activeDragTile: null })),
-  setSelectedTile: (tile: Tile | null) => set(() => ({ selectedTile: tile })),
-  setActiveDragTile: (newActiveTile: React.RefObject<Group>) =>
-    set(() => ({ activeDragTile: newActiveTile })),
-  setCategoriesOpen: (isOpen: boolean) => set(() => ({ categoriesOpen: isOpen })),
-  toggleModal: (toggle: boolean) => set(() => ({ modalOpen: toggle })),
-  setAllTiles: (tilesArray: Tile[]) => set(() => ({ allTiles: tilesArray })),
-  addTile: (newTile: Tile) => set((state) => ({ tilesOnBoard: [...state.tilesOnBoard, newTile] })),
   updateTile: (updatedTile: Tile) =>
     set((state) => ({
       tilesOnBoard: state.tilesOnBoard.map((tile) =>
         tile.id === updatedTile.id ? updatedTile : tile,
       ),
     })),
+  setStageReference: (stageRef: React.RefObject<Stage>) =>
+    set(() => ({ stageReference: stageRef })),
+  setActiveDragTile: (newActiveTile: React.RefObject<Group>) =>
+    set(() => ({ activeDragTile: newActiveTile })),
+  clearActiveDragTile: () => set(() => ({ activeDragTile: null })),
+  toggleModal: (toggle: boolean) => set(() => ({ modalOpen: toggle })),
+  setAllTiles: (tilesArray: Tile[]) => set(() => ({ allTiles: tilesArray })),
+  setSelectedTile: (tile: Tile | null) => set(() => ({ selectedTile: tile })),
+  setCategoriesOpen: (isOpen: boolean) => set(() => ({ categoriesOpen: isOpen })),
   removeTile: (tileToRemove: string) =>
     set((state) => ({
       tilesOnBoard: state.tilesOnBoard.filter((tile) => tile.id !== tileToRemove),
     })),
   setRemoteDragColor: (color: string | null) => set(() => ({ remoteDragColor: color })),
-  setStageReference: (stageRef: React.RefObject<Stage>) =>
-    set(() => ({ stageReference: stageRef })),
+  addTile: (newTile: Tile) => set((state) => ({ tilesOnBoard: [...state.tilesOnBoard, newTile] })),
 }));
 
 

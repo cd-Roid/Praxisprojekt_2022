@@ -1,14 +1,13 @@
 import React from 'react';
-import TileBorder from './TileBorder';
-import { useLine } from '../../hooks/useLine';
 import { Tile as TileProps } from '../../types';
 import { useMouse } from '../../hooks/useMouse';
-import { Group, Text, Line, Circle } from 'react-konva';
+import { Group, Text, Line } from 'react-konva';
 import TileBorderAnchor from './TileBorderAnchor';
 import { Group as GroupType } from 'konva/lib/Group';
-import { useBoardState } from '../../state/BoardState';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
+import { KonvaEventObject } from 'konva/lib/Node';
+import { useConnectedTilesState } from '../../state/SyntaxTreeState';
 
 const Tile: React.FC<TileProps> = ({
   x,
@@ -28,86 +27,63 @@ const Tile: React.FC<TileProps> = ({
   const tileRef = React.useRef<GroupType>(null);
   const { handleContextMenu } = useContextMenu();
   const { updateTilePosition, setActiveDragElement } = useMouse();
-  const tilesOnBoard = useBoardState((state) => state.tilesOnBoard);
-  const [connections, setConnections] = React.useState<
-    { source: string; destination: TileProps; destinationAnchorType: string }[]
-  >([]);
+  const { fromShapeId, setFromShapeId, connections, setConnections } = useConnectedTilesState(
+    (state) => state,
+  );
   const userColor = useWebSocketState(
     (state) => state.room?.users?.find((user) => user.userId === state.socket?.id)?.color,
   );
 
-  const createConnectionPoints = (
-    source: { x: number; y: number },
-    destination: { x: number; y: number },
-  ) => {
-    return [source.x, source.y, destination.x, destination.y];
-  };
-
-  const { handleAnchorDragStart, handleAnchorDragMove, handleAnchorDragEnd } = useLine();
-
-  const connectionObjs = connections.map((connection) => {
-    const fromTile = tilesOnBoard.find((tile) => tile.id === connection.source);
-    const toTile = tilesOnBoard.find((tile) => tile.id === connection.destination.id);
-    if (fromTile && toTile) {
-      const toTileAnchor = toTile.anchors?.find(
-        (anchor) => anchor.type === connection.destinationAnchorType,
-      );
-      if (toTileAnchor) {
-        const lineEnd = {
-          x: toTileAnchor.x - fromTile.x,
-          y: toTileAnchor.y - fromTile.y,
+  const handleClick = (event: KonvaEventObject<MouseEvent>) => {
+    const { id, 'data-type': type } = event.target.attrs;
+    console.log('clicked', id);
+    if (fromShapeId === null) {
+      setFromShapeId(id);
+    } else {
+      if (fromShapeId !== id) {
+        const newConnection = {
+          from: `${fromShapeId}_${type}`,
+          to: `${id}_${type}`,
         };
-        const points = createConnectionPoints({ x: 0, y: 0 }, lineEnd);
-        return (
-          <Line
-            key={`from-${id}-to-${toTile.id}`}
-            x={fromTile.x}
-            y={fromTile.y}
-            points={points}
-            stroke='#1E7D73'
-            strokeWidth={5}
-          />
-        );
+        setConnections([...connections, newConnection]);
+        setFromShapeId(null);
       }
     }
-  });
+  };
+
   return (
     <>
       {userColor && id && (
         <>
-          {id && (
-            <>
-              <TileBorder x={x} y={y} id={id} points={points} />
-              {anchors.map((point, index) => (
-                <TileBorderAnchor
-                  id={id}
-                  key={index}
-                  x={x + point.x}
-                  y={y + point.y}
-                  type={point.type}
-                  dragMove={(e) => handleAnchorDragMove(e, createConnectionPoints)}
-                  dragStart={(e) => handleAnchorDragStart(e, createConnectionPoints)}
-                  dragEnd={(e) => handleAnchorDragEnd(e, id, connections, setConnections)}
-                />
-              ))}
-            </>
-          )}
+          {anchors.map((point, index) => (
+            <TileBorderAnchor
+              id={id}
+              key={index}
+              x={x + point.x}
+              y={y + point.y}
+              type={point.type}
+              onClick={handleClick}
+              fill={fromShapeId === id ? 'green' : 'black'}
+            />
+          ))}
 
           <Group
             x={x}
             y={y}
             id={id}
             draggable
+            name={name}
             ref={tileRef}
             data-id={_id}
             data-src={src}
-            name={category}
             data-fill={color}
             data-width={width}
             data-height={height}
+            data-category={category}
             onDragEnd={updateTilePosition}
             onContextMenu={handleContextMenu}
             data-points={JSON.stringify(points)}
+            data-anchors={JSON.stringify(anchors)}
             data-textPosition={JSON.stringify(textPosition)}
             onDragMove={(event) => setActiveDragElement(tileRef, event)}
           >
@@ -129,11 +105,8 @@ const Tile: React.FC<TileProps> = ({
           </Group>
         </>
       )}
-
-      {connectionObjs}
     </>
   );
 };
-
 
 export default Tile;

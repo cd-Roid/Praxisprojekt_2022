@@ -5,19 +5,24 @@ import create from 'zustand';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 export type ConnectedTilesContextType = {
-  connectedTiles: { [key: string]: string[] };
+  fromShapeId: string | null;
   connectionPreview: JSX.Element | null;
+  connections: { from: string; to: string }[];
+  setFromShapeId: (value: string | null) => void;
   setConnectionPreview: (value: JSX.Element | null) => void;
-  setConnectedTiles: (value: { [key: string]: string[] }) => void;
+  setConnections: (value: { from: string; to: string }[]) => void;
 };
 
-export const useConnectedTilesContext = create<ConnectedTilesContextType>((set) => ({
+export const useConnectedTilesState = create<ConnectedTilesContextType>((set) => ({
+  connections: [],
+  fromShapeId: null,
   connectedTiles: {},
   connectionPreview: null,
+  setFromShapeId: (value: string | null) => set(() => ({ fromShapeId: value })),
+  setConnections: (value: { from: string; to: string }[]) => set(() => ({ connections: value })),
   setConnectionPreview: (value: JSX.Element | null) => set(() => ({ connectionPreview: value })),
-  setConnectedTiles: (value: { [key: string]: string[] }) => set(() => ({ connectedTiles: value })),
 }));
 
 if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('ConnectedTilesContext', useConnectedTilesContext);
+  mountStoreDevtool('ConnectedTilesContext', useConnectedTilesState);
 }

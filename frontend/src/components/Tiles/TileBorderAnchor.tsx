@@ -7,13 +7,12 @@ type Props = {
   x: number;
   y: number;
   id: string;
+  fill: string;
   type: string;
-  dragStart: (e: KonvaEventObject<DragEvent>) => void;
-  dragMove: (e: KonvaEventObject<DragEvent>) => void;
-  dragEnd: (e: KonvaEventObject<DragEvent>, id: string) => void;
+  onClick: (event: KonvaEventObject<MouseEvent>) => void;
 };
 
-const TileBorderAnchors: React.FC<Props> = ({ x, y, id, dragStart, dragMove, dragEnd, type }) => {
+const TileBorderAnchors: React.FC<Props> = ({ x, y, id, onClick, fill, type }) => {
   const dragBounds = (ref: React.RefObject<CircleObject>) => {
     if (ref.current !== null) {
       return ref.current.getAbsolutePosition();
@@ -33,14 +32,13 @@ const TileBorderAnchors: React.FC<Props> = ({ x, y, id, dragStart, dragMove, dra
         id={id}
         draggable
         radius={10}
-        fill='black'
-        data-type={type}
-        onDragStart={dragStart}
-        onDragMove={dragMove}
-        onDragEnd={(event) => dragEnd(event, id)}
-        dragBoundFunc={() => dragBounds(anchor)}
-        perfectDrawEnabled={false}
+        fill={fill}
         ref={anchor}
+        name='anchor'
+        data-type={type}
+        onClick={onClick}
+        perfectDrawEnabled={false}
+        dragBoundFunc={() => dragBounds(anchor)}
       />
     </>
   );

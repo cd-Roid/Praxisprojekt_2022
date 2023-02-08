@@ -68,7 +68,8 @@ export const useMouse = () => {
     );
 
     if (tile) {
-      const { _id, name, src, color, points, textPosition, anchors, width, height } = tile;
+      const { _id, name, src, color, points, textPosition, anchors, width, height, category } =
+        tile;
       const dragPayload = JSON.stringify({
         id: uuidv4(),
         _id: _id,
@@ -79,6 +80,7 @@ export const useMouse = () => {
         height: height,
         points: points,
         anchors: anchors,
+        category: category,
         textPosition: textPosition,
         offsetX: event.nativeEvent.offsetX,
         offsetY: event.nativeEvent.offsetY,
@@ -106,7 +108,7 @@ export const useMouse = () => {
         anchors,
         offsetX,
         offsetY,
-        nodeClass,
+        category,
         textPosition,
       } = JSON.parse(draggedData);
       if (x && y) {
@@ -120,7 +122,7 @@ export const useMouse = () => {
           height: height,
           points: points,
           anchors: anchors,
-          category: nodeClass,
+          category: category,
           textPosition: textPosition,
           x: x - (offsetX - width / 2),
           y: y - (offsetY - height / 2),
@@ -146,30 +148,31 @@ export const useMouse = () => {
      */
 
     const {
-      'data-id': _id,
+      'data-id': uid,
       'data-src': src,
       'data-fill': color,
       'data-width': width,
       'data-points': points,
       'data-height': height,
       'data-anchors': anchors,
+      'data-category': tileName,
       'data-textPosition': textPosition,
     } = event.target.attrs;
     if (stageRef.current) {
       const updatedTile: Tile = {
-        _id: _id,
+        _id: uid,
         src: src,
         width: width,
         color: color,
         height: height,
-        points: points,
-        anchors: anchors,
+        category: tileName,
         x: event.target.x(),
         y: event.target.y(),
         id: event.target.attrs.id,
+        points: JSON.parse(points),
         textPosition: textPosition,
+        anchors: JSON.parse(anchors),
         name: event.target.attrs.name,
-        category: event.target.attrs.name,
       };
       updateTile(updatedTile);
     }
