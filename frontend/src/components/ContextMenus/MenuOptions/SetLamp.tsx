@@ -1,7 +1,6 @@
 import React from 'react';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContextMenuState } from '../../../state/ContextMenuState';
 
 type Props = {
   onclick: () => void;

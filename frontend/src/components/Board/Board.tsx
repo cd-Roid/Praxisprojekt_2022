@@ -10,6 +10,9 @@ import { useBoardState } from '../../state/BoardState';
 import { useWebSocketState } from '../../state/WebSocketState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { useConnectedTilesState } from '../../state/SyntaxTreeState';
+import { KonvaEventObject } from 'konva/lib/Node';
+import { useContextMenu } from '../../hooks/useContextMenu';
+import { useContextMenuState } from '../../state/ContextMenuState';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -23,20 +26,21 @@ const Board = () => {
     handleDragOver,
     handleDrop,
     handleWheel,
-    handleMouseMove,
     toggleCategory,
+    handleMouseMove,
     handleBoardDrag,
   } = useMouse();
+  const { handleContextMenu } = useContextMenu();
   const room = useWebSocketState((state) => state.room);
   const addTile = useBoardState((state) => state.addTile);
   const socket = useWebSocketState((state) => state.socket);
   const setRoom = useWebSocketState((state) => state.setRoom);
   const deleteTile = useBoardState((state) => state.removeTile);
   const updateTile = useBoardState((state) => state.updateTile);
-  const connections = useConnectedTilesState((state) => state.connections);
   const setStageReference = useBoardState((state) => state.setStageReference);
   const setRemoteDragColor = useBoardState((state) => state.setRemoteDragColor);
   const connectionPreview = useConnectedTilesState((state) => state.connectionPreview);
+  const setLineContextMenuOpen = useContextMenuState((state) => state.setLineContextMenuOpen);
   setStageReference(stageRef);
 
   const connectionLines = room?.tileConnections?.map((connection) => {
@@ -50,7 +54,9 @@ const Board = () => {
     if (fromTile && toTile && fromAnchor && toAnchor) {
       return (
         <Line
-          key={`${fromId}_${toId}_${fromAnchorType}_${toAnchorType}`}
+          onContextMenu={(e) => handleContextMenu(e, setLineContextMenuOpen)}
+          id={`${fromId}_${fromAnchorType}.${toId}_${toAnchorType}`}
+          key={`${fromId}_${fromAnchorType}.${toId}_${toAnchorType}`}
           points={[
             fromTile.tile.x + fromAnchor.x,
             fromTile.tile.y + fromAnchor.y,
@@ -58,7 +64,7 @@ const Board = () => {
             toTile.tile.y + toAnchor.y,
           ]}
           stroke='black'
-          strokeWidth={2}
+          strokeWidth={6}
         />
       );
     }

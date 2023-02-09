@@ -7,7 +7,7 @@ import { useContextMenu } from '../../hooks/useContextMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContextMenuState } from '../../state/ContextMenuState';
 
-const RightClickMenu = () => {
+const TileRightClickMenu = () => {
   const removeTile = useBoardState((state) => state.removeTile);
   const { contextMenuAnchorPoint, handleClick } = useContextMenu();
   const setPanelOpen = useContextMenuState((state) => state.setPanelOpen);
@@ -47,4 +47,4 @@ const RightClickMenu = () => {
   );
 };
 
-export default RightClickMenu;
+export default TileRightClickMenu;

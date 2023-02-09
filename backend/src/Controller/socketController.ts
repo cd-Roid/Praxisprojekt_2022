@@ -1,6 +1,6 @@
-import { TileConnection } from "./../../types/socket.types.d";
-import { state } from "./../Model/socketModel";
 import { Socket, Server } from "socket.io";
+import { findConnections } from "./../../utils/tileConnections";
+import { TileConnection } from "./../../types/socket.types.d";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import {
 	RoomData,
@@ -165,6 +165,26 @@ export const cursorMove = (
 			};
 			io.to(data.roomId).emit("room-data", room);
 		}
+	}
+};
+
+export const deleteLine = (
+	data: SocketDeleteData,
+	state: RoomData[],
+	io: Server<DefaultEventsMap, any>,
+) => {
+	/**
+	 * check if the room exists
+	 * if it does,then check if the tile exists
+	 * if it does, delete the tile from the room
+	 * update the room state
+	 * emit the room data to the every user in the room
+	 */
+
+	const room = state.find((room) => room.roomId === data.roomId);
+	if (room) {
+		room.tileConnections = findConnections(data.id, room.tileConnections);
+		io.to(data.roomId).emit("room-data", room);
 	}
 };
 

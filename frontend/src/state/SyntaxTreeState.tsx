@@ -3,6 +3,7 @@
 
 import create from 'zustand';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
+import { findConnections } from '../utils/tileConnections';
 
 export type ConnectedTilesContextType = {
   fromShapeId: string | null;
@@ -10,6 +11,7 @@ export type ConnectedTilesContextType = {
   connections: { from: string; to: string }[];
   setFromShapeId: (value: string | null) => void;
   setConnectionPreview: (value: JSX.Element | null) => void;
+  removeConnection: (value: string) => void;
   setConnections: (value: { from: string; to: string }[]) => void;
 };
 
@@ -19,6 +21,10 @@ export const useConnectedTilesState = create<ConnectedTilesContextType>((set) =>
   connectedTiles: {},
   connectionPreview: null,
   setFromShapeId: (value: string | null) => set(() => ({ fromShapeId: value })),
+  removeConnection: (value: string) =>
+    set((state) => ({
+      connections: findConnections(value, state.connections),
+    })),
   setConnections: (value: { from: string; to: string }[]) => set(() => ({ connections: value })),
   setConnectionPreview: (value: JSX.Element | null) => set(() => ({ connectionPreview: value })),
 }));

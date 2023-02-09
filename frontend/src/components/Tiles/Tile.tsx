@@ -7,6 +7,7 @@ import { Group as GroupType } from 'konva/lib/Group';
 import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
 import { useConnectedTilesState } from '../../state/SyntaxTreeState';
+import { useContextMenuState } from '../../state/ContextMenuState';
 
 const Tile: React.FC<TileProps> = ({
   x,
@@ -25,8 +26,9 @@ const Tile: React.FC<TileProps> = ({
 }) => {
   const tileRef = React.useRef<GroupType>(null);
   const { handleContextMenu } = useContextMenu();
-  const { updateTilePosition, setActiveDragElement, handleClick } = useMouse();
   const { fromShapeId } = useConnectedTilesState((state) => state);
+  const { updateTilePosition, setActiveDragElement, handleClick } = useMouse();
+  const setContextMenuOpen = useContextMenuState((state) => state.setContextMenuOpen);
   const userColor = useWebSocketState(
     (state) => state.room?.users?.find((user) => user.userId === state.socket?.id)?.color,
   );
@@ -61,7 +63,7 @@ const Tile: React.FC<TileProps> = ({
             data-height={height}
             data-category={category}
             onDragEnd={updateTilePosition}
-            onContextMenu={handleContextMenu}
+            onContextMenu={(e) => handleContextMenu(e, setContextMenuOpen)}
             data-points={JSON.stringify(points)}
             data-anchors={JSON.stringify(anchors)}
             data-textPosition={JSON.stringify(textPosition)}

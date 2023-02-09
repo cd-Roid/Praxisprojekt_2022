@@ -13,6 +13,7 @@ import {
 	tileDrop,
 	createRoom,
 	deleteTile,
+	deleteLine,
 	disconnect,
 	cursorMove,
 	tileConnect,
@@ -79,9 +80,6 @@ app.use(cors());
 app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
 
-
-
-
 io.on("connection", (socket) => {
 	socket.on("room-create", (data: UserData) => createRoom(data, state, socket));
 	socket.on("join-room", (data: UserData) => joinRoom(data, state, socket, io));
@@ -95,6 +93,9 @@ io.on("connection", (socket) => {
 	socket.on("cursor", (data: SocketCursorData) => cursorMove(data, state, io));
 	socket.on("tile-delete", (data: SocketDeleteData) =>
 		deleteTile(data, state, io),
+	);
+	socket.on("line-delete", (data: SocketDeleteData) =>
+		deleteLine(data, state, io),
 	);
 	socket.on("disconnect", () => disconnect(state, socket, io));
 	socket.on("error", (err: Error) => errorHandling(err));
