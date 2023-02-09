@@ -191,6 +191,7 @@ export const deleteTile = (
 export const disconnect = (
 	state: RoomData[],
 	socket: Socket<DefaultEventsMap, any>,
+	io: Server<DefaultEventsMap, any>,
 ) => {
 	/**
 	 * before updating the state check if the user is the host
@@ -206,6 +207,7 @@ export const disconnect = (
 					state.splice(state.indexOf(room), 1);
 				} else {
 					room.users.splice(room.users.indexOf(user), 1);
+					io.emit("room-data", room);
 				}
 			}
 		});

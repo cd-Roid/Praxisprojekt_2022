@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
 	socket.on("tile-delete", (data: SocketDeleteData) =>
 		deleteTile(data, state, io),
 	);
-	socket.on("disconnect", () => disconnect(state, socket));
+	socket.on("disconnect", () => disconnect(state, socket, io));
 	socket.on("error", (err: Error) => errorHandling(err));
 	socket.on("tile-connection", (data: TileConnection) =>
 		tileConnect(data, state, io),
