@@ -34,10 +34,10 @@ export interface AST {
       left: Token;
       right: Token;
       operator: Operator;
-    }[];
+    };
     execute: {
       target: Token;
       change: Token;
     };
-  };
+  }[];
 }
