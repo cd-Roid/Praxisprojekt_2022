@@ -3,7 +3,7 @@
  * The AST is based on the ESTree standard
  * Basic building blocks are:
  * Program
- * Literals
+ * StringLiterals
  * Identifiers
  * Expression Statements
  * Statements
@@ -13,19 +13,19 @@
  */
 
 /**
- * Operators used for BinaryExpressions
+ * Operators used for LogicalExpressions
  */
 export enum Operator {
-  '===',
-  '!==',
-  '<',
-  '>',
-  '<=',
-  '>=',
-  '&&',
-  '||',
-  'true',
-  'false',
+  equals = '===',
+  unequals = '!==',
+  lessThan = '<',
+  greaterThan = '>',
+  lessOrEquals = '<=',
+  greaterOrEquals = '>=',
+  and = '&&',
+  or = '||',
+  true = 'true',
+  false = 'false',
 }
 /**
  * Program
@@ -33,17 +33,17 @@ export enum Operator {
  * */
 
 export interface Program {
-  type: Program;
+  type: 'Program';
   body: IfStatement[];
   sourceType: 'module';
 }
 
 /**
- * Literals
+ * StringLiterals
  * all types of strings, numbers, booleans
  */
-export interface Literal {
-  type: Literal;
+export interface StringLiteral {
+  type: 'StringLiteral';
   value: string;
 }
 
@@ -52,7 +52,7 @@ export interface Literal {
  * all types of variables, functions, classes
  */
 export interface Identifier {
-  type: Identifier;
+  type: 'Identifier';
   name: string;
 }
 
@@ -63,42 +63,39 @@ export interface Identifier {
 
 // MemeberExpression can be used for objects and its properties
 export interface MemberExpression {
-  type: MemberExpression;
-  object: string;
-  property: {
-    type: string | (() => void);
-    value: string;
-  };
+  type: 'MemberExpression';
+  object: Identifier;
+  property: Identifier;
+}
+export interface BinaryExpression {
+  type: 'BinaryExpression';
+  left: MemberExpression | Identifier | StringLiteral | null;
+  right: MemberExpression | Identifier | StringLiteral | null;
+  operator: Operator | null;
 }
 
-// BinaryExpression can be used for if statements
-export interface BinaryExpression {
-  type: BinaryExpression;
-  left: MemberExpression;
-  right: MemberExpression | Literal;
+// LogicalExpression can be used for if statements
+export interface LogicalExpression {
+  type: 'LogicalExpression';
+  left: MemberExpression | BinaryExpression | StringLiteral;
+  right: MemberExpression | BinaryExpression | StringLiteral;
   operator: Operator;
-  consequent: {
-    type: BlockStatement;
-    body: ExpressionStatement[];
-  };
 }
 /**
  * CallExpression can be used for functions.
  * They also can take in other functions or Expressions as arguments
  **/
 export interface CallExpression {
-  type: CallExpression;
+  type: 'CallExpression';
   callee: MemberExpression;
   object: Identifier;
   property: Identifier;
   arguments:
     | MemberExpression[]
-    | Literal
-    | BinaryExpression
-    | IfStatement
-    | CallExpression
-    | Identifier
-    | (() => void);
+    | StringLiteral[]
+    | LogicalExpression[]
+    | IfStatement[]
+    | Identifier[];
 }
 
 /**
@@ -110,20 +107,30 @@ export interface CallExpression {
  * Since most of the proccesses can be convered by if statements,
  * we wont be needing other types of statements at first
  * */
-export interface IfStatement {
-  type: IfStatement;
-  test: BinaryExpression;
+export interface ExpressionStatement {
+  type: 'ExpressionStatement';
+  expression:
+    | MemberExpression
+    | BinaryExpression
+    | LogicalExpression
+    | CallExpression
+    | IfStatement;
 }
 
-export interface ExpressionStatement {
-  type: ExpressionStatement;
-  expression: MemberExpression | BinaryExpression | CallExpression | IfStatement;
+export interface IfStatement {
+  type: 'IfStatement';
+  test: BinaryExpression | null;
+  consequent: {
+    type: 'BlockStatement';
+    body: ExpressionStatement[] | null;
+  };
 }
+
 /**
  * Blockstatement are the body of a program
  * or the body of a function
  */
 export interface BlockStatement {
-  type: BlockStatement;
+  type: 'BlockStatement';
   body: ExpressionStatement[];
 }

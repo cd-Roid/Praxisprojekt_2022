@@ -269,7 +269,7 @@ export const useMouse = () => {
 
   const handleClick = (event: KonvaEventObject<MouseEvent>) => {
     const { id, 'data-type': type } = event.target.attrs;
-    console.log('clicked', id, type);
+
     if (fromShapeId === `${id}_${type}`) {
       setFromShapeId(null);
     }

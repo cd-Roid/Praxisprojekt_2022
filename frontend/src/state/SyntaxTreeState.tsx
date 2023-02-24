@@ -2,13 +2,23 @@
 // also saves the connections between them
 
 import create from 'zustand';
+import { IfStatement } from '../AstTypes';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { findConnections } from '../utils/tileConnections';
-
+interface ASTType {
+  type: 'File';
+  errors: [];
+  program: {
+    type: 'Program';
+    body: IfStatement[];
+  } | null;
+}
 export type ConnectedTilesContextType = {
   fromShapeId: string | null;
+  ast: ASTType | null;
   connectionPreview: JSX.Element | null;
   connections: { from: string; to: string }[];
+  setAst: (value: ASTType | null) => void;
   setFromShapeId: (value: string | null) => void;
   setConnectionPreview: (value: JSX.Element | null) => void;
   removeConnection: (value: string) => void;
@@ -16,10 +26,12 @@ export type ConnectedTilesContextType = {
 };
 
 export const useConnectedTilesState = create<ConnectedTilesContextType>((set) => ({
+  ast: null,
   connections: [],
   fromShapeId: null,
   connectedTiles: {},
   connectionPreview: null,
+  setAst: (value: ASTType | null) => set(() => ({ ast: value })),
   setFromShapeId: (value: string | null) => set(() => ({ fromShapeId: value })),
   removeConnection: (value: string) =>
     set((state) => ({
