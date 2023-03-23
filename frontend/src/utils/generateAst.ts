@@ -1,18 +1,5 @@
-import { CallExpression, Identifier, IfStatement, StringLiteral } from './../AstTypes.d';
+import { CallExpression, Identifier, IfStatement, ExpressionStatement } from './../AstTypes.d';
 import { ASTType } from '../AstTypes';
-
-enum Operator {
-  equals = '===',
-  unequals = '!==',
-  lessThan = '<',
-  greaterThan = '>',
-  lessOrEquals = '<=',
-  greaterOrEquals = '>=',
-  and = '&&',
-  or = '||',
-  true = 'true',
-  false = 'false',
-}
 
 interface NodeType {
   id: string;
@@ -27,6 +14,8 @@ export const generateAst = (
   toNode: NodeType | undefined,
   ast: ASTType | null,
   setAst: (ast: ASTType | null) => void,
+  generatedCode?: string,
+  setGeneratedCode?: (value: string) => void,
 ) => {
   if (
     fromNode?.tileCategory === undefined ||
@@ -35,7 +24,7 @@ export const generateAst = (
     toNode?.tileCategory === undefined
   )
     return;
-  if (fromNode.tileCategory === 'Start' && toNode.tileCategory === 'Objekte') {
+  if (fromNode.tileCategory === 'Start' && toNode.tileCategory === 'Objekte' && ast === null) {
     const startNode = fromNode.astNode.javaScript as IfStatement;
     startNode.test.left = toNode.astNode.javaScript as Identifier;
     setAst({
@@ -75,29 +64,12 @@ export const generateAst = (
     ast !== null &&
     ast.program?.body[0].consequent.type === 'BlockStatement'
   ) {
-    ast.program.body[0].consequent.body = [
+    ast.program.body[0].consequent.body = [fromNode.astNode.javaScript as ExpressionStatement];
+    const callExpression = ast.program.body[0].consequent.body[0].expression as CallExpression;
+    callExpression.arguments = [
       {
-        type: 'ExpressionStatement',
-        expression: {
-          type: 'CallExpression',
-          callee: {
-            type: 'MemberExpression',
-            object: {
-              type: 'Identifier',
-              name: 'client',
-            },
-            property: {
-              type: 'Identifier',
-              name: 'publish',
-            },
-          },
-          arguments: [
-            {
-              type: 'StringLiteral',
-              value: toNode.astNode.MQTTTopic,
-            } as StringLiteral,
-          ] as StringLiteral[],
-        } as CallExpression,
+        type: 'StringLiteral',
+        value: toNode.astNode.MQTTtopic,
       },
     ];
     setAst(ast);
@@ -120,21 +92,24 @@ export const generateAst = (
     setAst(ast);
   }
 
-  if (fromNode.tileCategory === 'Zustand' && toNode.tileCategory === 'End') {
+  if (fromNode.tileCategory === 'Zustand' && toNode.tileCategory === 'Ende' && ast !== null) {
     // send ast to backend
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    console.log('fetch ast to backend: ', JSON.stringify(ast));
     (async () => {
       try {
         const response = await fetch(`${backendUrl}/ast`, {
           method: 'POST',
-          body: JSON.stringify(ast, null, 2),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ast),
         });
         const data = await response.json();
-        console.log(data);
+        setGeneratedCode && setGeneratedCode(data.code);
       } catch (error) {
         alert(error);
       }
     })();
   }
-  console.log(JSON.stringify(ast, null, 2));
 };

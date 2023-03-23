@@ -21,6 +21,7 @@ const Tile: React.FC<TileProps> = ({
   height,
   points,
   anchors,
+  astNode,
   category,
   textPosition,
 }) => {
@@ -62,6 +63,7 @@ const Tile: React.FC<TileProps> = ({
             data-width={width}
             data-height={height}
             data-category={category}
+            data-astNode={JSON.stringify(astNode)}
             onDragEnd={updateTilePosition}
             onContextMenu={(e) => handleContextMenu(e, setContextMenuOpen)}
             data-points={JSON.stringify(points)}

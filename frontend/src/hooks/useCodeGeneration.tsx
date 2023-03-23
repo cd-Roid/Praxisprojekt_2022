@@ -12,7 +12,9 @@ const allowedConnections = {
 };
 
 export const useCodeGeneration = () => {
-  const { connections, ast, setAst } = useConnectedTilesState((state) => state);
+  const { connections, ast, setAst, generatedCode, setGeneratedCode } = useConnectedTilesState(
+    (state) => state,
+  );
   const { tilesOnBoard } = useBoardState((state) => state);
   const generateCode = () => {
     connections.forEach((connection) => {
@@ -49,7 +51,7 @@ export const useCodeGeneration = () => {
           } verbunden werden.`,
         );
       } else {
-        generateAst(fromTile, toTile, ast, setAst);
+        generateAst(fromTile, toTile, ast, setAst, generatedCode, setGeneratedCode);
       }
     });
   };

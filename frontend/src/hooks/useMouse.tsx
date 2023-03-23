@@ -172,6 +172,7 @@ export const useMouse = () => {
       'data-points': points,
       'data-height': height,
       'data-anchors': anchors,
+      'data-astNode': astNode,
       'data-category': tileName,
       'data-textPosition': textPosition,
     } = event.target.attrs;
@@ -188,6 +189,7 @@ export const useMouse = () => {
         id: event.target.attrs.id,
         points: JSON.parse(points),
         textPosition: textPosition,
+        astNode: JSON.parse(astNode),
         anchors: JSON.parse(anchors),
         name: event.target.attrs.name,
       };
@@ -237,6 +239,7 @@ export const useMouse = () => {
         'data-height': height,
         'data-points': points,
         'data-anchors': anchors,
+        'data-astNode': astNode,
         'data-textPosition': textPosition,
       } = event.target.attrs;
       const stage = stageRef.current;
@@ -252,6 +255,7 @@ export const useMouse = () => {
         y: event.target.y(),
         id: event.target.attrs.id,
         points: Array.from(points),
+        astNode: JSON.parse(astNode),
         name: event.target.attrs.name,
         category: event.target.attrs.name,
         textPosition: JSON.parse(textPosition),

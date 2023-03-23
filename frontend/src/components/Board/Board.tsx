@@ -115,15 +115,16 @@ const Board = () => {
                 key={tileObject.tile.id}
                 x={tileObject.tile.x}
                 y={tileObject.tile.y}
-                _id={tileObject.tile._id}
                 id={tileObject.tile.id}
+                _id={tileObject.tile._id}
                 src={tileObject.tile.src}
                 name={tileObject.tile.name}
-                anchors={tileObject.tile.anchors}
                 color={tileObject.tile.color}
                 width={tileObject.tile.width}
-                height={tileObject.tile.height}
                 points={tileObject.tile.points}
+                height={tileObject.tile.height}
+                anchors={tileObject.tile.anchors}
+                astNode={tileObject.tile.astNode}
                 category={tileObject.tile.category}
                 textPosition={tileObject.tile.textPosition}
               />

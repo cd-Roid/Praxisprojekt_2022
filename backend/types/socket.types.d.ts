@@ -19,6 +19,7 @@ export type NewTile = {
 	x: number;
 	y: number;
 	id: string;
+	_id: string;
 	src: string;
 	name: string;
 	width: number;
@@ -26,6 +27,7 @@ export type NewTile = {
 	height: number;
 	category: string;
 	points: number[];
+	astNode?: { javaScript: any; python: any; MQTTtopic?: string };
 	textPosition: { x: number; y: number };
 	anchors: { type: string; x: number; y: number }[];
 };

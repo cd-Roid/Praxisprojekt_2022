@@ -159,6 +159,16 @@
     "color": "#f9b43d",
     "width": 200,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "ReturnStatement",
+        "argument": null
+      },
+      "python": {
+        "type": "ReturnStatement",
+        "argument": null
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -320,6 +330,31 @@
     "color": "#F9B43D",
     "width": 400,
     "height": 200,
+    "astNode": {
+      "javaScript": {
+        "type": "ExpressionStatement",
+        "expression": {
+          "type": "CallExpression",
+          "callee": {
+            "type": "MemberExpression",
+            "object": {
+              "type": "Identifier",
+              "name": "client"
+            },
+            "property": {
+              "type": "Identifier",
+              "name": "publish"
+            }
+          },
+          "arguments": [
+            {
+              "type": "StringLiteral",
+              "value": null
+            }
+          ]
+        }
+      }
+    },
     "anchors": [
       {
         "type": "L",
