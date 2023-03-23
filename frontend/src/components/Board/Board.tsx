@@ -7,12 +7,11 @@ import { Stage as StageType } from 'konva/lib/Stage';
 import { Layer as LayerType } from 'konva/lib/Layer';
 import { SocketDragTile, RoomData } from '../../types';
 import { useBoardState } from '../../state/BoardState';
+import { useContextMenu } from '../../hooks/useContextMenu';
 import { useWebSocketState } from '../../state/WebSocketState';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
-import { useConnectedTilesState } from '../../state/SyntaxTreeState';
-import { KonvaEventObject } from 'konva/lib/Node';
-import { useContextMenu } from '../../hooks/useContextMenu';
 import { useContextMenuState } from '../../state/ContextMenuState';
+import { useConnectedTilesState } from '../../state/SyntaxTreeState';
 
 // Main Stage Component that holds the Canvas. Scales based on the window size.
 
@@ -40,6 +39,7 @@ const Board = () => {
   const setStageReference = useBoardState((state) => state.setStageReference);
   const setRemoteDragColor = useBoardState((state) => state.setRemoteDragColor);
   const connectionPreview = useConnectedTilesState((state) => state.connectionPreview);
+
   const setLineContextMenuOpen = useContextMenuState((state) => state.setLineContextMenuOpen);
   setStageReference(stageRef);
 
