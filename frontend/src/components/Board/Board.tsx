@@ -99,10 +99,11 @@ const Board = () => {
         <Stage
           onClick={toggleCategory}
           onMouseMove={handleMouseMove}
-          width={width}
+          width={width * (2.5 / 3)}
           height={height}
           ref={stageRef}
           draggable
+          className='border border-black'
           onDragStart={handleBoardDrag}
           onWheel={(e) => handleWheel(e)}
         >

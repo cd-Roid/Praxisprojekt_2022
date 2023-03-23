@@ -20,14 +20,14 @@ const InfoComponent = () => {
   };
   // Component that displays the connected users and Disconnect Button
   return (
-    <div className=' flex w-fit justify-evenly bg-slate-100 right-20 z-10 p-4 rounded-b-xl drop-shadow-lg'>
+    <div className=' flex w-full justify-between bg-slate-100  p-4 '>
       <div className='p-4 flex justify-between'>
         {users?.map((user) => (
           <UserDisplay key={user.userId} userName={user.userName} />
         ))}
       </div>
       {roomId && <RoomCodeInput className='px-4 text-xs font-semibold' value={roomId} />}
-      <Default text='Code generieren' onClick={generateCode} />
+      <Default text='Code' onClick={generateCode} />
       <Default text='Verlassen' onClick={disconnect} isDanger={true} />
     </div>
   );
