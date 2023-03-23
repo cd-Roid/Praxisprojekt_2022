@@ -30,31 +30,52 @@ const CanvasPage = () => {
       <Board />
       <Sidebar />
       <SelectLampForm />
-      <div className='absolute top-0 right-0 w-1/4 h-full bg-gray-100 text-gray-500 p-4 drop-shadow-lg'>
+      <div className='absolute top-0 right-0 w-1/4 h-full bg-gray-100 text-gray-500 p-4 drop-shadow-lg over overflow-y-auto'>
         <InfoComponent />
-        <Editor
-          className='w-full border border-gray-500 h-1/2 bg-gray-100 text-gray-500 p-4'
-          value={JSON.stringify(ast)}
-          onValueChange={(code) => setAst(code as unknown as ASTType)}
-          highlight={(code) => highlight(code, languages.json, 'json')}
-          padding={20}
-          style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
-            fontSize: 12,
-          }}
-        />
-        {generatedCode.length > 0 && (
+        <div className='flex flex-col w-full  h-1/3 bg-gray-100 text-gray-500 p-4 mt-4'>
+          AST
           <Editor
-            className='w-full border border-gray-500 h-1/3 bg-gray-100 text-gray-500 p-4'
-            value={generatedCode}
-            onValueChange={(code) => setGeneratedCode(code)}
-            highlight={(code) => highlight(code, languages.js, 'js')}
+            className='w-full  border border-gray-500 h-full bg-gray-100 text-gray-500 p-4'
+            value={JSON.stringify(ast)}
+            onValueChange={(code) => setAst(code as unknown as ASTType)}
+            highlight={(code) => highlight(code, languages.json, 'json')}
             padding={20}
             style={{
               fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 16,
+              fontSize: 12,
             }}
           />
+        </div>
+
+        {generatedCode.length > 0 && (
+          <div className='w-full  bg-gray-100 text-gray-500 p-4 mt-4'>
+            JavaScript
+            <Editor
+              value={generatedCode}
+              onValueChange={(code) => setGeneratedCode(code)}
+              highlight={(code) => highlight(code, languages.js, 'js')}
+              padding={20}
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 16,
+              }}
+            />
+          </div>
+        )}
+        {generatedCode.length > 0 && (
+          <div className='w-full  h-max bg-gray-100 text-gray-500 p-4 mt-4'>
+            Python
+            <Editor
+              value={generatedCode}
+              onValueChange={(code) => setGeneratedCode(code)}
+              highlight={(code) => highlight(code, languages.js, 'js')}
+              padding={20}
+              style={{
+                fontFamily: '"Fira code", "Fira Mono", monospace',
+                fontSize: 16,
+              }}
+            />
+          </div>
         )}
       </div>
     </>
