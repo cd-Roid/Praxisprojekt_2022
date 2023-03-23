@@ -8,6 +8,64 @@
     "color": "#f9b43d",
     "width": 200,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "IfStatement",
+        "test": {
+          "type": "BinaryExpression",
+          "left": {
+            "type": "MemberExpression",
+            "object": null,
+            "property": {
+              "type": "Identifier",
+              "name": "state"
+            }
+          },
+          "right": null,
+          "operator": "==="
+        },
+        "consequent": {
+          "type": "BlockStatement",
+          "body": null
+        }
+      },
+      "python": {
+        "type": "IfStatement",
+        "test": null,
+        "consequent": {
+          "type": "BlockStatement",
+          "body": [
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "CallExpression",
+                "callee": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "client"
+                  },
+                  "property": {
+                    "type": "Identifier",
+                    "name": "publish"
+                  }
+                },
+                "arguments": [
+                  {
+                    "type": "StringLiteral",
+                    "value": ""
+                  },
+                  {
+                    "type": "StringLiteral",
+                    "value": ""
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -31,6 +89,16 @@
     "color": "#f9b43d",
     "width": 200,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "BlockStatement",
+        "body": null
+      },
+      "python": {
+        "type": "BlockStatement",
+        "body": null
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -54,6 +122,13 @@
     "color": "#EB555B",
     "width": 400,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "Identifier",
+        "name": "lampe"
+      },
+      "MQTTtopic": "lampe/lampe1/set"
+    },
     "anchors": [
       {
         "type": "L",
@@ -82,6 +157,12 @@
     "color": "#EB555B",
     "width": 400,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "Identifier",
+        "name": "knopf"
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -110,6 +191,12 @@
     "color": "#EB555B",
     "width": 400,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "Identifier",
+        "name": "timer"
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -138,6 +225,12 @@
     "color": "#F4AECE",
     "width": 300,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "StringLiteral",
+        "value": "on"
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -166,6 +259,12 @@
     "color": "#F4AECE",
     "width": 300,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "StringLiteral",
+        "value": "pressed"
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -194,6 +293,12 @@
     "color": "#F4AECE",
     "width": 300,
     "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "StringLiteral",
+        "value": "save"
+      }
+    },
     "anchors": [
       {
         "type": "L",
@@ -250,6 +355,21 @@
     "color": "#E2E7DF",
     "width": 350,
     "height": 450,
+    "astNode": {
+      "javaScript": {
+        "type": "LogicalExpression",
+        "left": null,
+        "right": {
+          "right": {
+            "type": "BinaryExpression",
+            "left": null,
+            "right": null,
+            "operator": "==="
+          }
+        },
+        "operator": "&&"
+      }
+    },
     "anchors": [
       {
         "type": "TL",

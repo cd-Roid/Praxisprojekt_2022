@@ -26,12 +26,14 @@ export const useCodeGeneration = () => {
         anchorPosition: fromSplit[1],
         tileName: fromTileObject?.name,
         tileCategory: fromTileObject?.category,
+        astNode: fromTileObject?.astNode,
       };
       const toTile = {
         id: toSplit[0],
         anchorPosition: toSplit[1],
         tileName: toTileObject?.name,
         tileCategory: toTileObject?.category,
+        astNode: toTileObject?.astNode,
       };
       if (!fromTile.tileName || !toTile.tileName) return;
       if (

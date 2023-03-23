@@ -15,6 +15,15 @@
 /**
  * Operators used for LogicalExpressions
  */
+export interface ASTType {
+  type: 'File';
+  errors: [];
+  program: {
+    type: 'Program';
+    body: IfStatement[];
+  };
+}
+
 export enum Operator {
   equals = '===',
   unequals = '!==',
@@ -119,10 +128,10 @@ export interface ExpressionStatement {
 
 export interface IfStatement {
   type: 'IfStatement';
-  test: BinaryExpression | null;
+  test: BinaryExpression;
   consequent: {
     type: 'BlockStatement';
-    body: ExpressionStatement[] | null;
+    body: ExpressionStatement[];
   };
 }
 

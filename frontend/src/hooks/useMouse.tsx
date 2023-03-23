@@ -71,8 +71,19 @@ export const useMouse = () => {
     );
 
     if (tile) {
-      const { _id, name, src, color, points, textPosition, anchors, width, height, category } =
-        tile;
+      const {
+        _id,
+        src,
+        name,
+        color,
+        width,
+        height,
+        points,
+        anchors,
+        category,
+        astNode,
+        textPosition,
+      } = tile;
       const dragPayload = JSON.stringify({
         id: uuidv4(),
         _id: _id,
@@ -83,6 +94,7 @@ export const useMouse = () => {
         height: height,
         points: points,
         anchors: anchors,
+        astNode: astNode,
         category: category,
         textPosition: textPosition,
         offsetX: event.nativeEvent.offsetX,
@@ -112,6 +124,7 @@ export const useMouse = () => {
         offsetX,
         offsetY,
         category,
+        astNode,
         textPosition,
       } = JSON.parse(draggedData);
       if (x && y) {
@@ -125,6 +138,7 @@ export const useMouse = () => {
           height: height,
           points: points,
           anchors: anchors,
+          astNode: astNode,
           category: category,
           textPosition: textPosition,
           x: x - (offsetX - width / 2),

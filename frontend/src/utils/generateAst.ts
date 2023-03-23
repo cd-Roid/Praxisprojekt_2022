@@ -1,4 +1,6 @@
-import { IfStatement, CallExpression, StringLiteral } from '../AstTypes';
+import { CallExpression, Identifier, IfStatement, StringLiteral } from './../AstTypes.d';
+import { ASTType } from '../AstTypes';
+
 enum Operator {
   equals = '===',
   unequals = '!==',
@@ -17,15 +19,7 @@ interface NodeType {
   anchorPosition: string;
   tileName: string | undefined;
   tileCategory: string | undefined;
-}
-
-interface ASTType {
-  type: 'File';
-  errors: [];
-  program: {
-    type: 'Program';
-    body: IfStatement[];
-  } | null;
+  astNode: any;
 }
 
 export const generateAst = (
@@ -41,48 +35,17 @@ export const generateAst = (
     toNode?.tileCategory === undefined
   )
     return;
-  if (fromNode.tileCategory === 'Start' && fromNode.tileName === 'Wenn') {
-    ast = {
+  if (fromNode.tileCategory === 'Start' && toNode.tileCategory === 'Objekte') {
+    const startNode = fromNode.astNode.javaScript as IfStatement;
+    startNode.test.left = toNode.astNode.javaScript as Identifier;
+    setAst({
       type: 'File',
       errors: [],
       program: {
         type: 'Program',
-        body: [
-          {
-            type: 'IfStatement',
-            test: null,
-            consequent: {
-              type: 'BlockStatement',
-              body: null,
-            },
-          },
-        ],
+        body: [startNode],
       },
-    };
-    setAst(ast);
-  }
-  if (
-    toNode.tileCategory === 'Objekte' &&
-    ast !== null &&
-    ast.program?.body[0].type === 'IfStatement'
-  ) {
-    ast.program.body[0].test = {
-      type: 'BinaryExpression',
-      left: {
-        type: 'MemberExpression',
-        object: {
-          type: 'Identifier',
-          name: 'kontaktSensor',
-        },
-        property: {
-          type: 'Identifier',
-          name: 'state',
-        },
-      },
-      right: null,
-      operator: null,
-    };
-    setAst(ast);
+    });
   }
   if (
     toNode.tileCategory === 'Zustand' &&
@@ -91,11 +54,7 @@ export const generateAst = (
     ast.program?.body[0].type === 'IfStatement' &&
     ast.program?.body[0].test?.type === 'BinaryExpression'
   ) {
-    ast.program.body[0].test.right = {
-      type: 'StringLiteral',
-      value: 'open',
-    };
-    ast.program.body[0].test.operator = Operator.equals;
+    ast.program.body[0].test.right = toNode.astNode.javaScript as Identifier;
     setAst(ast);
   }
 
@@ -106,10 +65,7 @@ export const generateAst = (
     ast !== null &&
     ast.program?.body[0].type === 'IfStatement'
   ) {
-    ast.program.body[0].consequent = {
-      type: 'BlockStatement',
-      body: [],
-    };
+    ast.program.body[0].consequent.body = [];
     setAst(ast);
   }
   if (
@@ -138,7 +94,7 @@ export const generateAst = (
           arguments: [
             {
               type: 'StringLiteral',
-              value: 'speaker/speaker1/set',
+              value: toNode.astNode.MQTTTopic,
             } as StringLiteral,
           ] as StringLiteral[],
         } as CallExpression,
@@ -157,10 +113,9 @@ export const generateAst = (
     ast?.program?.body[0].consequent.body[0].expression.type === 'CallExpression' &&
     ast?.program?.body[0].consequent.body[0].expression.arguments.length !== 0
   ) {
-    ast?.program?.body[0].consequent.body[0].expression.arguments.push({
-      type: 'StringLiteral',
-      value: 'on',
-    } as any);
+    ast?.program?.body[0].consequent.body[0].expression.arguments.push(
+      toNode.astNode.javaScript as any,
+    );
 
     setAst(ast);
   }

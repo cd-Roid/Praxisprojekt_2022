@@ -35,6 +35,7 @@ export type Tile = {
   src: string;
   name: string;
   color: string;
+  astNode?: { javaScript: any; python: any; MQTTtopic?: string };
   width: number;
   height: number;
   points: number[];

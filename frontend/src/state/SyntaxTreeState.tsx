@@ -2,17 +2,10 @@
 // also saves the connections between them
 
 import create from 'zustand';
-import { IfStatement } from '../AstTypes';
+import { ASTType } from '../AstTypes';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { findConnections } from '../utils/tileConnections';
-interface ASTType {
-  type: 'File';
-  errors: [];
-  program: {
-    type: 'Program';
-    body: IfStatement[];
-  } | null;
-}
+
 export type ConnectedTilesContextType = {
   fromShapeId: string | null;
   ast: ASTType | null;
