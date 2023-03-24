@@ -47,12 +47,12 @@ const CanvasPage = () => {
           />
         </div>
 
-        {generatedCode.length > 0 && (
+        {generatedCode.js.length > 0 && (
           <div className='w-full  bg-gray-100 text-gray-500 p-4 mt-4'>
             JavaScript
             <Editor
-              value={generatedCode}
-              onValueChange={(code) => setGeneratedCode(code)}
+              value={generatedCode.js}
+              onValueChange={(code) => setGeneratedCode({ ...generatedCode, js: code })}
               highlight={(code) => highlight(code, languages.js, 'js')}
               padding={20}
               style={{
@@ -62,12 +62,12 @@ const CanvasPage = () => {
             />
           </div>
         )}
-        {generatedCode.length > 0 && (
+        {generatedCode.py.length > 0 && (
           <div className='w-full  h-max bg-gray-100 text-gray-500 p-4 mt-4'>
             Python
             <Editor
-              value={generatedCode}
-              onValueChange={(code) => setGeneratedCode(code)}
+              value={generatedCode.py}
+              onValueChange={(code) => setGeneratedCode({ ...generatedCode, py: code })}
               highlight={(code) => highlight(code, languages.js, 'js')}
               padding={20}
               style={{

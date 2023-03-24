@@ -9,11 +9,14 @@ import { findConnections } from '../utils/tileConnections';
 export type ConnectedTilesContextType = {
   fromShapeId: string | null;
   ast: ASTType | null;
-  generatedCode: string;
+  generatedCode: {
+    js: string;
+    py: string;
+  };
   connectionPreview: JSX.Element | null;
   connections: { from: string; to: string }[];
   setAst: (value: ASTType | null) => void;
-  setGeneratedCode: (value: string) => void;
+  setGeneratedCode: (value: { js: string; py: string }) => void;
   setFromShapeId: (value: string | null) => void;
   setConnectionPreview: (value: JSX.Element | null) => void;
   removeConnection: (value: string) => void;
@@ -22,12 +25,12 @@ export type ConnectedTilesContextType = {
 
 export const useConnectedTilesState = create<ConnectedTilesContextType>((set) => ({
   ast: null,
-  generatedCode: '',
+  generatedCode: { js: '', py: '' },
   connections: [],
   fromShapeId: null,
   connectedTiles: {},
   connectionPreview: null,
-  setGeneratedCode: (value: string) => set(() => ({ generatedCode: value })),
+  setGeneratedCode: (value: { js: string; py: string }) => set(() => ({ generatedCode: value })),
   setAst: (value: ASTType | null) => set(() => ({ ast: value })),
   setFromShapeId: (value: string | null) => set(() => ({ fromShapeId: value })),
   removeConnection: (value: string) =>

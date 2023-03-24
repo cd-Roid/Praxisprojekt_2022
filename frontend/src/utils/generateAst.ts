@@ -14,8 +14,8 @@ export const generateAst = (
   toNode: NodeType | undefined,
   ast: ASTType | null,
   setAst: (ast: ASTType | null) => void,
-  generatedCode?: string,
-  setGeneratedCode?: (value: string) => void,
+  generatedCode?: { js: string; py: string },
+  setGeneratedCode?: (value: { js: string; py: string }) => void,
 ) => {
   if (
     fromNode?.tileCategory === undefined ||
@@ -106,7 +106,7 @@ export const generateAst = (
           body: JSON.stringify(ast),
         });
         const data = await response.json();
-        setGeneratedCode && setGeneratedCode(data.code);
+        setGeneratedCode && setGeneratedCode(data);
       } catch (error) {
         alert(error);
       }
