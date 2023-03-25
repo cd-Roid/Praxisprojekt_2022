@@ -96,20 +96,31 @@ export const generateAst = (
     // send ast to backend
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     console.log('fetch ast to backend: ', JSON.stringify(ast));
-    (async () => {
-      try {
-        const response = await fetch(`${backendUrl}/ast`, {
+      const data = Promise.all([
+        fetch(`${backendUrl}/ast/js`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(ast),
-        });
-        const data = await response.json();
-        setGeneratedCode && setGeneratedCode(data);
-      } catch (error) {
-        alert(error);
-      }
-    })();
+        }).then((value) => value.json()),
+        fetch(`${backendUrl}/ast/py`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(ast),
+        }).then((value) => value.json()),
+      ]);
+
+      (async () => {
+        try {
+          const resolvedData = await data;
+          setGeneratedCode &&
+            setGeneratedCode({ js: resolvedData[0].code, py: resolvedData[1].code });
+        } catch (error) {
+          alert(error);
+        }
+      })();
   }
 };

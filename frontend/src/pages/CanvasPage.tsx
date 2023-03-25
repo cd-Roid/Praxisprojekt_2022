@@ -37,7 +37,7 @@ const CanvasPage = () => {
           <Editor
             className='w-full  border border-gray-500 h-full bg-gray-100 text-gray-500 p-4'
             value={JSON.stringify(ast)}
-            onValueChange={(code) => setAst(code as unknown as ASTType)}
+            onValueChange={(code) => console.log(code)}
             highlight={(code) => highlight(code, languages.json, 'json')}
             padding={20}
             style={{
