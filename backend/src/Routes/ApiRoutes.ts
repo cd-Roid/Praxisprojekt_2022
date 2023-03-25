@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { uploadFiles } from "../middleware/upload";
-import { generateJsCode, generatePyCode } from "../Controller/astController";
+import {
+	generateJsCode,
+	generatePythonCode,
+} from "../Controller/astController";
 import bodyParser from "body-parser";
 import {
 	findTile,
@@ -17,13 +20,12 @@ import {
 
 const router = Router();
 const jsonParser = bodyParser.json();
-const textParser = bodyParser.text();
 
 router.get("/", getAllTiles);
 router.get("/:id", findTile);
 router.post("/", uploadFiles, createTile);
 router.post("/ast/js", jsonParser, generateJsCode);
-router.post("/ast/py", textParser, generatePyCode);
+router.post("/ast/py", jsonParser, generatePythonCode);
 router.put("/:id", uploadFiles, updateTile);
 router.delete("/:id", deleteTile);
 
