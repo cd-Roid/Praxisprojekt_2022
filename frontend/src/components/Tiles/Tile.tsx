@@ -46,7 +46,7 @@ const Tile: React.FC<TileProps> = ({
               y={y + point.y}
               type={point.type}
               onClick={handleClick}
-              fill={fromShapeId === `${id}_${point.type}` ? 'green' : 'black'}
+              fill={fromShapeId === `${id}_${point.type}` ? 'green' : color}
             />
           ))}
 

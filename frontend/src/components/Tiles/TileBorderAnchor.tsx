@@ -1,5 +1,5 @@
 import React from 'react';
-import { Circle } from 'react-konva';
+import { Rect } from 'react-konva';
 import { Circle as CircleObject } from 'konva/lib/shapes/Circle';
 import { KonvaEventObject } from 'konva/lib/Node';
 
@@ -26,13 +26,14 @@ const TileBorderAnchors: React.FC<Props> = ({ x, y, id, onClick, fill, type }) =
   const anchor = React.useRef(null);
   return (
     <>
-      <Circle
+      <Rect
         x={x}
         y={y}
+        width={25}
+        height={25}
+        fill={fill}
         id={id}
         draggable
-        radius={10}
-        fill={fill}
         ref={anchor}
         name='anchor'
         data-type={type}
