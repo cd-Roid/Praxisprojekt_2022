@@ -10,67 +10,27 @@
     "height": 300,
     "astNode": {
       "javaScript": {
-        "type": "IfStatement",
-        "test": {
+        "type": "LogicalExpression",
+        "left": {
           "type": "BinaryExpression",
-          "left": {
-            "type": "MemberExpression",
-            "object": null,
-            "property": {
-              "type": "Identifier",
-              "name": "state"
-            }
-          },
+          "left": null,
           "right": null,
           "operator": "==="
         },
-        "consequent": {
-          "type": "BlockStatement",
-          "body": null
-        }
-      },
-      "python": {
-        "type": "IfStatement",
-        "test": null,
-        "consequent": {
-          "type": "BlockStatement",
-          "body": [
-            {
-              "type": "ExpressionStatement",
-              "expression": {
-                "type": "CallExpression",
-                "callee": {
-                  "type": "MemberExpression",
-                  "object": {
-                    "type": "Identifier",
-                    "name": "client"
-                  },
-                  "property": {
-                    "type": "Identifier",
-                    "name": "publish"
-                  }
-                },
-                "arguments": [
-                  {
-                    "type": "StringLiteral",
-                    "value": ""
-                  },
-                  {
-                    "type": "StringLiteral",
-                    "value": ""
-                  }
-                ]
-              }
-            }
-          ]
-        }
+        "right": {
+          "type": "BinaryExpression",
+          "left": null,
+          "right": null,
+          "operator": "==="
+        },
+        "operator": "&&"
       }
     },
     "anchors": [
       {
         "type": "L",
-        "x": 150,
-        "y": 150
+        "x": 100,
+        "y": 145
       }
     ],
     "textPosition": {
@@ -99,13 +59,13 @@
     "anchors": [
       {
         "type": "L",
-        "x": -70,
-        "y": 50
+        "x": -115,
+        "y": 140
       },
       {
         "type": "R",
-        "x": 270,
-        "y": 50
+        "x": 290,
+        "y": 140
       }
     ],
     "textPosition": {
@@ -134,13 +94,13 @@
     "anchors": [
       {
         "type": "L",
-        "x": -70,
-        "y": 50
+        "x": -115,
+        "y": 140
       },
       {
         "type": "R",
-        "x": 270,
-        "y": 50
+        "x": 290,
+        "y": 140
       }
     ],
     "textPosition": {
@@ -163,16 +123,12 @@
       "javaScript": {
         "type": "ReturnStatement",
         "argument": null
-      },
-      "python": {
-        "type": "ReturnStatement",
-        "argument": null
       }
     },
     "anchors": [
       {
         "type": "L",
-        "x": 50,
+        "x": 100,
         "y": 150
       }
     ],
@@ -202,13 +158,13 @@
     "anchors": [
       {
         "type": "L",
-        "x": -70,
-        "y": 50
+        "x": -115,
+        "y": 140
       },
       {
         "type": "R",
-        "x": 270,
-        "y": 50
+        "x": 290,
+        "y": 140
       }
     ],
     "textPosition": {
@@ -237,13 +193,13 @@
     "anchors": [
       {
         "type": "L",
-        "x": -70,
-        "y": 50
+        "x": -115,
+        "y": 140
       },
       {
         "type": "R",
-        "x": 270,
-        "y": 50
+        "x": 290,
+        "y": 140
       }
     ],
     "textPosition": {
@@ -264,20 +220,20 @@
     "height": 300,
     "astNode": {
       "javaScript": {
-        "type": "StringLiteral",
-        "value": "open"
+        "type": "NumericLiteral",
+        "value": 1
       }
     },
     "anchors": [
       {
         "type": "L",
-        "x": -10,
-        "y": 150
+        "x": 73,
+        "y": 140
       },
       {
         "type": "R",
-        "x": 350,
-        "y": 150
+        "x": 290,
+        "y": 140
       }
     ],
     "textPosition": {
@@ -298,20 +254,20 @@
     "height": 300,
     "astNode": {
       "javaScript": {
-        "type": "StringLiteral",
-        "value": "on"
+        "type": "NumericLiteral",
+        "value": 1
       }
     },
     "anchors": [
       {
         "type": "L",
-        "x": -10,
-        "y": 150
+        "x": 73,
+        "y": 140
       },
       {
         "type": "R",
-        "x": 350,
-        "y": 150
+        "x": 290,
+        "y": 140
       }
     ],
     "textPosition": {
@@ -348,7 +304,7 @@
           },
           "arguments": [
             {
-              "type": "StringLiteral",
+              "type": "NumericLiteral",
               "value": null
             }
           ]
@@ -358,13 +314,13 @@
     "anchors": [
       {
         "type": "L",
-        "x": -100,
-        "y": 50
+        "x": -27,
+        "y": 0
       },
       {
         "type": "R",
-        "x": 300,
-        "y": 50
+        "x": 200,
+        "y": 0
       }
     ],
     "textPosition": {
