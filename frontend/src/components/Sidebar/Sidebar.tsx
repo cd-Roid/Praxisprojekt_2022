@@ -1,6 +1,6 @@
 import Tab from './Tab';
 import Category from './Category';
-import kacheln from '../../json/kacheln.json';
+import kacheln from '../../json/blocks.json';
 import { useToast } from '../../hooks/useToast';
 import React, { useState, useEffect } from 'react';
 import { useBoardState } from '../../state/BoardState';

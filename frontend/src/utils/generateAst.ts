@@ -1,5 +1,4 @@
-import { CallExpression, Identifier, IfStatement, ExpressionStatement } from './../AstTypes.d';
-import { ASTType } from '../AstTypes';
+import { CallExpression, Identifier, IfStatement, ExpressionStatement, ASTType } from '../astTypes';
 
 interface NodeType {
   id: string;
@@ -96,31 +95,31 @@ export const generateAst = (
     // send ast to backend
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     console.log('fetch ast to backend: ', JSON.stringify(ast));
-      const data = Promise.all([
-        fetch(`${backendUrl}/ast/js`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(ast),
-        }).then((value) => value.json()),
-        fetch(`${backendUrl}/ast/py`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(ast),
-        }).then((value) => value.json()),
-      ]);
+    const data = Promise.all([
+      fetch(`${backendUrl}/ast/js`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(ast),
+      }).then((value) => value.json()),
+      fetch(`${backendUrl}/ast/py`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(ast),
+      }).then((value) => value.json()),
+    ]);
 
-      (async () => {
-        try {
-          const resolvedData = await data;
-          setGeneratedCode &&
-            setGeneratedCode({ js: resolvedData[0].code, py: resolvedData[1].code });
-        } catch (error) {
-          alert(error);
-        }
-      })();
+    (async () => {
+      try {
+        const resolvedData = await data;
+        setGeneratedCode &&
+          setGeneratedCode({ js: resolvedData[0].code, py: resolvedData[1].code });
+      } catch (error) {
+        alert(error);
+      }
+    })();
   }
 };

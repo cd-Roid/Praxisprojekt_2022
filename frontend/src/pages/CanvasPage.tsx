@@ -14,7 +14,7 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-json';
 import 'prismjs/themes/prism.css';
-import { ASTType } from '../AstTypes';
+import { ASTType } from '../astTypes';
 
 const CanvasPage = () => {
   // Add Cursor here. const socket = useWebSocketState((state) => state.socket);

@@ -2,7 +2,7 @@
 // also saves the connections between them
 
 import create from 'zustand';
-import { ASTType } from '../AstTypes';
+import { ASTType } from '../astTypes';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { findConnections } from '../utils/tileConnections';
 
