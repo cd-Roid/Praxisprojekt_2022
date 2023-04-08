@@ -6,6 +6,7 @@ import { ASTType } from '../astTypes';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import { findConnections } from '../utils/tileConnections';
 
+export type connectionsType = { from: string; to: string }[];
 export type ConnectedTilesContextType = {
   fromShapeId: string | null;
   ast: ASTType | null;
@@ -13,8 +14,9 @@ export type ConnectedTilesContextType = {
     js: string;
     py: string;
   };
+
+  connections: connectionsType;
   connectionPreview: JSX.Element | null;
-  connections: { from: string; to: string }[];
   setAst: (value: ASTType | null) => void;
   setGeneratedCode: (value: { js: string; py: string }) => void;
   setFromShapeId: (value: string | null) => void;

@@ -64,7 +64,10 @@ export interface Identifier {
   type: 'Identifier';
   name: string;
 }
-
+export interface NumericLiteral {
+  type: 'NumericLiteral';
+  name: number;
+}
 /**
  * Expression Statements
  *  basic expressions
@@ -79,15 +82,15 @@ export interface MemberExpression {
 export interface BinaryExpression {
   type: 'BinaryExpression';
   left: MemberExpression | Identifier | StringLiteral | null;
-  right: MemberExpression | Identifier | StringLiteral | null;
+  right: MemberExpression | Identifier | StringLiteral | NumericLiteral | null;
   operator: Operator | null;
 }
 
 // LogicalExpression can be used for if statements
 export interface LogicalExpression {
   type: 'LogicalExpression';
-  left: MemberExpression | BinaryExpression | StringLiteral;
-  right: MemberExpression | BinaryExpression | StringLiteral;
+  left: BinaryExpression | MemberExpression | StringLiteral | null;
+  right: BinaryExpression | MemberExpression | StringLiteral | null;
   operator: Operator;
 }
 /**
@@ -128,7 +131,7 @@ export interface ExpressionStatement {
 
 export interface IfStatement {
   type: 'IfStatement';
-  test: BinaryExpression;
+  test: BinaryExpression | LogicalExpression;
   consequent: {
     type: 'BlockStatement';
     body: ExpressionStatement[];

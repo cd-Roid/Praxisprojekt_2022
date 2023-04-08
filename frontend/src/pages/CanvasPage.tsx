@@ -14,7 +14,7 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-json';
 import 'prismjs/themes/prism.css';
-import { ASTType } from '../astTypes';
+import Default from '../components/Buttons/Default';
 
 const CanvasPage = () => {
   // Add Cursor here. const socket = useWebSocketState((state) => state.socket);
@@ -45,6 +45,9 @@ const CanvasPage = () => {
               fontSize: 12,
             }}
           />
+          <div className='w-2/3 p-4 cursor-pointer'>
+            <Default onClick={() => setAst(null)} text={'AST löschen'} />
+          </div>
         </div>
 
         {generatedCode.js.length > 0 && (

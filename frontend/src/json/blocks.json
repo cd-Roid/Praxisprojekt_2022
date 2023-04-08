@@ -10,20 +10,24 @@
     "height": 300,
     "astNode": {
       "javaScript": {
-        "type": "LogicalExpression",
-        "left": {
+        "type": "IfStatement",
+        "test": {
           "type": "BinaryExpression",
-          "left": null,
+          "left": {
+            "type": "MemberExpression",
+            "object": null,
+            "property": {
+              "type": "Identifier",
+              "name": "state"
+            }
+          },
           "right": null,
           "operator": "==="
         },
-        "right": {
-          "type": "BinaryExpression",
-          "left": null,
-          "right": null,
-          "operator": "==="
-        },
-        "operator": "&&"
+        "consequent": {
+          "type": "BlockStatement",
+          "body": null
+        }
       }
     },
     "anchors": [

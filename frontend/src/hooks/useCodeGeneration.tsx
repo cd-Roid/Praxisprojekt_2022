@@ -38,20 +38,30 @@ export const useCodeGeneration = () => {
         astNode: toTileObject?.astNode,
       };
       if (!fromTile.tileName || !toTile.tileName) return;
+      // special Condition for Connection 2 Conditions
       if (
-        !allowedConnections[fromTile.tileCategory as keyof typeof allowedConnections].includes(
-          toTile.tileCategory as never,
-        )
+        fromTile.tileCategory === 'Konditionen' &&
+        fromTile.tileName === 'Und' &&
+        toTile.tileCategory === 'Konditionen' &&
+        toTile.tileName === 'Dann'
       ) {
-        alert(
-          `ungültige Verbindung: ${fromTile.tileCategory}  -> ${toTile.tileCategory}. ${
-            fromTile.tileCategory
-          } dürfen nur mit ${
-            allowedConnections[fromTile.tileCategory as keyof typeof allowedConnections]
-          } verbunden werden.`,
-        );
+        generateAst(fromTile, toTile, ast, setAst, connections, generatedCode, setGeneratedCode);
       } else {
-        generateAst(fromTile, toTile, ast, setAst, generatedCode, setGeneratedCode);
+        if (
+          !allowedConnections[fromTile.tileCategory as keyof typeof allowedConnections].includes(
+            toTile.tileCategory as never,
+          )
+        ) {
+          alert(
+            `ungültige Verbindung: ${fromTile.tileCategory}  -> ${toTile.tileCategory}. ${
+              fromTile.tileCategory
+            } dürfen nur mit ${
+              allowedConnections[fromTile.tileCategory as keyof typeof allowedConnections]
+            } verbunden werden.`,
+          );
+        } else {
+          generateAst(fromTile, toTile, ast, setAst, connections, generatedCode, setGeneratedCode);
+        }
       }
     });
   };
