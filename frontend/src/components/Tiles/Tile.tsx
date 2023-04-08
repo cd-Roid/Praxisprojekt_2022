@@ -80,14 +80,7 @@ const Tile: React.FC<TileProps> = ({
               points={points}
               stroke={'black'}
             />
-            <Text
-              text={name}
-              stroke='true'
-              fontSize={18}
-              strokeWidth={1}
-              x={textPosition.x}
-              y={textPosition.y}
-            />
+            <Text text={name} fontSize={18} strokeWidth={1} x={textPosition.x} y={textPosition.y} />
           </Group>
         </>
       )}
