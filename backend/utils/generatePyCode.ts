@@ -1,4 +1,4 @@
-import { ASTType } from "./../types/ast.types.d";
+import { ASTType, Test } from "./../types/ast.types.d";
 
 const getPythonLogicalOperator = (operatorString: string) => {
 	//get python equivalent of logical Operator
@@ -40,8 +40,16 @@ const generatePyCode = (ast: ASTType) => {
 		}
 
 		if (body.type === "IfStatement" && body.test.type === "LogicalExpression") {
+			const logicalLeft = body.test.left as any;
+			const logicalRight = body.test.right as any;
 			const logicalOperator = getPythonLogicalOperator(body.test.operator);
-			pyCode += `if ${left.name} ${operator} ${right.value} ${logicalOperator}:`;
+			pyCode += `if ${logicalLeft.left.name} ${getPythonLogicalOperator(
+				logicalLeft.operator,
+			)} ${logicalLeft.right.value}  ${getPythonLogicalOperator(
+				body.test.operator,
+			)} ${logicalRight.left.name} ${getPythonLogicalOperator(
+				logicalRight.operator,
+			)} ${logicalRight.right.value} :`;
 		}
 
 		if (consequent.type === "BlockStatement") {
