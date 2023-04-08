@@ -2,6 +2,7 @@ import React from 'react';
 import { Line } from 'react-konva';
 import { Circle as CircleObject } from 'konva/lib/shapes/Circle';
 import { KonvaEventObject } from 'konva/lib/Node';
+import Category from '../Sidebar/Category';
 
 type Props = {
   x: number;
@@ -9,10 +10,11 @@ type Props = {
   id: string;
   fill: string;
   type: string;
+  category?: string;
   onClick: (event: KonvaEventObject<MouseEvent>) => void;
 };
 
-const TileBorderAnchors: React.FC<Props> = ({ x, y, id, onClick, fill, type }) => {
+const TileBorderAnchors: React.FC<Props> = ({ x, y, id, onClick, fill, type, category }) => {
   const dragBounds = (ref: React.RefObject<CircleObject>) => {
     if (ref.current !== null) {
       return ref.current.getAbsolutePosition();
@@ -24,8 +26,8 @@ const TileBorderAnchors: React.FC<Props> = ({ x, y, id, onClick, fill, type }) =
   };
 
   const directionalArrows = [
-    [0, 0, 25, 0, 50, 15, 25, 30, 0, 30, 0, 0],
-    [0, 0, -25, 0, -15, 15, -25, 25, 0, 25, 0, 0],
+    [-10, 0, 25, 0, 50, 15, 25, 30, 0, 30, -10, 0],
+    [20, 0, -50, 0, -25, 15, -50, 30, 35, 30, 30, 0],
   ];
 
   const anchor = React.useRef(null);

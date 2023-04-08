@@ -45,6 +45,7 @@ const Tile: React.FC<TileProps> = ({
               x={x + point.x}
               y={y + point.y}
               type={point.type}
+              category={category}
               onClick={handleClick}
               fill={fromShapeId === `${id}_${point.type}` ? 'green' : color}
             />
@@ -81,8 +82,9 @@ const Tile: React.FC<TileProps> = ({
             />
             <Text
               text={name}
+              stroke='true'
               fontSize={18}
-              strokeWidth={12}
+              strokeWidth={1}
               x={textPosition.x}
               y={textPosition.y}
             />
