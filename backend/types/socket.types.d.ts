@@ -15,12 +15,21 @@ export type SocketDeleteData = {
 	id: string;
 };
 
-export type NewNode = {
-	id: string;
-	category: string;
-	src: string;
+export type NewTile = {
 	x: number;
 	y: number;
+	id: string;
+	_id: string;
+	src: string;
+	name: string;
+	width: number;
+	color: string;
+	height: number;
+	category: string;
+	points: number[];
+	astNode?: { javaScript: any; python: any; MQTTtopic?: string };
+	textPosition: { x: number; y: number };
+	anchors: { type: string; x: number; y: number }[];
 };
 
 export type TabFocusData = {
@@ -31,7 +40,7 @@ export type TabFocusData = {
 
 export type SocketDragTile = {
 	remoteUser: string;
-	tile: NewNode;
+	tile: NewTile;
 	roomId: string;
 	remoteUserColor: string;
 };
@@ -45,11 +54,18 @@ export type SocketCursorData = {
 
 //state object for each room
 export type TileData = {
-	tile: NewNode;
+	tile: NewTile;
+};
+
+export type TileConnection = {
+	to: string;
+	from: string;
+	roomId: string;
 };
 
 export type RoomData = {
 	roomId: string;
 	users: UserData[];
 	tiles?: TileData[];
+	tileConnections?: TileConnection[];
 };

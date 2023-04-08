@@ -1,4 +1,6 @@
 import { Socket, Server } from "socket.io";
+import { findConnections } from "./../../utils/tileConnections";
+import { TileConnection } from "./../../types/socket.types.d";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import {
 	RoomData,
@@ -72,11 +74,20 @@ export const tileDrop = (
 	if (room) {
 		room.tiles.push({
 			tile: {
-				id: data.tile.id,
-				category: data.tile.category,
-				src: data.tile.src,
 				x: data.tile.x,
 				y: data.tile.y,
+				id: data.tile.id,
+				_id: data.tile._id,
+				src: data.tile.src,
+				name: data.tile.name,
+				width: data.tile.width,
+				color: data.tile.color,
+				height: data.tile.height,
+				points: data.tile.points,
+				astNode: data.tile.astNode,
+				anchors: data.tile.anchors,
+				category: data.tile.category,
+				textPosition: data.tile.textPosition,
 			},
 		});
 		io.to(data.roomId).emit("room-data", room);
@@ -159,6 +170,26 @@ export const cursorMove = (
 	}
 };
 
+export const deleteLine = (
+	data: SocketDeleteData,
+	state: RoomData[],
+	io: Server<DefaultEventsMap, any>,
+) => {
+	/**
+	 * check if the room exists
+	 * if it does,then check if the tile exists
+	 * if it does, delete the tile from the room
+	 * update the room state
+	 * emit the room data to the every user in the room
+	 */
+
+	const room = state.find((room) => room.roomId === data.roomId);
+	if (room) {
+		room.tileConnections = findConnections(data.id, room.tileConnections);
+		io.to(data.roomId).emit("room-data", room);
+	}
+};
+
 export const deleteTile = (
 	data: SocketDeleteData,
 	state: RoomData[],
@@ -182,6 +213,7 @@ export const deleteTile = (
 export const disconnect = (
 	state: RoomData[],
 	socket: Socket<DefaultEventsMap, any>,
+	io: Server<DefaultEventsMap, any>,
 ) => {
 	/**
 	 * before updating the state check if the user is the host
@@ -197,8 +229,25 @@ export const disconnect = (
 					state.splice(state.indexOf(room), 1);
 				} else {
 					room.users.splice(room.users.indexOf(user), 1);
+					io.emit("room-data", room);
 				}
 			}
 		});
 	});
+};
+
+export const tileConnect = (
+	data: TileConnection,
+	state: RoomData[],
+	io: Server<DefaultEventsMap, any>,
+) => {
+	const room = state.find((room) => room.roomId === data.roomId);
+	if (room) {
+		if (room.tileConnections?.length > 0) {
+			room.tileConnections?.push(data);
+		} else {
+			room.tileConnections = [data];
+		}
+	}
+	io.to(data.roomId).emit("room-data", room);
 };

@@ -5,19 +5,23 @@ import { RoomData } from '../types';
 
 // TODO: split up room and user data
 export type WebSocketContextType = {
+  clearRoom: () => void;
   socket: Socket | null;
   room: RoomData | null;
-  setSocket: (socket: Socket) => void;
   setRoom: (room: RoomData) => void;
-  clearRoom: () => void;
+  setSocket: (socket: Socket) => void;
 };
 
 export const useWebSocketState = create<WebSocketContextType>((set) => ({
-  socket: null,
   room: null,
+  socket: null,
+  clearRoom: () => set(() => ({ room: null })),
   setSocket: (socket: Socket) => set(() => ({ socket: socket })),
   setRoom: (roomData: RoomData) => set(() => ({ room: roomData })),
-  clearRoom: () => set(() => ({ room: null })),
 }));
 
-mountStoreDevtool('WebSocketState', useWebSocketState);
+
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('WebSocketState', useWebSocketState);
+}
+

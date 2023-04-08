@@ -3,19 +3,16 @@ import React from 'react';
 type MenuProps = {
   name: string;
   category: string;
-  svgPath: string;
-  fill: string;
-  svgRotate: number;
-  url: string;
+  src: string;
   dragFunction: (event: React.DragEvent) => void;
 };
 
-const MenuTile: React.FC<MenuProps> = ({ url, name, category, dragFunction }) => {
+const MenuTile: React.FC<MenuProps> = ({ src, name, category, dragFunction }) => {
   return (
     <img
       data-name={name}
       data-class={category}
-      src={url}
+      src={src}
       draggable
       onDragStart={dragFunction}
       className=' m-2 object-contain'
