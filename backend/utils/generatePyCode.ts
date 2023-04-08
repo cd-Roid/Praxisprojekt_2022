@@ -42,7 +42,6 @@ const generatePyCode = (ast: ASTType) => {
 		if (body.type === "IfStatement" && body.test.type === "LogicalExpression") {
 			const logicalLeft = body.test.left as any;
 			const logicalRight = body.test.right as any;
-			const logicalOperator = getPythonLogicalOperator(body.test.operator);
 			pyCode += `if ${logicalLeft.left.name} ${getPythonLogicalOperator(
 				logicalLeft.operator,
 			)} ${logicalLeft.right.value}  ${getPythonLogicalOperator(
