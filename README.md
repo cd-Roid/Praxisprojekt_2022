@@ -1,4 +1,4 @@
-# Digital Prototyping Dokumentation
+# Digital Prototyping
 
 Diese Seite widmet sich der [Dokumentation](https://praxisprojekt-2022-documentation.vercel.app/) des Projekts „Digital Prototyping“. Es
 wird einen Überblick über die Architektur des Projekts gegeben, wie man die
