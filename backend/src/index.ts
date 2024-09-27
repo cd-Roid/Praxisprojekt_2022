@@ -4,16 +4,19 @@ import {
 	SocketCursorData,
 	SocketDeleteData,
 	TabFocusData,
+	TileConnection,
 } from "./../types/socket.types.d";
 import {
-	createRoom,
-	cursorMove,
 	joinRoom,
 	tabFocus,
 	tileDrag,
 	tileDrop,
+	createRoom,
 	deleteTile,
+	deleteLine,
 	disconnect,
+	cursorMove,
+	tileConnect,
 	errorHandling,
 } from "./Controller/socketController";
 import cors from "cors";
@@ -77,9 +80,6 @@ app.use(cors());
 app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: true }));
 
-
-
-
 io.on("connection", (socket) => {
 	socket.on("room-create", (data: UserData) => createRoom(data, state, socket));
 	socket.on("join-room", (data: UserData) => joinRoom(data, state, socket, io));
@@ -94,8 +94,14 @@ io.on("connection", (socket) => {
 	socket.on("tile-delete", (data: SocketDeleteData) =>
 		deleteTile(data, state, io),
 	);
-	socket.on("disconnect", () => disconnect(state, socket));
+	socket.on("line-delete", (data: SocketDeleteData) =>
+		deleteLine(data, state, io),
+	);
+	socket.on("disconnect", () => disconnect(state, socket, io));
 	socket.on("error", (err: Error) => errorHandling(err));
+	socket.on("tile-connection", (data: TileConnection) =>
+		tileConnect(data, state, io),
+	);
 });
 
 db.on("error", (error) => console.error(error));

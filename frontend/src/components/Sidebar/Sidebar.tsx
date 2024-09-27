@@ -1,5 +1,6 @@
 import Tab from './Tab';
 import Category from './Category';
+import kacheln from '../../json/blocks.json';
 import { useToast } from '../../hooks/useToast';
 import React, { useState, useEffect } from 'react';
 import { useBoardState } from '../../state/BoardState';
@@ -21,17 +22,19 @@ const Sidebar: React.FC = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(`${backendUrl}`, {
-          method: 'GET',
-        });
-        const data = await response.json();
-        setAllTiles(data);
-      } catch (error) {
-        notify('error', 'There was an error fetching the tiles, please try again later', false);
-      }
-    })();
+    // (async () => {
+    //   try {
+    //     const response = await fetch(`${backendUrl}`, {
+    //       method: 'GET',
+    //     });
+    //     const data = await response.json();
+    //     setAllTiles(data);
+    //   } catch (error) {
+    //     notify('error', 'There was an error fetching the tiles, please try again later', false);
+    //   }
+    // })();
+
+    setAllTiles(kacheln as any);
   }, []);
 
   useEffect(() => {

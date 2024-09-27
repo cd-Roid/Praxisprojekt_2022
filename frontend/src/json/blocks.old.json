@@ -1,0 +1,402 @@
+[
+  {
+    "_id": "63cda4a235c0dc3e0c5f0455",
+    "category": "Start",
+    "name": "Wenn",
+    "src": "http://localhost:9001/uploads/1674421410153.png",
+    "points": [0, 0, 200, 0, 100, 150, 200, 300, 0, 300],
+    "color": "#f9b43d",
+    "width": 200,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "IfStatement",
+        "test": {
+          "type": "BinaryExpression",
+          "left": {
+            "type": "MemberExpression",
+            "object": null,
+            "property": {
+              "type": "Identifier",
+              "name": "state"
+            }
+          },
+          "right": null,
+          "operator": "==="
+        },
+        "consequent": {
+          "type": "BlockStatement",
+          "body": null
+        }
+      },
+      "python": {
+        "type": "IfStatement",
+        "test": null,
+        "consequent": {
+          "type": "BlockStatement",
+          "body": [
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "CallExpression",
+                "callee": {
+                  "type": "MemberExpression",
+                  "object": {
+                    "type": "Identifier",
+                    "name": "client"
+                  },
+                  "property": {
+                    "type": "Identifier",
+                    "name": "publish"
+                  }
+                },
+                "arguments": [
+                  {
+                    "type": "StringLiteral",
+                    "value": ""
+                  },
+                  {
+                    "type": "StringLiteral",
+                    "value": ""
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": 150,
+        "y": 150
+      }
+    ],
+    "textPosition": {
+      "x": 50,
+      "y": 50,
+      "_id": "63cda4a235c0dc3e0c5f0456"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "63cda72e35c0dc3e0c5f0460",
+    "category": "Ende",
+    "name": " ",
+    "src": "http://localhost:9001/uploads/1674422062486.png",
+    "points": [0, 0, 200, 0, 200, 300, 0, 300, 100, 150],
+    "color": "#f9b43d",
+    "width": 200,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "BlockStatement",
+        "body": null
+      },
+      "python": {
+        "type": "BlockStatement",
+        "body": null
+      }
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": 50,
+        "y": 150
+      }
+    ],
+    "textPosition": {
+      "x": 50,
+      "y": 50,
+      "_id": "63cda72e35c0dc3e0c5f0461"
+    },
+    "__v": 0
+  },
+  {
+    "_id": "63cdabf635c0dc3e0c5f046e",
+    "category": "Objekte",
+    "name": "Smarte Lampe",
+    "src": "http://localhost:9001/uploads/1674425498259.png",
+    "points": [200, 300, 0, 300, -100, 150, 0, 0, 200, 0, 300, 150],
+    "color": "#EB555B",
+    "width": 400,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "Identifier",
+        "name": "lampe"
+      },
+      "MQTTtopic": "lampe/lampe1/set"
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": -70,
+        "y": 50
+      },
+      {
+        "type": "R",
+        "x": 270,
+        "y": 50
+      }
+    ],
+    "textPosition": {
+      "x": 50,
+      "y": 50,
+      "_id": "63cdabf635c0dc3e0c5f046f"
+    },
+    "__v": 1
+  },
+  {
+    "_id": "63cdabg635c0dc3e0c5f046e",
+    "category": "Objekte",
+    "name": "Knopf",
+    "src": "http://localhost:9001/uploads/1674425498259.png",
+    "points": [200, 300, 0, 300, -100, 150, 0, 0, 200, 0, 300, 150],
+    "color": "#EB555B",
+    "width": 400,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "Identifier",
+        "name": "knopf"
+      }
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": -70,
+        "y": 50
+      },
+      {
+        "type": "R",
+        "x": 270,
+        "y": 50
+      }
+    ],
+    "textPosition": {
+      "x": 150,
+      "y": 150,
+      "_id": "63cdabf635c0dc3e0c5f046f"
+    },
+    "__v": 1
+  },
+  {
+    "_id": "63cd4bg635c0dc3e0c5f046e",
+    "category": "Objekte",
+    "name": "Timer",
+    "src": "http://localhost:9001/uploads/1674425498259.png",
+    "points": [200, 300, 0, 300, -100, 150, 0, 0, 200, 0, 300, 150],
+    "color": "#EB555B",
+    "width": 400,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "Identifier",
+        "name": "timer"
+      }
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": -70,
+        "y": 50
+      },
+      {
+        "type": "R",
+        "x": 270,
+        "y": 50
+      }
+    ],
+    "textPosition": {
+      "x": 150,
+      "y": 150,
+      "_id": "63cdabf635c0dc3e0c5f046f"
+    },
+    "__v": 1
+  },
+  {
+    "_id": "63cdad5d35c0dc3e0c5f0475",
+    "category": "Zustand",
+    "name": "an",
+    "src": "http://localhost:9001/uploads/1674423645286.png",
+    "points": [0, 0, 200, 0, 300, 150, 200, 300, 0, 300, 100, 150],
+    "color": "#F4AECE",
+    "width": 300,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "StringLiteral",
+        "value": "on"
+      }
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": -10,
+        "y": 150
+      },
+      {
+        "type": "R",
+        "x": 350,
+        "y": 150
+      }
+    ],
+    "textPosition": {
+      "x": 50,
+      "y": 50,
+      "_id": "63cdad5d35c0dc3e0c5f0476"
+    },
+    "__v": 2
+  },
+  {
+    "_id": "83cdad5d35c0dc3e0c5f0475",
+    "category": "Zustand",
+    "name": "drücken",
+    "src": "http://localhost:9001/uploads/1674423645286.png",
+    "points": [0, 0, 200, 0, 300, 150, 200, 300, 0, 300, 100, 150],
+    "color": "#F4AECE",
+    "width": 300,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "StringLiteral",
+        "value": "pressed"
+      }
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": -10,
+        "y": 150
+      },
+      {
+        "type": "R",
+        "x": 350,
+        "y": 150
+      }
+    ],
+    "textPosition": {
+      "x": 50,
+      "y": 50,
+      "_id": "63cdad5d35c0dc3e0c5f0476"
+    },
+    "__v": 2
+  },
+  {
+    "_id": "83cdad5d35c0dc4e0c5f0475",
+    "category": "Zustand",
+    "name": "speichern",
+    "src": "http://localhost:9001/uploads/1674423645286.png",
+    "points": [0, 0, 200, 0, 300, 150, 200, 300, 0, 300, 100, 150],
+    "color": "#F4AECE",
+    "width": 300,
+    "height": 300,
+    "astNode": {
+      "javaScript": {
+        "type": "StringLiteral",
+        "value": "save"
+      }
+    },
+    "anchors": [
+      {
+        "type": "L",
+        "x": -10,
+        "y": 150
+      },
+      {
+        "type": "R",
+        "x": 350,
+        "y": 150
+      }
+    ],
+    "textPosition": {
+      "x": 50,
+      "y": 50,
+      "_id": "63cdad5d35c0dc3e0c5f0476"
+    },
+    "__v": 2
+  },
+  {
+    "_id": "63cdaff535c0dc3e0c5f0478",
+    "category": "Konditionen",
+    "name": "Dann",
+    "src": "http://localhost:9001/uploads/1674424309409.png",
+    "points": [0, 0, 200, 0, 300, 150, -100, 150],
+    "color": "#F9B43D",
+    "width": 400,
+    "height": 200,
+    "anchors": [
+      {
+        "type": "L",
+        "x": -100,
+        "y": 50
+      },
+      {
+        "type": "R",
+        "x": 300,
+        "y": 50
+      }
+    ],
+    "textPosition": {
+      "x": -50,
+      "y": -50,
+      "_id": "63cdaff535c0dc3e0c5f0479"
+    },
+    "__v": 1
+  },
+  {
+    "_id": "63cdb2bc35c0dc3e0c5f047d",
+    "category": "Konditionen",
+    "name": "Und",
+    "src": "http://localhost:9001/uploads/1674425020844.png",
+    "points": [0, 0, 150, 0, 250, 150, 250, 250, 150, 400, 0, 400, -100, 250, -100, 150],
+    "color": "#E2E7DF",
+    "width": 350,
+    "height": 450,
+    "astNode": {
+      "javaScript": {
+        "type": "LogicalExpression",
+        "left": null,
+        "right": {
+          "right": {
+            "type": "BinaryExpression",
+            "left": null,
+            "right": null,
+            "operator": "==="
+          }
+        },
+        "operator": "&&"
+      }
+    },
+    "anchors": [
+      {
+        "type": "TL",
+        "x": -90,
+        "y": 50
+      },
+      {
+        "type": "TR",
+        "x": 225,
+        "y": 50
+      },
+      {
+        "type": "BL",
+        "x": 215,
+        "y": 350
+      },
+      {
+        "type": "BR",
+        "x": -90,
+        "y": 350
+      }
+    ],
+    "textPosition": {
+      "x": -50,
+      "y": -50,
+      "_id": "63cdb2bc35c0dc3e0c5f047e"
+    },
+    "__v": 0
+  }
+]

@@ -12,12 +12,13 @@ export type UserData = {
 };
 
 
-export type NewNode = {
-  id: string;
+export type NewTile = {
   category: string;
-  x: number;
-  y: number;
   src: string;
+  name: string;
+  points: number[];
+  color: string;
+  textPosition: { x: number; y: number };
 };
 
 export type CursorData = {
@@ -27,20 +28,20 @@ export type CursorData = {
 };
 
 export type Tile = {
-  src: string;
-  id: string;
   x: number;
   y: number;
-  category: string;
-};
-
-export type MenuTileProps = {
+  id?: string;
+  _id: string;
+  src: string;
   name: string;
+  color: string;
+  astNode?: { javaScript: any; python: any; MQTTtopic?: string };
+  width: number;
+  height: number;
+  points: number[];
   category: string;
-  svgPath: string;
-  fill: string;
-  svgRotate: number;
-  url: string;
+  textPosition: { x: number; y: number };
+  anchors: { type: string; x: number; y: number }[];
 };
 
 export type InnerObject = {
@@ -49,28 +50,34 @@ export type InnerObject = {
   svgPath: string;
   fill: string;
   svgRotate: number;
-  url: string;
+  src: string;
 };
 
 export type SocketDragTile = {
   remoteUser: string;
-  tile: NewNode;
+  tile: Tile;
   roomId: string;
   remoteUserColor: string;
 };
 
 export type TileData = {
-  tile: {
-    id: string;
-    category: string;
-    src: string;
-    x: number;
-    y: number;
-  };
+  tile: Tile;
+};
+
+export type TileConnection = {
+  to: string;
+  from: string;
+  roomId: string;
 };
 
 export type RoomData = {
   roomId: string;
   users: UserData[];
   tiles?: TileData[];
+  tileConnections?: TileConnection[];
+};
+
+export type Coordinates = {
+  x: number;
+  y: number;
 };
